@@ -16,11 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace app\models;
+
 /**
  * Description of Language
  *
  * @author cehringfeld
+ * @property integer $id
+ * @property string $shortname
+ * @property string $name
  */
-class Language {
-    //put your code here
+class Language extends yii\db\ActiveRecord {
+
+    public static function tableName() {
+        return 'language';
+    }
+
+    public function rules() {
+        return [
+            [['shortname', 'name'], 'required'],
+            [['shortname', 'name'], 'unique'],
+            [['shortname',], 'string', 'max' => 5],
+            [['name'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function attributeLabels() {
+        return array(
+            'id' => Yii::t('app', 'ID'),
+            'shortname' => Yii::t('app', 'Shortname'),
+            'name' => Yii::t('app', 'name'),
+        );
+    }
+
 }

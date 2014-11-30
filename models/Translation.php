@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,12 +15,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\models;
+
 /**
  * Description of Translation
  *
  * @author cehringfeld
+ * @property integer $id
+ * @property integer $dictionary_id
+ * @property string $word1
+ * @property string $word2
+ * @property integer $partOfSpeech_id 
+ * 
  */
-class Translation extends \yii\base\Object{
-    //put your code here
+class Translation extends \yii\db\ActiveRecord {
+
+    public function rules() {
+        return [
+            [['id', 'dictionary_id'], 'integer', 'required'],
+            [['word1', 'word2'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function attributeLabels() {
+        return array(
+            'id' => Yii::t('app', 'ID'),
+            'dictionary' => Yii::t('app', 'Dictionary'),
+            'word1' => Yii::t('app', 'Word {no}', array('{no}' => 1)),
+            'word2' => Yii::t('app', 'Word {no}', array('{no}' => 2)),
+            'partOfSpeech' => Yii::t('app', 'Part of speech'),
+        );
+    }
+
+    public static function tableName() {
+        return 'translation';
+    }
+
+    public function getDictionary() {
+        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id']);
+    }
+
+    public function getPartOfSpeech() {
+        return $this->hasOne(\PartOfSpeech::className(), ['id' => 'partOfSpeech_id']);
+    }
+
 }

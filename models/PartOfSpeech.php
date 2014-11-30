@@ -16,13 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace app\models;
+
 /**
- * Description of Role
+ * Description of PartOfSpeech
  *
  * @author cehringfeld
+ * @property integer $id
+ * @property string $name
  */
-abstract class Role {
-    const ADMIN = 0;
-    const TRANSLATOR = 1;
-    const NORMAL = 2;
+class PartOfSpeech extends yii\db\ActiveRecord {
+
+    public static function tableName() {
+        return 'partofspeech';
+    }
+
+    public function attributeLabels() {
+        return array(
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+        );
+    }
+
+    public function rules() {
+        return [
+            [['name'], 'required', 'unique'],
+        ];
+    }
+
 }

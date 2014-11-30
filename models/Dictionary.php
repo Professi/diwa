@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,11 +17,41 @@
  */
 
 namespace app\models;
+
 /**
  * Description of Dictionary
  *
  * @author cehringfeld
+ * @property integer $id
+ * @property integer $langugage1_id
+ * @property integer $language2_id
  */
-class Dictionary extends \yii\base\Object{
-    //put your code here
+class Dictionary extends \yii\db\ActiveRecord {
+
+    public static function tableName() {
+        return 'dictionary';
+    }
+
+    public function rules() {
+        return [
+            [['language1_id', 'language2_id'], 'required','integer'],
+        ];
+    }
+
+    public function attributeLabels() {
+        return array(
+            'id' => Yii::t('app', 'ID'),
+            'language1' => Yii::t('app', 'Language {no}', array('{no}' => 1)),
+            'language2' => Yii::t('app', 'Language {no}', array('no' => 2)),
+        );
+    }
+
+    public function getLanguage1() {
+        return $this->hasOne(Language::className(), array('id' => 'language1_id'));
+    }
+
+    public function getLanguage2() {
+        return $this->hasOne(Language::className(), array('id' => 'language2_id'));
+    }
+
 }

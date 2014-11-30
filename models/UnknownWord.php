@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,11 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace app\models;
+
 /**
  * Description of UnknownWord
  *
  * @author cehringfeld
+ * @property integer $id
+ * @property string $word
+ * @property string $dictionary_id
  */
-class UnknownWord extends \yii\base\Object{
-    //put your code here
+class UnknownWord extends \yii\db\ActiveRecord {
+
+    public static function tableName() {
+        return 'unknownword';
+    }
+
+    public function rules() {
+        return [
+            [['word', 'dictionary_id'], 'required'],
+            [['dictionary_id'], 'integer'],
+            [['word'], 'unique'],
+            [['word'], 'string', 'max' => 255]
+        ];
+    }
+
+    public function attributeLabels() {
+        return array(
+            'id' => Yii::t('app', 'ID'),
+            'word' => Yii::t('app', 'Word'),
+            'dictionary' => Yii::t('app', 'Dictionary'),
+        );
+    }
+
+    public function getDictionary() {
+        return $this->hasOne(\app\models\Dictionary::className(), array('id' => 'dictionary_id'));
+    }
+
 }
