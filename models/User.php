@@ -26,40 +26,60 @@ namespace app\models;
  * @property string $username
  * @property string $password
  * @property string $authKey
- * @property integer $role_id
+ * @property integer $role
  * @property date $lastLogin
  * 
  */
 class User extends \yii\db\ActiveRecord {
+
     public static function tableName() {
         return 'user';
     }
-    
+
     public function attributeLabels() {
         return array(
-            'id'=> Yii::t('app','ID'),
-            'username' => Yii::t('app','Username'),
-            'password'=> Yii::t('app','Password'),
-            'authKey'=> Yii::t('app', 'Authentication key'),
-            'role'=> Yii::t('app','Role'),
-            'createTime' => Yii::t('app','Create time'),
-            'lastLogin'=>Yii::t('app','Last login')
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Username'),
+            'password' => Yii::t('app', 'Password'),
+            'authKey' => Yii::t('app', 'Authentication key'),
+            'role' => Yii::t('app', 'Role'),
+            'createTime' => Yii::t('app', 'Create time'),
+            'lastLogin' => Yii::t('app', 'Last login')
         );
     }
-    
+
     public function rules() {
         return [
-            [['username','password','role_id'],'required'],
-            [['username','authKey'],'unique'],
+            [['username', 'password', 'role_id'], 'required'],
+            [['username'], 'unique'],
         ];
     }
-    
+
     public static function encryptPassword($password) {
         return Yii::$app->getSecurity()->generatePasswordHash($password);
     }
-    
-    public static function generateRandomString() {
-        return Yii::$app->getSecurity()->generateRandomString();
+
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->authKey = Yii::$app->getSecurity()->generateRandomString();
+                if (strlen($this->password) < 60 && strlen($this->password) > 0) { //really bad
+                    $this->password = $this->encryptPassword($this->password);
+                } else {
+                    $this->password = User::model()->findByPk($this->id)->password;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function getAuthKey() {
+        return $this->authKey;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
 }

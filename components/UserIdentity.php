@@ -50,7 +50,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
     }
 
     public static function findIdentity($id) {
-        return User::findOne(array('id' => $id));
+        return User::findOne($id);
     }
 
     public function login($user, $password) {
@@ -60,6 +60,10 @@ class UserIdentity implements \yii\web\IdentityInterface {
         }
         $this->user = null;
         return false;
+    }
+
+    public function getRole() {
+        return $this->user->role;
     }
 
     public function loginAuthKey($user, $authKey) {
@@ -88,7 +92,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
      * @return boolean if password provided is valid for current user
      */
     public function validatePassword($password) {
-        return $this->user->password === User::encryptPassword($password);
+        return Yii::$app->getSecurity()->validatePassword($password, $this->user->password);
     }
 
     /**

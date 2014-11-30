@@ -15,14 +15,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\models\enums;
+
 /**
  * Description of Role
  *
  * @author cehringfeld
  */
 abstract class Role {
+
     const ADMIN = 0;
     const TRANSLATOR = 1;
     const NORMAL = 2;
+
+    public static function getRoles() {
+        return array(ADMIN, TRANSLATOR, NORMAL);
+    }
+
+    public static function getRoleNames() {
+        return array(ADMIN => Yii::t('app', 'Administrator'), TRANSLATOR => Yii::t('app', 'Translator'), NORMAL => Yii::t('app', 'Normal User'));
+    }
+
 }
