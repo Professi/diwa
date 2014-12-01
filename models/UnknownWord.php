@@ -24,7 +24,7 @@ namespace app\models;
  * @author cehringfeld
  * @property integer $id
  * @property string $word
- * @property string $dictionary_id
+ * @property integer $dictionary_id
  */
 class UnknownWord extends \yii\db\ActiveRecord {
 
