@@ -32,9 +32,9 @@ class UserAgent extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'agent' => \yii::t('app', 'User agent'),
-            'agentHash' => \yii::t('app', 'Hash of user agent'),
+            'id' => Yii::t('app', 'ID'),
+            'agent' => Yii::t('app', 'User agent'),
+            'agentHash' => Yii::t('app', 'Hash of user agent'),
         );
     }
 

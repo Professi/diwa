@@ -40,11 +40,11 @@ class Translation extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'dictionary' => \yii::t('app', 'Dictionary'),
-            'word1' => \yii::t('app', 'Word {no}', array('{no}' => 1)),
-            'word2' => \yii::t('app', 'Word {no}', array('{no}' => 2)),
-            'partOfSpeech' => \yii::t('app', 'Part of speech'),
+            'id' => Yii::t('app', 'ID'),
+            'dictionary' => Yii::t('app', 'Dictionary'),
+            'word1' => Yii::t('app', 'Word {no}', array('{no}' => 1)),
+            'word2' => Yii::t('app', 'Word {no}', array('{no}' => 2)),
+            'partOfSpeech' => Yii::t('app', 'Part of speech'),
         );
     }
 

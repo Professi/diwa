@@ -26,7 +26,7 @@ namespace app\models\enums;
 abstract class Role {
 
     const ADMIN = 0;
-    const TRANSLATOR = 1;
+    const TERMINOLOGIST = 1;
     const NORMAL = 2;
 
     public static function getRoles() {
@@ -34,7 +34,7 @@ abstract class Role {
     }
 
     public static function getRoleNames() {
-        return array(ADMIN => \yii::t('app', 'Administrator'), TRANSLATOR => \yii::t('app', 'Translator'), NORMAL => \yii::t('app', 'Normal User'));
+        return array(ADMIN => Yii::t('app', 'Administrator'), TERMINOLOGIST => Yii::t('app', 'Terminologist'), NORMAL => Yii::t('app', 'Normal User'));
     }
 
 }

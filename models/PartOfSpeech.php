@@ -33,8 +33,8 @@ class PartOfSpeech extends yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'name' => \yii::t('app', 'Name'),
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
         );
     }
 

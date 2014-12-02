@@ -38,12 +38,12 @@ class User extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'username' => \yii::t('app', 'Username'),
-            'password' => \yii::t('app', 'Password'),
-            'authKey' => \yii::t('app', 'Authentication key'),
-            'role' => \yii::t('app', 'Role'),
-            'lastLogin' => \yii::t('app', 'Last login')
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Username'),
+            'password' => Yii::t('app', 'Password'),
+            'authKey' => Yii::t('app', 'Authentication key'),
+            'role' => Yii::t('app', 'Role'),
+            'lastLogin' => Yii::t('app', 'Last login')
         );
     }
 

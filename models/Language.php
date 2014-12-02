@@ -43,9 +43,9 @@ class Language extends yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'shortname' => \yii::t('app', 'Shortname'),
-            'name' => \yii::t('app', 'name'),
+            'id' => Yii::t('app', 'ID'),
+            'shortname' => Yii::t('app', 'Shortname'),
+            'name' => Yii::t('app', 'name'),
         );
     }
 

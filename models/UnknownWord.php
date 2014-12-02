@@ -43,9 +43,9 @@ class UnknownWord extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'word' => \yii::t('app', 'Word'),
-            'dictionary' => \yii::t('app', 'Dictionary'),
+            'id' => Yii::t('app', 'ID'),
+            'word' => Yii::t('app', 'Word'),
+            'dictionary' => Yii::t('app', 'Dictionary'),
         );
     }
 

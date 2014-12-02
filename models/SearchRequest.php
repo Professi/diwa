@@ -37,12 +37,12 @@ class SearchRequest extends yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => \yii::t('app', 'ID'),
-            'requestTime' => \yii::t('app', 'Request time'),
-            'dictionary' => \yii::t('app', 'Dictionary'),
-            'ipAddr' => \yii::t('app', 'IP address'),
-            'request' => \yii::t('app', 'Request'),
-            'userAgent' => \yii::t('app', 'User agent'),
+            'id' => Yii::t('app', 'ID'),
+            'requestTime' => Yii::t('app', 'Request time'),
+            'dictionary' => Yii::t('app', 'Dictionary'),
+            'ipAddr' => Yii::t('app', 'IP address'),
+            'request' => Yii::t('app', 'Request'),
+            'userAgent' => Yii::t('app', 'User agent'),
         );
     }
 
