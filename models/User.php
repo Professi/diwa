@@ -27,7 +27,7 @@ namespace app\models;
  * @property string $password
  * @property string $authKey
  * @property integer $role
- * @property date $lastLogin
+ * @property timestamp $lastLogin
  * 
  */
 class User extends \yii\db\ActiveRecord {
@@ -38,36 +38,36 @@ class User extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
-            'password' => Yii::t('app', 'Password'),
-            'authKey' => Yii::t('app', 'Authentication key'),
-            'role' => Yii::t('app', 'Role'),
-            'createTime' => Yii::t('app', 'Create time'),
-            'lastLogin' => Yii::t('app', 'Last login')
+            'id' => \yii::t('app', 'ID'),
+            'username' => \yii::t('app', 'Username'),
+            'password' => \yii::t('app', 'Password'),
+            'authKey' => \yii::t('app', 'Authentication key'),
+            'role' => \yii::t('app', 'Role'),
+            'lastLogin' => \yii::t('app', 'Last login')
         );
     }
 
     public function rules() {
         return [
-            [['username', 'password', 'role_id'], 'required'],
+            [['username', 'password', 'role'], 'required'],
             [['username'], 'unique'],
+            [['username', 'password'], 'string', 'max' => 64]
         ];
     }
 
     public static function encryptPassword($password) {
-        return Yii::$app->getSecurity()->generatePasswordHash($password);
+        return \yii::$app->getSecurity()->generatePasswordHash($password);
     }
 
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->authKey = Yii::$app->getSecurity()->generateRandomString();
-                if (strlen($this->password) < 60 && strlen($this->password) > 0) { //really bad
-                    $this->password = $this->encryptPassword($this->password);
-                } else {
-                    $this->password = User::model()->findByPk($this->id)->password;
-                }
+                $this->authKey = \yii::$app->getSecurity()->generateRandomString();
+            }
+            if (strlen($this->password) <= 64 && strlen($this->password) > 0) {
+                $this->password = $this->encryptPassword($this->password);
+            } else {
+                $this->password = User::model()->findByPk($this->id)->password;
             }
             return true;
         }

@@ -15,33 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-namespace app\models;
-
+namespace app\controllers;
 /**
- * Description of PartOfSpeech
+ * Description of SearchController
  *
- * @author cehringfeld
- * @property integer $id
- * @property string $name
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class PartOfSpeech extends yii\db\ActiveRecord {
-
-    public static function tableName() {
-        return 'partofspeech';
-    }
-
-    public function attributeLabels() {
-        return array(
-            'id' => \yii::t('app', 'ID'),
-            'name' => \yii::t('app', 'Name'),
-        );
-    }
-
-    public function rules() {
-        return [
-            [['name'], 'required', 'unique'],
-        ];
-    }
-
+class SearchController extends app\components\Controller{
+    //put your code here
 }

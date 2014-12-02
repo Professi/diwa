@@ -16,37 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace app\models;
-
 /**
- * Description of Language
+ * Description of UserAgent
  *
- * @author cehringfeld
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  * @property integer $id
- * @property string $shortname
- * @property string $name
+ * @property string $agent
+ * @propery string $agentHash
  */
-class Language extends yii\db\ActiveRecord {
+class UserAgent extends \yii\db\ActiveRecord {
 
     public static function tableName() {
-        return 'language';
-    }
-
-    public function rules() {
-        return [
-            [['shortname', 'name'], 'required'],
-            [['shortname', 'name'], 'unique'],
-            [['shortname',], 'string', 'max' => 5],
-            [['name'], 'string', 'max' => 255],
-        ];
+        return 'useragent';
     }
 
     public function attributeLabels() {
         return array(
             'id' => \yii::t('app', 'ID'),
-            'shortname' => \yii::t('app', 'Shortname'),
-            'name' => \yii::t('app', 'name'),
+            'agent' => \yii::t('app', 'User agent'),
+            'agentHash' => \yii::t('app', 'Hash of user agent'),
         );
+    }
+
+    public function rules() {
+        return [
+            [['agent', 'agentHash'] => 'required'],
+            [['agentHash'] => 'unique']
+        ];
+    }
+
+    private function createHash($agent) {
+        return sha1($agent);
+    }
+
+    public function beforeValidate() {
+        $this->agentHash = $this->createHash($this->agent);
     }
 
 }

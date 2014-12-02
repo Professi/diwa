@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+namespace app\components;
 /**
- * Description of Visit
+ * Description of Controller
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class Visit extends yii\db\ActiveRecord{
+class Controller extends \yii\web\Controller{
     //put your code here
 }

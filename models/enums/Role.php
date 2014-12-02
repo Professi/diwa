@@ -34,7 +34,7 @@ abstract class Role {
     }
 
     public static function getRoleNames() {
-        return array(ADMIN => Yii::t('app', 'Administrator'), TRANSLATOR => Yii::t('app', 'Translator'), NORMAL => Yii::t('app', 'Normal User'));
+        return array(ADMIN => \yii::t('app', 'Administrator'), TRANSLATOR => \yii::t('app', 'Translator'), NORMAL => \yii::t('app', 'Normal User'));
     }
 
 }

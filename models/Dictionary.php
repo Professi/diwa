@@ -40,9 +40,9 @@ class Dictionary extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'language1' => Yii::t('app', 'Language {no}', array('{no}' => 1)),
-            'language2' => Yii::t('app', 'Language {no}', array('no' => 2)),
+            'id' => \yii::t('app', 'ID'),
+            'language1' => \yii::t('app', 'Language {no}', array('{no}' => 1)),
+            'language2' => \yii::t('app', 'Language {no}', array('no' => 2)),
         );
     }
 
