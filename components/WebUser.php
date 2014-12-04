@@ -16,12 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace app\components;
+
 /**
  * Description of WebUser
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class WebUser extends \yii\web\User {
+class WebUser extends \yii\web\User  {
 
     /**
      * @author Christian Ehringfeld <c.ehringfeld@t-online.de>

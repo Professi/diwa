@@ -20,11 +20,6 @@ namespace app\components;
 
 use app\models\User;
 
-/**
- * Description of UserIdentity
- *
- * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
- */
 class UserIdentity implements \yii\web\IdentityInterface {
 
     private $user = null;
@@ -82,7 +77,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
      * @return static|null
      */
     public static function findByUsername($username) {
-        return User::findOne(array('username' => $username));
+        return User::findByUsername($username);
     }
 
     /**
@@ -92,7 +87,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
      * @return boolean if password provided is valid for current user
      */
     public function validatePassword($password) {
-        return Yii::$app->getSecurity()->validatePassword($password, $this->user->password);
+        return $this->user->validatePassword($password);
     }
 
     /**
@@ -101,7 +96,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
      * @param type $type
      */
     public static function findIdentityByAccessToken($token, $type = null) {
-        
+        throw new \yii\base\NotSupportedException('Not implemented');
     }
 
 }

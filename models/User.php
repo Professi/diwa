@@ -17,6 +17,7 @@
  */
 
 namespace app\models;
+use Yii;
 
 /**
  * Description of Translation
@@ -80,6 +81,26 @@ class User extends \yii\db\ActiveRecord {
 
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param  string $username
+     * @return static|null
+     */
+    public static function findByUsername($username) {
+        return User::findOne(array('username' => $username));
+    }
+
+    /**
+     * Validates password
+     *
+     * @param  string  $password password to validate
+     * @return boolean if password provided is valid for current user
+     */
+    public function validatePassword($password) {
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
 
 }

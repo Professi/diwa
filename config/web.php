@@ -17,6 +17,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\components\UserIdentity',
+            'class' => 'app\components\WebUser',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
