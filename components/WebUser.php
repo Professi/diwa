@@ -52,5 +52,18 @@ class WebUser extends \yii\web\User  {
     public function isGuest() {
         return $this->isGuest;
     }
+    
+    public function setFlash($key, $value, $removeAfterAccess=true) {
+        \Yii::$app->getSession()->setFlash($key, $value, $removeAfterAccess);
+    }
+    
+    public function getFlash($key, $defaultValue=NULL, $delete=true) {
+        return \Yii::$app->getSession()->getFlash($key, $defaultValue, $delete);
+    }
+    
+    public function hasFlash($key) {
+        return \Yii::$app->getSession()->hasFlash($key);
+    }
+    
 
 }
