@@ -35,8 +35,9 @@ class Controller extends \yii\web\Controller {
     public $layout = 'column1';
     private $menu = array();
     private $errorCssClass = 'error';
-    private $formTemplate = "<div class=\"row collapse\"><div class=\"small-4 columns\"><span class=\"prefix\">{label}</div><div class=\"small-8 columns mobile-input\">{input}<div>{error}</div></div></div>";
+    private $formTemplate = '<div class="row collapse"><div class="small-4 columns"><span class="prefix">{label}</div><div class="small-8 columns mobile-input">{input}<div>{error}</div></div></div>';
     private $formClass = 'small-12 columns small-centered';
+    private $formTextAreaTemplate = '<div class="row collapse"><div class="small-12 columns" style="padding-left:.2em;">{input}{error}</div></div>';
 
     public function init() {
         parent::init();
@@ -46,6 +47,14 @@ class Controller extends \yii\web\Controller {
         );
     }
 
+    protected function setFormTextAreaTemplate($template) {
+        $this->formTextAreaTemplate = $template;
+    }
+
+    public function getFormTextAreaTemplate() {
+        return $this->formTextAreaTemplate;
+    }
+
     protected function setMenu($menu) {
         $this->menu = menu;
     }
@@ -53,7 +62,7 @@ class Controller extends \yii\web\Controller {
     public function getMenu() {
         return $this->menu;
     }
-    
+
     protected function setFormClass($class) {
         $this->formClass = $class;
     }
@@ -62,15 +71,14 @@ class Controller extends \yii\web\Controller {
         return $this->formClass;
     }
 
-
     protected function setErrorCssClass($class) {
         $this->errorCssClass = $class;
     }
-    
+
     public function getErrorCssClass() {
         return $this->errorCssClass;
     }
-    
+
     protected function setFormTemplate($template) {
         $this->formTemplate = $template;
     }
