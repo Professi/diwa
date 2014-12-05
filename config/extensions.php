@@ -15,29 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-namespace app\assets;
-
-use yii\web\AssetBundle;
-
-class AppAsset extends AssetBundle {
-
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $css = [
-        'css/app.css',
-    ];
-    public $js = [
-        YII_DEBUG ? 'js/jquery-ui.js' : 'js/jquery-ui.min.js',
-        'js/fastclick.js',
-        'js/modernizr.js',
-        'js/placeholder.js',
-        'js/foundation.min.js',
-        YII_DEBUG ? 'js/app.js' : 'js/app.min.js'
-    ];
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\web\JqueryAsset',
-    ];
-
-}
+$vendorDir = dirname(__DIR__) . '/vendor';
+return [
+//    'pheme\i18n' => [
+//        'name' => 'pheme/i18n',
+//        'version' => 'master',
+//        'alias' => [
+//            'pheme/i18n' => $vendorDir . '/pheme/i18n',
+//        ],
+//    ],
+];

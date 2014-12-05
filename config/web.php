@@ -1,12 +1,17 @@
 <?php
 
-$params = require(__DIR__ . '/params.php');
+$baseDir = __DIR__;
+$params = require($baseDir . '/params.php');
+$vendorDir = dirname($baseDir) . '/vendor';
+
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'sourceLanguage' => 'en_US',
     'bootstrap' => ['log'],
+    'extensions' => array_merge(
+            require($vendorDir . '/yiisoft/extensions.php'), require($baseDir . '/extensions.php')),
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -39,7 +44,14 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => require($baseDir . '/db.php'),
+        'urlManager' => [
+            //'languageParam' => 'lang',
+            // The keys will become labels on the language switcher widget
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+            'rules' => [],
+        ],
     ],
     'params' => $params,
 ];

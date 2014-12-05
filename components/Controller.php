@@ -17,7 +17,9 @@
  */
 
 namespace app\components;
+
 use Yii;
+use yii\helpers\Html;
 
 /**
  * Description of Controller
@@ -31,11 +33,23 @@ class Controller extends \yii\web\Controller {
      * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
      */
     public $layout = 'column1';
+    private $menu = array();
 
-    /**
-     * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-     */
-    public $menu = array();
+    public function init() {
+        parent::init();
+        $this->menu = array(//icon,label,url,visible(bool)
+            array('fi-power', \Yii::t('app', 'Login'), array('site/login'), true),
+            array('fi-power', \Yii::t('app', 'Logout'), array('site/logout'), !(Yii::$app->user->isGuest)),
+        );
+    }
+
+    protected function setMenu($menu) {
+        $this->menu = menu;
+    }
+
+    public function getMenu() {
+        return $this->menu;
+    }
 
     /**
      * @var array the breadcrumbs of the current page. The value of this property will
@@ -49,21 +63,21 @@ class Controller extends \yii\web\Controller {
      * @throws CHttpException 403
      */
     public function throwAccessDenied() {
-        throw new \yii\web\HttpException(403, Yii::t('app', 'Zugriff verweigert.'));
+        throw new \yii\web\HttpException(403, Yii::t('app', 'Access denied.'));
     }
 
     /**
      * @throws CHttpException 404
      */
     public function throwPageNotFound() {
-        throw new \yii\web\HttpException(404, Yii::t('app', 'Die angeforderte Seite konnte nicht gefunden werden.'));
+        throw new \yii\web\HttpException(404, Yii::t('app', 'Requested page was not found.'));
     }
 
     /**
      * @throws CHttpException 400
      */
     public function throwInvalidRequest() {
-        throw new \yii\web\HttpException(400, Yii::t('app', 'Ihre Anfrage ist ungültig.'));
+        throw new \yii\web\HttpException(400, Yii::t('app', 'Invalid request.'));
     }
 
     /**
@@ -81,7 +95,7 @@ class Controller extends \yii\web\Controller {
         $link = '';
         $labelTag = ($mobile) ? $label : "<span>{$label}</span>";
         if ($visible) {
-            $link = '<li>' . CHtml::link("<i class={$icon}></i>{$labelTag}", $url) . '</li>';
+            $link = '<li>' . Html::a("<i class={$icon}></i>{$labelTag}", $url) . '</li>';
         }
         return $link;
     }
@@ -102,17 +116,8 @@ class Controller extends \yii\web\Controller {
         return $menu;
     }
 
-    /**
-     * sets Page Title with app->name and $name
-     * @author Christian Ehringfeld <c.ehringfeld@t-online.de>
-     * @param string $name
-     */
-    public function setPageTitle($name) {
-        parent::setPageTitle(Yii::$app()->name . ' - ' . $name);
-    }
-
     public static function getYesOrNo() {
-        return array('1' => Yii::t('app', 'Ja'), '0' => Yii::t('app', 'Nein'));
+        return array('1' => Yii::t('app', 'Yes'), '0' => Yii::t('app', 'No'));
     }
 
 }

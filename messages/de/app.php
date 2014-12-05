@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Message translations.
  *
@@ -18,18 +17,32 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Login' => 'Login',
+    'Access denied.' => 'Zugriff verweigert.',
+    'Administrator' => 'Administrator',
+    'Authentication key' => 'Authentifizierungsschlüssel',
+    'Contact' => 'Kontakt',
+    'Copyright' => 'Copyright',
+    'DiWA' => 'DiWA',
     'Dictionary' => 'Wörterbuch',
     'Hash of user agent' => 'Hash des User Agenten',
     'ID' => 'ID',
     'IP address' => 'IP Adresse',
+    'Imprint' => 'Impressum',
+    'Invalid request.' => 'Ihre Anfrage ist ungültig.',
     'Language {no}' => 'Sprache {no}',
     'Last login' => 'Letzer Login',
+    'Logout' => 'Logout',
     'Name' => 'Benutzer',
+    'No' => 'Nein',
     'Normal User' => 'Normaler Benutzer',
     'Part of speech' => 'Wortart',
     'Password' => 'Passwort',
+    'Press <kbd>Esc</kbd> to toggle the navigation menu.' => 'Drücken Sie <kbd>Esc</kbd> um das Navigationsmenü ein- bzw. auszublenden.',
+    'Print' => 'Drucken',
     'Request' => 'Anfrage',
     'Request time' => 'Anfragezeit',
+    'Requested page was not found.' => 'Die angeforderte Seite konnte nicht gefunden werden.',
     'Role' => 'Rolle',
     'Shortname' => 'Kurzname',
     'Terminologist' => 'Terminologe',
@@ -37,7 +50,6 @@ return [
     'Username' => 'Benutzername',
     'Word' => 'Wort',
     'Word {no}' => 'Wort {no}',
+    'Yes' => 'Ja',
     'name' => 'Name',
-    'Administrator' => 'Administrator',
-    'Authentication key' => 'Authentifizierungsschlüssel',
 ];
