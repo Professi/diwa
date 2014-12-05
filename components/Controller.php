@@ -34,6 +34,9 @@ class Controller extends \yii\web\Controller {
      */
     public $layout = 'column1';
     private $menu = array();
+    private $errorCssClass = 'error';
+    private $formTemplate = "<div class=\"row collapse\"><div class=\"small-4 columns\"><span class=\"prefix\">{label}</div><div class=\"small-8 columns mobile-input\">{input}<div>{error}</div></div></div>";
+    private $formClass = 'small-12 columns small-centered';
 
     public function init() {
         parent::init();
@@ -49,6 +52,31 @@ class Controller extends \yii\web\Controller {
 
     public function getMenu() {
         return $this->menu;
+    }
+    
+    protected function setFormClass($class) {
+        $this->formClass = $class;
+    }
+
+    public function getFormClass() {
+        return $this->formClass;
+    }
+
+
+    protected function setErrorCssClass($class) {
+        $this->errorCssClass = $class;
+    }
+    
+    public function getErrorCssClass() {
+        return $this->errorCssClass;
+    }
+    
+    protected function setFormTemplate($template) {
+        $this->formTemplate = $template;
+    }
+
+    public function getFormTemplate() {
+        return $this->formTemplate;
     }
 
     /**
