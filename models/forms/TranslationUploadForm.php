@@ -15,12 +15,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace app\controllers;
-/**
- * Description of SearchController
- *
- * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
- */
-class SearchController extends app\components\Controller{
-    //put your code here
-}
+

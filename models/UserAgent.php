@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+namespace app\models;
 /**
  * Description of UserAgent
  *
@@ -40,8 +40,8 @@ class UserAgent extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['agent', 'agentHash'] => 'required'],
-            [['agentHash'] => 'unique']
+            [['agent'], 'required'],
+            [['agentHash'], 'unique'],
         ];
     }
 

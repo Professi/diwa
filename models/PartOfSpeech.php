@@ -25,7 +25,7 @@ namespace app\models;
  * @property integer $id
  * @property string $name
  */
-class PartOfSpeech extends yii\db\ActiveRecord {
+class PartOfSpeech extends \yii\db\ActiveRecord {
 
     public static function tableName() {
         return 'partofspeech';
@@ -40,7 +40,8 @@ class PartOfSpeech extends yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['name'], 'required', 'unique'],
+            [['name'], 'required'],
+            [['name'], 'unique'],
         ];
     }
 

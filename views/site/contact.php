@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             <?php else: ?>
                 <div class="panel paper">
-                    <p><?php echo Yii::t('app', 'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.'); ?></p>
+                    <p><?php echo Yii::t('app', 'If you have questions, please fill out the following form to contact us. Thank you.'); ?></p>
                 </div>
             <?php endif; ?>
         </div>

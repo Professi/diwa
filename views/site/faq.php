@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +21,7 @@ $this->title = 'DiWA';
 ?>
 <div class="site-contact">
     <div class="row">
-        <h2 class='subheader'><?php echo Html::encode(Yii::t('app', 'Translate')); ?></h2>
+        <h2 class='subheader'><?php echo Html::encode(Yii::t('app', 'FAQ')); ?></h2>
         
     </div>
 </div>

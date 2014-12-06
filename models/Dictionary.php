@@ -15,9 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace app\models;
-
+use Yii;
 /**
  * Description of Dictionary
  *
@@ -34,7 +33,8 @@ class Dictionary extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['language1_id', 'language2_id'], 'required','integer'],
+            [['language1_id', 'language2_id'], 'required'],
+        [['language1_id', 'language2_id'],'integer']
         ];
     }
 

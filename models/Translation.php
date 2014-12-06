@@ -33,7 +33,8 @@ class Translation extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['id', 'dictionary_id'], 'integer', 'required'],
+            [['dictionary_id'], 'integer'],
+            [['dictionary_id'], 'required'],
             [['word1', 'word2'], 'string', 'max' => 255],
         ];
     }

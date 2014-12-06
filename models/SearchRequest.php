@@ -29,7 +29,7 @@ namespace app\models;
  * @property integer $useragent_id
  * @property datetime $timestamp
  */
-class SearchRequest extends yii\db\ActiveRecord {
+class SearchRequest extends \yii\db\ActiveRecord {
 
     public static function tableName() {
         return 'searchrequest';

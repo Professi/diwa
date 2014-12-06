@@ -26,7 +26,7 @@ namespace app\models;
  * @property string $shortname
  * @property string $name
  */
-class Language extends yii\db\ActiveRecord {
+class Language extends \yii\db\ActiveRecord {
 
     public static function tableName() {
         return 'language';

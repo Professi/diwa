@@ -9,6 +9,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'sourceLanguage' => 'en_US',
+    'language' => 'de',
     'bootstrap' => ['log'],
     'extensions' => array_merge(
             require($vendorDir . '/yiisoft/extensions.php'), require($baseDir . '/extensions.php')),
@@ -53,6 +54,13 @@ $config = [
             'rules' => [],
         ],
     ],
+    'modules' => [
+        'gii' => 'yii\gii\Module',
+        // ...
+    ],
+    
+    
+    
     'params' => $params,
 ];
 
