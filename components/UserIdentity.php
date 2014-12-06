@@ -45,7 +45,9 @@ class UserIdentity implements \yii\web\IdentityInterface {
     }
 
     public static function findIdentity($id) {
-        return User::findOne($id);
+        $identity = new UserIdentity();
+        $identity->setUser(User::findOne($id));
+        return $identity;
     }
 
     public function login($user, $password) {

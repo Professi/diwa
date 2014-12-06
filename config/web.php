@@ -11,6 +11,7 @@ $config = [
     'sourceLanguage' => 'en_US',
     'language' => 'de',
     'bootstrap' => ['log'],
+    'homeUrl' => ['site/index'],
     'extensions' => array_merge(
             require($vendorDir . '/yiisoft/extensions.php'), require($baseDir . '/extensions.php')),
     'components' => [

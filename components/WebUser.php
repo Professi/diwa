@@ -18,19 +18,21 @@
 
 namespace app\components;
 
+use app\models\User;
+
 /**
  * Description of WebUser
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class WebUser extends \yii\web\User  {
+class WebUser extends \yii\web\User {
 
     /**
      * @author Christian Ehringfeld <c.ehringfeld@t-online.de>
      * @param string $role RollenID
      * @return bool Permission granted?
      */
-    public function checkAccess($role) {
+    public function checkAccess($role, $params = null) {
         if ($this->getIdentity() == null || empty($this->getIdentity()->getId())) {
             return false;
         }
@@ -38,32 +40,24 @@ class WebUser extends \yii\web\User  {
     }
 
     public function can($permissionName, $params = array(), $allowCaching = true) {
-        if ($allowCaching && empty($params) && isset($this->_access[$permissionName])) {
-            return $this->_access[$permissionName];
-        }
         $access = $this->checkAccess($permissionName, $params);
-        if ($allowCaching && empty($params)) {
-            $this->_access[$permissionName] = $access;
-        }
-
         return $access;
     }
 
     public function isGuest() {
         return $this->isGuest;
     }
-    
-    public function setFlash($key, $value, $removeAfterAccess=true) {
+
+    public function setFlash($key, $value, $removeAfterAccess = true) {
         \Yii::$app->getSession()->setFlash($key, $value, $removeAfterAccess);
     }
-    
-    public function getFlash($key, $defaultValue=NULL, $delete=true) {
+
+    public function getFlash($key, $defaultValue = NULL, $delete = true) {
         return \Yii::$app->getSession()->getFlash($key, $defaultValue, $delete);
     }
-    
+
     public function hasFlash($key) {
         return \Yii::$app->getSession()->hasFlash($key);
     }
-    
 
 }

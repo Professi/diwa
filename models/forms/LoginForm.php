@@ -9,7 +9,7 @@ use Yii;
 /**
  * LoginForm is the model behind the login form.
  */
-class LoginForm extends yii\base\Model {
+class LoginForm extends \yii\base\Model {
 
     public $username;
     public $password;
@@ -60,7 +60,9 @@ class LoginForm extends yii\base\Model {
      */
     public function login() {
         if ($this->validate()) {
-//            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            $identity = new \app\components\UserIdentity();
+            $identity->setUser($this->getUser());
+            return Yii::$app->user->login($identity, $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         return false;
     }
@@ -74,7 +76,6 @@ class LoginForm extends yii\base\Model {
         if ($this->user === false) {
             $this->user = \app\models\User::findByUsername($this->username);
         }
-
         return $this->user;
     }
 

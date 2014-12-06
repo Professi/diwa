@@ -20,6 +20,7 @@ namespace app\components;
 
 use Yii;
 use yii\helpers\Html;
+use app\models\enums\Role;
 
 /**
  * Description of Controller
@@ -42,8 +43,8 @@ class Controller extends \yii\web\Controller {
     public function init() {
         parent::init();
         $this->menu = array(//icon,label,url,visible(bool)
-            array('fi-power', \Yii::t('app', 'Login'), array('site/login'), true),
-            array('fi-power', \Yii::t('app', 'Logout'), array('site/logout'), !(Yii::$app->user->isGuest)),
+            array('fi-power', \Yii::t('app', 'Login'), array('site/login'), Yii::$app->user->isGuest()),
+            array('fi-power', \Yii::t('app', 'Logout'), array('site/logout'), !(Yii::$app->user->isGuest())),
         );
     }
 
@@ -154,6 +155,10 @@ class Controller extends \yii\web\Controller {
 
     public static function getYesOrNo() {
         return array('1' => Yii::t('app', 'Yes'), '0' => Yii::t('app', 'No'));
+    }
+
+    public function getAdvancedUserRoles() {
+        return [Role::ADMIN, Role::TERMINOLOGIST];
     }
 
 }

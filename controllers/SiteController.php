@@ -43,7 +43,7 @@ class SiteController extends \app\components\Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+//                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -71,7 +71,7 @@ class SiteController extends \app\components\Controller {
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+                    return $this->goBack(['site/index']);
         }
         return $this->render('login', [
                     'model' => $model,

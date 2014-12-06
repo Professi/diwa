@@ -17,7 +17,7 @@
  */
 
 namespace app\models;
-
+use Yii;
 /**
  * Description of Language
  *
