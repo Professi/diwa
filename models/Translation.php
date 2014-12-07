@@ -18,6 +18,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * Description of Translation
  *
@@ -26,7 +28,7 @@ namespace app\models;
  * @property integer $dictionary_id
  * @property string $word1
  * @property string $word2
- * @property integer $partOfSpeech_id 
+ * @property integer $partOfSpeech 
  * 
  */
 class Translation extends \yii\db\ActiveRecord {
@@ -43,8 +45,8 @@ class Translation extends \yii\db\ActiveRecord {
         return array(
             'id' => Yii::t('app', 'ID'),
             'dictionary' => Yii::t('app', 'Dictionary'),
-            'word1' => Yii::t('app', 'Word {no}', array('{no}' => 1)),
-            'word2' => Yii::t('app', 'Word {no}', array('{no}' => 2)),
+            'word1' => Yii::t('app', 'Word {no}', array('no' => 1)),
+            'word2' => Yii::t('app', 'Word {no}', array('no' => 2)),
             'partOfSpeech' => Yii::t('app', 'Part of speech'),
         );
     }
@@ -55,10 +57,6 @@ class Translation extends \yii\db\ActiveRecord {
 
     public function getDictionary() {
         return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id']);
-    }
-
-    public function getPartOfSpeech() {
-        return $this->hasOne(\PartOfSpeech::className(), ['id' => 'partOfSpeech_id']);
     }
 
 }

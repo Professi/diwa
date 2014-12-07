@@ -60,4 +60,20 @@ class WebUser extends \yii\web\User {
         return \Yii::$app->getSession()->hasFlash($key);
     }
 
+    public function isAdmin() {
+        return $this->checkRole(\app\models\enums\Role::ADMIN);
+    }
+
+    public function isTerminologist() {
+        return $this->checkRole(\app\models\enums\Role::TERMINOLOGIST);
+    }
+
+    public function isNormalUser() {
+        return $this->checkRole(\app\models\enums\Role::NORMAL);
+    }
+
+    private function checkRole($role) {
+        return ($this->getIdentity() != null && $this->getIdentity()->getRole() == $role);
+    }
+
 }

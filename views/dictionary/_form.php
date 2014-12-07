@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="dictionary-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'language1_id')->textInput() ?>
@@ -21,5 +20,4 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>

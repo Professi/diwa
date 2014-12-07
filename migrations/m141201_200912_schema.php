@@ -18,10 +18,6 @@ class m141201_200912_schema extends Migration {
             'shortname' => 'string',
             'name' => 'string',
         ));
-        $this->createTable('partofspeech', array(
-            'id' => 'pk',
-            'name' => 'string',
-        ));
         $this->createTable('unknownword', array(
             'id' => 'pk',
             'name' => 'string',
@@ -60,7 +56,6 @@ class m141201_200912_schema extends Migration {
         $this->addForeignKey('fk_dictionary_language1_id', 'dictionary', 'language1_id', 'language', 'id');
         $this->addForeignKey('fk_dictionary_language2_id', 'dictionary', 'language2_id', 'language', 'id');
         $this->addForeignKey('fk_translation_dictionary_id', 'translation', 'dictionary_id', 'dictionary', 'id');
-        $this->addForeignKey('fk_translation_partofspeech_id', 'translation', 'partofspeech_id', 'partofspeech', 'id');
         $this->addForeignKey('fk_searchrequest_dictionary_id', 'searchrequest', 'dictionary_id', 'dictionary', 'id');
         $this->addForeignKey('fk_searchrequest_useragent_id', 'searchrequest', 'useragent_id', 'useragent', 'id');
         $user = new app\models\User();
@@ -74,7 +69,6 @@ class m141201_200912_schema extends Migration {
     public function down() {
         $this->dropForeignKey('fk_searchrequest_useragent_id', 'searchrequest');
         $this->dropForeignKey('fk_searchrequest_dictionary_id', 'searchrequest');
-        $this->dropForeignKey('fk_translation_partofspeech_id', 'translation');
         $this->dropForeignKey('fk_translation_dictionary_id', 'translation');
         $this->dropForeignKey('fk_dictionary_language2_id', 'dictionary');
         $this->dropForeignKey('fk_dictionary_language1_id', 'dictionary');
@@ -88,7 +82,6 @@ class m141201_200912_schema extends Migration {
         $this->dropTable('translation');
         $this->dropTable('dictionary');
         $this->dropTable('unknownword');
-        $this->dropTable('partofspeech');
         $this->dropTable('language');
         $this->dropTable('user');
     }

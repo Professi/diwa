@@ -71,7 +71,7 @@ class SiteController extends \app\components\Controller {
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                    return $this->goBack(['site/index']);
+            return $this->goBack(['site/index']);
         }
         return $this->render('login', [
                     'model' => $model,
@@ -101,6 +101,10 @@ class SiteController extends \app\components\Controller {
 
     public function actionFaq() {
         return $this->render('faq');
+    }
+
+    public function actionStatistics() {
+        throw new \yii\base\UserException('Not implemented.');
     }
 
 }

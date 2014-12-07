@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dictionary_id',
             'word1:ntext',
             'word2:ntext',
-            'partofspeech_id',
+            'partofspeech',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

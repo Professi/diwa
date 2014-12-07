@@ -55,7 +55,7 @@ $this->beginPage();
                     <li>
                         <a href="http://<?php echo Yii::$app->params['websiteLink']; ?>" target="_blank">
                             <img id="logo" 
-                                 src="<?php echo $asset->baseUrl; ?>/img/logo.png"
+                                 src="<?php echo $asset->baseUrl; ?>/img/dictionary.gif"
                                  alt="<?php echo Yii::$app->params['altWebsiteLink'] ?>">
                                  <?php echo Yii::t('app', 'DiWA'); ?>
                         </a>
@@ -139,6 +139,7 @@ $this->beginPage();
                         ['label' => Yii::t('app', 'FAQ'), 'url' => ['/site/faq']],
                         ['label' => Yii::t('app', 'Imprint'), 'url' => ['/site/imprint']],
                         ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
+                        ['label' => Yii::t('app', 'Statistics'), 'url' => ['/site/statistics'], 'visible' => Yii::$app->user->isAdmin() || Yii::$app->user->isTerminologist()]
                     ],
                 ]);
                 ?>

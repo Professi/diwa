@@ -18,7 +18,6 @@
 
 namespace app\models;
 use Yii;
-
 /**
  * Description of Translation
  *
