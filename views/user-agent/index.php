@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'agent:ntext',
             'agentHash',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\widgets\CustomActionColumn',
+                'template'=>'{view}'],
         ],
     ]); ?>
 

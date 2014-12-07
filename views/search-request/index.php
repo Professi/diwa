@@ -22,8 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'ipAddr',
             'useragent_id',
             'requestTime',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\widgets\CustomActionColumn',
+                'template' => '{view}',
+                ],
         ],
     ]); ?>
 

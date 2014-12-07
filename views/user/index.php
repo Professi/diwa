@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'password',
             'authKey',
             'role',
-            // 'lastLogin',
+            'lastLogin',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]); ?>
 

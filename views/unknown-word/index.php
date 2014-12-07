@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'dictionary_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\widgets\CustomActionColumn',
+                'template'=>'{view}{delete}'],
         ],
     ]); ?>
 

@@ -15,8 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\models;
+
 use Yii;
+
 /**
  * Description of Dictionary
  *
@@ -34,14 +37,14 @@ class Dictionary extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['language1_id', 'language2_id'], 'required'],
-        [['language1_id', 'language2_id'],'integer']
+            [['language1_id', 'language2_id'], 'integer'],
         ];
     }
 
     public function attributeLabels() {
         return array(
             'id' => Yii::t('app', 'ID'),
-            'language1' => Yii::t('app', 'Language {no}', array('{no}' => 1)),
+            'language1' => Yii::t('app', 'Language {no}', array('no' => 1)),
             'language2' => Yii::t('app', 'Language {no}', array('no' => 2)),
         );
     }
@@ -52,6 +55,14 @@ class Dictionary extends \yii\db\ActiveRecord {
 
     public function getLanguage2() {
         return $this->hasOne(Language::className(), array('id' => 'language2_id'));
+    }
+
+    public function validate($attributeNames = null, $clearErrors = true) {
+        parent::validate($attributeNames, $clearErrors);
+        if ($this->language1_id == $this->language2_id) {
+            $this->addError('language1_id', Yii::t('app', 'You must choose two different languages.'));
+        }
+        return !$this->hasErrors();
     }
 
 }

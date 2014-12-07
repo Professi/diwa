@@ -44,15 +44,15 @@ class Controller extends \yii\web\Controller {
         parent::init();
         $this->menu = array(//icon,label,url,visible(bool)
             array('fi-power', \Yii::t('app', 'Login'), array('site/login'), Yii::$app->user->isGuest()),
-            array('fi-flag', \Yii::t('app', 'Languages'), array('language/index'), !(Yii::$app->user->isGuest())),
-            array('fi-book', \Yii::t('app', 'Dictionaries'), array('dictionary/index'), !(Yii::$app->user->isGuest())),
-            array('fi-refresh', \Yii::t('app', 'Search Request'), array('search-request/index'), !(Yii::$app->user->isGuest())),
-            array('fi-comments', \Yii::t('app', 'Translations'), array('translation/index'), !(Yii::$app->user->isGuest())),
-            array('fi-comment-minus', \Yii::t('app', 'Unknown Words'), array('unknown-word/index'), !(Yii::$app->user->isGuest())),
-            array('fi-monitor', \Yii::t('app', 'User Agents'), array('user-agent/index'), !(Yii::$app->user->isGuest())),
-            array('fi-torsos', \Yii::t('app', 'Users'), array('user/index'), !(Yii::$app->user->isGuest())),
+            array('fi-flag', \Yii::t('app', 'Languages'), array('language/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
+            array('fi-book', \Yii::t('app', 'Dictionaries'), array('dictionary/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
+            array('fi-refresh', \Yii::t('app', 'Search Request'), array('search-request/index'), Yii::$app->user->isAdmin()),
+            array('fi-comments', \Yii::t('app', 'Translations'), array('translation/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
+            array('fi-comment-minus', \Yii::t('app', 'Unknown Words'), array('unknown-word/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
+            array('fi-monitor', \Yii::t('app', 'User Agents'), array('user-agent/index'), Yii::$app->user->isAdmin()),
+            array('fi-torsos', \Yii::t('app', 'Users'), array('user/index'), Yii::$app->user->isAdmin()),
             array('fi-power', \Yii::t('app', 'Logout'), array('site/logout'), !Yii::$app->user->isGuest()),
-            );
+        );
     }
 
     protected function setFormTextAreaTemplate($template) {

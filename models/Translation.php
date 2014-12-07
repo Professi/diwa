@@ -50,7 +50,7 @@ class Translation extends \yii\db\ActiveRecord {
             'partOfSpeech' => Yii::t('app', 'Part of speech'),
         );
     }
-
+    
     public static function tableName() {
         return 'translation';
     }

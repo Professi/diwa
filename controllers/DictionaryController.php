@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use Yii;
@@ -10,10 +11,9 @@ use yii\filters\VerbFilter;
 /**
  * DictionaryController implements the CRUD actions for Dictionary model.
  */
-class DictionaryController extends \app\components\Controller
-{
-    public function behaviors()
-    {
+class DictionaryController extends \app\components\Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -28,14 +28,13 @@ class DictionaryController extends \app\components\Controller
      * Lists all Dictionary models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Dictionary::find(),
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -44,10 +43,9 @@ class DictionaryController extends \app\components\Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -56,15 +54,14 @@ class DictionaryController extends \app\components\Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Dictionary();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -75,15 +72,14 @@ class DictionaryController extends \app\components\Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -94,8 +90,7 @@ class DictionaryController extends \app\components\Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -108,12 +103,37 @@ class DictionaryController extends \app\components\Controller
      * @return Dictionary the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Dictionary::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionTest() {
+        
+    }
+
+    public function actionTranslations() {
+        $model = new \app\models\forms\TranslationUploadForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = \yii\web\UploadedFile::getInstances($model, 'file');
+            if(!empty($model->file)) {
+                $model->file = $model->file[0];
+            }
+            if ($model->validate()) {
+                $model->processFile();
+                if (!$model->hasErrors()) {
+                    Yii::$app->user->setFlash('success', Yii::t('app', 'Your file was successfully imported.'));
+//                    $this->redirect(['dictionary/index']);
+                }
+            } else {
+                print_r($model->errors);
+            }
+        }
+        $model->file = '';
+        return $this->render('translationUpload', ['model' => $model]);
+    }
+
 }

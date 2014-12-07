@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ListView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -20,13 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
         </p>
         <?=
-        ListView::widget([
+        GridView::widget([
             'dataProvider' => $dataProvider,
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => function ($model, $key, $index, $widget) {
-        return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
-    },
-        ])
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                ['attribute' => 'language1', 'value' => 'language1.name'],
+                ['attribute' => 'language2', 'value' => 'language2.name'],
+                ['class' => 'app\components\widgets\CustomActionColumn'],
+            ],
+        ]);
         ?>
     </div>
 </div>
