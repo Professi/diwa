@@ -126,7 +126,6 @@ class DictionaryController extends \app\components\Controller {
                 $model->processFile();
                 if (!$model->hasErrors()) {
                     Yii::$app->user->setFlash('success', Yii::t('app', 'Your file was successfully imported.'));
-//                    $this->redirect(['dictionary/index']);
                 }
             } else {
                 print_r($model->errors);
