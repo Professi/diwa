@@ -6,4 +6,5 @@ return [
     'username' => 'root',
     'password' => 'test',
     'charset' => 'utf8',
+    'enableSchemaCache' => !YII_DEBUG,
 ];

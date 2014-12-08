@@ -50,6 +50,7 @@ class TranslationUploadForm extends \yii\base\Model {
      */
     public function processFile() {
         $fp = fopen($this->file->tempName, 'r');
+
         if ($fp) {
             set_time_limit(0);
             $translations = array();
@@ -60,17 +61,12 @@ class TranslationUploadForm extends \yii\base\Model {
                 if (!$comment && $comment !== 0) {
                     $delPos = strpos($line, $this->delimiters);
                     if ($delPos) {
-                        $translation = new \app\models\Translation();
-                        $translation->word1 = trim(substr($line, 0, $delPos));
-                        $translation->word2 = trim(substr($line, $delPos + $delimiterSize));
-                        $translation->dictionary_id = $this->dictionary;
-                        $translations[] = $translation;
+                        $translations[] = [trim(substr($line, 0, $delPos)), trim(substr($line, $delPos + $delimiterSize)), $this->dictionary];
                     }
                 }
             }
-            foreach ($translations as $value) {
-                $value->insert(false);
-            }
+            $con = Yii::$app->db;
+            $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1', 'word2', 'dictionary_id'], $translations)->execute();
         } else {
             $this->addError('file', Yii::t('app', 'Your file is corrupted.'));
         }

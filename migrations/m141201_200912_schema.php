@@ -48,6 +48,11 @@ class m141201_200912_schema extends Migration {
             'agent' => 'text',
             'agentHash' => 'string'
         ));
+        $this->createTable('session', array(
+            'id' => 'char NOT NULL PRIMARY KEX',
+            'expire' => 'integer',
+            'data' => 'blob',
+        ));
         $this->createIndex('idx_username1', 'user', ['username'], true);
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
         $this->createIndex('idx_unknownword1', 'unknownword', ['name', 'dictionary_id'], true);
@@ -77,6 +82,7 @@ class m141201_200912_schema extends Migration {
         $this->dropIndex('idx_unknownword1', 'unknownword');
         $this->dropIndex('idx_language1', 'language');
         $this->dropIndex('idx_username1', 'user');
+        $this->dropTable('session');
         $this->dropTable('searchrequest');
         $this->dropTable('useragent');
         $this->dropTable('translation');

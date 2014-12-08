@@ -54,6 +54,13 @@ $config = [
             'showScriptName' => false,
             'rules' => [],
         ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+        ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+        
     ],
     'modules' => [
         'gii' => 'yii\gii\Module',
