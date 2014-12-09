@@ -33,7 +33,7 @@ class TranslationUploadForm extends \yii\base\Model {
         return [
             [['dictionary', 'file', 'delimiters'], 'required'],
             [['dictionary'], 'integer'],
-            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'txt'],
+            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'txt', 'maxFiles' => 1, 'maxSize' => $this->getSizeLimit()],
         ];
     }
 
@@ -46,11 +46,47 @@ class TranslationUploadForm extends \yii\base\Model {
     }
 
     /**
+     * Returns the maximum size allowed for uploaded files.
+     * This is determined based on three factors:
+     *
+     * - 'upload_max_filesize' in php.ini
+     * - 'MAX_FILE_SIZE' hidden field
+     * - [[maxSize]]
+     *
+     * @return integer the size limit for uploaded files.
+     */
+    public function getSizeLimit() {
+        $limit = $this->sizeToBytes(ini_get('post_max_size'));
+        return $limit;
+    }
+
+    /**
+     * Converts php.ini style size to bytes
+     * Copied from FileValidator
+     * @param string $sizeStr $sizeStr
+     * @return int
+     */
+    private function sizeToBytes($sizeStr) {
+        switch (substr($sizeStr, -1)) {
+            case 'M':
+            case 'm':
+                return (int) $sizeStr * 1048576;
+            case 'K':
+            case 'k':
+                return (int) $sizeStr * 1024;
+            case 'G':
+            case 'g':
+                return (int) $sizeStr * 1073741824;
+            default:
+                return (int) $sizeStr;
+        }
+    }
+
+    /**
      * @todo no debug output...
      */
     public function processFile() {
         $fp = fopen($this->file->tempName, 'r');
-
         if ($fp) {
             set_time_limit(0);
             $translations = array();
@@ -66,7 +102,16 @@ class TranslationUploadForm extends \yii\base\Model {
                 }
             }
             $con = Yii::$app->db;
-            $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1', 'word2', 'dictionary_id'], $translations)->execute();
+            $i = 1;
+            $trans2 = array();
+            foreach ($translations as $val) {
+                $trans2[] = $val;
+                $i++;
+                if (($i % 5000) == 0) {
+                    $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1', 'word2', 'dictionary_id'], $trans2)->execute();
+                    $trans2 = array();
+                }
+            }
         } else {
             $this->addError('file', Yii::t('app', 'Your file is corrupted.'));
         }

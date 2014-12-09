@@ -17,10 +17,13 @@
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+$this->title = Yii::t('app', 'Upload translation file');
 $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'language2.name', 'language1.name');
 ?>
 
 <div class="row">
+
+    
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'dictionary')->dropDownList($dicts) ?>
@@ -28,7 +31,7 @@ $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'i
     <?= $form->field($model, 'file')->fileInput() ?>
 
         <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Import'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end() ?>

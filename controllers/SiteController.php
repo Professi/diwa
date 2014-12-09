@@ -80,7 +80,6 @@ class SiteController extends \app\components\Controller {
 
     public function actionLogout() {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
