@@ -49,7 +49,7 @@ class m141201_200912_schema extends Migration {
             'agentHash' => 'string'
         ));
         $this->createTable('session', array(
-            'id' => 'char NOT NULL PRIMARY KEX',
+            'id' => 'CHAR(40) NOT NULL PRIMARY KEY',
             'expire' => 'integer',
             'data' => 'blob',
         ));
