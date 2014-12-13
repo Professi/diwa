@@ -21,6 +21,7 @@ namespace app\models;
 use Yii;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * Description of Translation
@@ -36,18 +37,20 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends \yii\db\ActiveRecord {
 
+    const MAX_PW_LENGTH = 40;
+
     public static function tableName() {
         return 'user';
     }
 
-  
-    
     public function behaviors() {
         return [
-            [
+            'timestamp' => [
                 'class' => TimestampBehavior::className(),
-//                \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => 'lastLogin',
-//                'value' => new Expression('NOW()'),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'lastLogin',
+                ],
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
@@ -67,7 +70,7 @@ class User extends \yii\db\ActiveRecord {
         return [
             [['username', 'password', 'role'], 'required'],
             [['username'], 'unique'],
-            [['username', 'password'], 'string', 'max' => 64]
+            [['username', 'password'], 'string', 'max' => User::MAX_PW_LENGTH]
         ];
     }
 
@@ -80,7 +83,7 @@ class User extends \yii\db\ActiveRecord {
             if ($this->isNewRecord) {
                 $this->authKey = \yii::$app->getSecurity()->generateRandomString();
             }
-            if (strlen($this->password) <= 64 && strlen($this->password) > 0) {
+            if (strlen($this->password) <= User::MAX_PW_LENGTH && strlen($this->password) > 0) {
                 $this->password = $this->encryptPassword($this->password);
             } else {
                 $this->password = User::model()->findByPk($this->id)->password;

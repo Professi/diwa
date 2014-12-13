@@ -16,29 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace app\models\enums;
-use Yii;
-
 /**
- * Description of PartOfSpeech
+ * Description of SearchMethod
  *
- * @author cehringfeld
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-abstract class PartOfSpeech {
-
-    const VERB = 0;
-    const SUBSTANTIVE = 1;
-    const ADJECTIVE = 2;
-    const PHRASE = 3;
-    const EXAMPLE = 4;
-
-    public static function getParts() {
-        $oClass = new ReflectionClass(__CLASS__);
-        return $oClass->getConstants();
-    }
-
-    public static function getPartNames() {
-        return array(VERB => Yii::t('app', 'Verb'), SUBSTANTIVE => Yii::t('app', 'Substantive'), ADJECTIVE => Yii::t('app', 'Adjective'), PHRASE => Yii::t('app', 'Phrase'), EXAMPLE => Yii::t('app', 'Example'));
-    }
-
+class SearchMethod {
+    //put your code here
 }

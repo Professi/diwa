@@ -49,11 +49,10 @@ class UserIdentity implements \yii\web\IdentityInterface {
         $identity->setUser(User::findOne($id));
         return $identity;
     }
-
+    
     public function login($user, $password) {
         $this->user = $user;
         if ($this->validatePassword($password)) {
-
             return true;
         }
         $this->user = null;

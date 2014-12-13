@@ -75,5 +75,15 @@ class WebUser extends \yii\web\User {
     private function checkRole($role) {
         return ($this->getIdentity() != null && $this->getIdentity()->getRole() == $role);
     }
+    
+    public function login(\yii\web\IdentityInterface $identity, $duration = 0) {
+       if(parent::login($identity, $duration)) {
+           $user = $identity->getUser();
+           $user->update();
+           
+           return true;
+       }
+       return false;
+    }
 
 }

@@ -17,7 +17,9 @@
  */
 
 namespace app\models;
+
 use Yii;
+
 /**
  * Description of UnknownWord
  *

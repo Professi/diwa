@@ -21,47 +21,31 @@ namespace app\models;
 use Yii;
 
 /**
- * Description of Translation
- *
- * @author cehringfeld
+ * Description of Word
  * @property integer $id
- * @property integer $dictionary_id
- * @property integer $word1_id
- * @property integer $word2_id
- * 
+ * @property string $word
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class Translation extends \yii\db\ActiveRecord {
+class Word extends \yii\db\ActiveRecord {
+
+    public $partOfSpeech = null;
 
     public function rules() {
         return [
-            [['dictionary_id', 'word1_id', 'word2_id'], 'integer'],
-            [['dictionary_id'], 'required'],
+            [['word'], 'unique'],
+            [['word'], 'string', 'max' => 255],
         ];
     }
 
     public function attributeLabels() {
         return array(
             'id' => Yii::t('app', 'ID'),
-            'dictionary' => Yii::t('app', 'Dictionary'),
-            'word1' => Yii::t('app', 'Word {no}', array('no' => 1)),
-            'word2' => Yii::t('app', 'Word {no}', array('no' => 2)),
-            'partOfSpeech' => Yii::t('app', 'Part of speech'),
+            'word' => Yii::t('app', 'Word'),
         );
     }
 
     public static function tableName() {
-        return 'translation';
-    }
-
-    public function getDictionary() {
-        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id']);
-    }
-
-    public function getPartOfSpeech() {
-        if ($this->partOfSpeech != null) {
-            return enums\PartOfSpeech::getPartNames()[$this->partOfSpeech];
-        }
-        return '';
+        return 'word';
     }
 
 }

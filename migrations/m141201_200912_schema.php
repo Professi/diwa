@@ -31,13 +31,14 @@ class m141201_200912_schema extends Migration {
         $this->createTable('translation', array(
             'id' => 'bigpk',
             'dictionary_id' => 'integer',
-            'word1' => 'text',
-            'word2' => 'text',
-            'partofspeech_id' => 'integer',
+            'word1_id' => 'bigint',
+            'word2_id' => 'bigint',
+            'partOfSpeech' => 'integer',
         ));
         $this->createTable('searchrequest', array(
             'id' => 'bigpk',
             'dictionary_id' => 'integer',
+            'searchmethod' => 'integer',
             'request' => 'string',
             'ipAddr' => 'string',
             'useragent_id' => 'integer',
@@ -47,6 +48,10 @@ class m141201_200912_schema extends Migration {
             'id' => 'pk',
             'agent' => 'text',
             'agentHash' => 'string'
+        ));
+        $this->createTable('word', array(
+            'id' => 'bigpk',
+            'word' => 'text',
         ));
         $this->createTable('session', array(
             'id' => 'CHAR(40) NOT NULL PRIMARY KEY',
@@ -61,6 +66,8 @@ class m141201_200912_schema extends Migration {
         $this->addForeignKey('fk_dictionary_language1_id', 'dictionary', 'language1_id', 'language', 'id');
         $this->addForeignKey('fk_dictionary_language2_id', 'dictionary', 'language2_id', 'language', 'id');
         $this->addForeignKey('fk_translation_dictionary_id', 'translation', 'dictionary_id', 'dictionary', 'id');
+        $this->addForeignKey('fk_translation_word1_id', 'translation', 'word1_id', 'word', 'id');
+        $this->addForeignKey('fk_translation_word2_id', 'translation', 'word2_id', 'word', 'id');
         $this->addForeignKey('fk_searchrequest_dictionary_id', 'searchrequest', 'dictionary_id', 'dictionary', 'id');
         $this->addForeignKey('fk_searchrequest_useragent_id', 'searchrequest', 'useragent_id', 'useragent', 'id');
         $user = new app\models\User();
@@ -72,6 +79,8 @@ class m141201_200912_schema extends Migration {
     }
 
     public function down() {
+        $this->dropForeignKey('fk_translation_word1_id', 'translation');
+        $this->dropForeignKey('fk_translation_word2_id', 'translation');
         $this->dropForeignKey('fk_searchrequest_useragent_id', 'searchrequest');
         $this->dropForeignKey('fk_searchrequest_dictionary_id', 'searchrequest');
         $this->dropForeignKey('fk_translation_dictionary_id', 'translation');
@@ -89,6 +98,7 @@ class m141201_200912_schema extends Migration {
         $this->dropTable('dictionary');
         $this->dropTable('unknownword');
         $this->dropTable('language');
+        $this->dropTable('word');
         $this->dropTable('user');
     }
 
