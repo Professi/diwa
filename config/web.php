@@ -8,7 +8,7 @@ $vendorDir = dirname($baseDir) . '/vendor';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'sourceLanguage' => 'en_US',
+    'sourceLanguage' => 'en',
     'language' => 'de',
     'bootstrap' => ['log'],
     'homeUrl' => ['site/index'],
@@ -38,11 +38,11 @@ $config = [
             'useFileTransport' => true,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 2,
+            'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => YII_DEBUG ? 0 : ['error', 'warning'],
                 ],
             ],
         ],
@@ -60,15 +60,11 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        
     ],
     'modules' => [
         'gii' => 'yii\gii\Module',
-        // ...
+    // ...
     ],
-    
-    
-    
     'params' => $params,
 ];
 

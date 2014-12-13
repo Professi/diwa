@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Dictionary;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,10 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'dictionary_id',
-            'word1:ntext',
-            'word2:ntext',
-            'partofspeech',
+            ['attribute' => 'dictionary.language1.shortname'],
+            ['attribute' => 'word1', 'value' => 'word1.word'],
+            ['attribute' => 'dictionary.language2.shortname'],
+            ['attribute' => 'word2', 'value' => 'word2.word'],
+            'partOfSpeech',
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);

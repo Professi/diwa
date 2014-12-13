@@ -30,9 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'dictionary_id',
-            'word1:ntext',
-            'word2:ntext',
-            'partofspeech_id',
+            'word1_id',
+            'word2_id',
+            'partOfSpeech',
         ],
     ]) ?>
 

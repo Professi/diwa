@@ -33,7 +33,6 @@ class m141201_200912_schema extends Migration {
             'dictionary_id' => 'integer',
             'word1_id' => 'bigint',
             'word2_id' => 'bigint',
-            'partOfSpeech' => 'integer',
         ));
         $this->createTable('searchrequest', array(
             'id' => 'bigpk',
@@ -51,20 +50,30 @@ class m141201_200912_schema extends Migration {
         ));
         $this->createTable('word', array(
             'id' => 'bigpk',
-            'word' => 'text',
+            'language_id' => 'integer',
+            'word' => 'string',
         ));
         $this->createTable('session', array(
             'id' => 'CHAR(40) NOT NULL PRIMARY KEY',
             'expire' => 'integer',
             'data' => 'blob',
         ));
+        $this->createTable('shortcut', array(
+            'id' => 'pk',
+            'shortcut' => 'string',
+            'name' => 'string',
+            'kind' => 'smallint',
+        ));
+        $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'],true);
         $this->createIndex('idx_username1', 'user', ['username'], true);
+        $this->createIndex('idx_word1', 'word', ['word', 'language_id'], true);
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
         $this->createIndex('idx_unknownword1', 'unknownword', ['name', 'dictionary_id'], true);
         $this->createIndex('idx_useragent_agentHash1', 'useragent', ['agentHash'], true);
         $this->addForeignKey('fk_unknownword_dictionary_id', 'unknownword', 'dictionary_id', 'dictionary', 'id');
         $this->addForeignKey('fk_dictionary_language1_id', 'dictionary', 'language1_id', 'language', 'id');
         $this->addForeignKey('fk_dictionary_language2_id', 'dictionary', 'language2_id', 'language', 'id');
+        $this->addForeignKey('fk_word_language_id', 'word', 'language_id', 'language', 'id');
         $this->addForeignKey('fk_translation_dictionary_id', 'translation', 'dictionary_id', 'dictionary', 'id');
         $this->addForeignKey('fk_translation_word1_id', 'translation', 'word1_id', 'word', 'id');
         $this->addForeignKey('fk_translation_word2_id', 'translation', 'word2_id', 'word', 'id');
@@ -76,6 +85,7 @@ class m141201_200912_schema extends Migration {
         $user->role = \app\models\enums\Role::ADMIN;
         $user->lastLogin = 0;
         $user->save();
+        \app\models\Shortcut::defaultShortcuts();
     }
 
     public function down() {
@@ -87,10 +97,14 @@ class m141201_200912_schema extends Migration {
         $this->dropForeignKey('fk_dictionary_language2_id', 'dictionary');
         $this->dropForeignKey('fk_dictionary_language1_id', 'dictionary');
         $this->dropForeignKey('fk_unknownword_dictionary_id', 'unknownword');
+        $this->dropForeignKey('fk_word_language_id', 'word');
         $this->dropIndex('idx_useragent_agentHash1', 'useragent');
         $this->dropIndex('idx_unknownword1', 'unknownword');
         $this->dropIndex('idx_language1', 'language');
         $this->dropIndex('idx_username1', 'user');
+        $this->dropIndex('idx_word1', 'word');
+        $this->dropIndex('idx_shortcut1', 'shortcut');
+        $this->dropTable('shortcut');
         $this->dropTable('session');
         $this->dropTable('searchrequest');
         $this->dropTable('useragent');

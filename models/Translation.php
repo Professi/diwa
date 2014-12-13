@@ -34,7 +34,8 @@ class Translation extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['dictionary_id', 'word1_id', 'word2_id'], 'integer'],
+            [['dictionary_id'], 'integer'],
+            [['word1_id', 'word2_id'], 'integer'],
             [['dictionary_id'], 'required'],
         ];
     }
@@ -45,7 +46,6 @@ class Translation extends \yii\db\ActiveRecord {
             'dictionary' => Yii::t('app', 'Dictionary'),
             'word1' => Yii::t('app', 'Word {no}', array('no' => 1)),
             'word2' => Yii::t('app', 'Word {no}', array('no' => 2)),
-            'partOfSpeech' => Yii::t('app', 'Part of speech'),
         );
     }
 
@@ -54,14 +54,15 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public function getDictionary() {
-        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id']);
+        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id'])->one();
     }
 
-    public function getPartOfSpeech() {
-        if ($this->partOfSpeech != null) {
-            return enums\PartOfSpeech::getPartNames()[$this->partOfSpeech];
-        }
-        return '';
+    public function getWord1() {
+        return $this->hasOne(Word::className(), ['id' => 'word1_id']);
+    }
+
+    public function getWord2() {
+        return $this->hasOne(Word::className(), ['id' => 'word2_id']);
     }
 
 }

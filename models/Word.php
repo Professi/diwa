@@ -24,6 +24,7 @@ use Yii;
  * Description of Word
  * @property integer $id
  * @property string $word
+ * @property integer language_id
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
 class Word extends \yii\db\ActiveRecord {
@@ -32,7 +33,6 @@ class Word extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['word'], 'unique'],
             [['word'], 'string', 'max' => 255],
         ];
     }
@@ -41,7 +41,12 @@ class Word extends \yii\db\ActiveRecord {
         return array(
             'id' => Yii::t('app', 'ID'),
             'word' => Yii::t('app', 'Word'),
+            'language' => Yii::t('app', 'Language'),
         );
+    }
+    
+    public function getLanguage() {
+        return $this->hasOne(Language::className(), ['id'=>'language_id']);
     }
 
     public static function tableName() {

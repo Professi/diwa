@@ -19,6 +19,7 @@
 namespace app\models\forms;
 
 use Yii;
+use app\models\Word;
 
 class TranslationUploadForm extends \yii\base\Model {
 
@@ -91,13 +92,30 @@ class TranslationUploadForm extends \yii\base\Model {
             set_time_limit(0);
             $translations = array();
             $delimiterSize = strlen($this->delimiters);
+            $dict = \app\models\Dictionary::findOne($this->dictionary);
             while (($line = fgets($fp)) !== false) {
                 $line = trim($line);
                 $comment = strpos($line, '#');
                 if (!$comment && $comment !== 0) {
                     $delPos = strpos($line, $this->delimiters);
                     if ($delPos) {
-                        $translations[] = [trim(substr($line, 0, $delPos)), trim(substr($line, $delPos + $delimiterSize)), $this->dictionary];
+                        $word1 = new Word();
+                        $word2 = new Word();
+                        $word1->word = trim(substr($line, 0, $delPos));
+                        $word1->language_id = $dict->language1_id;
+                        $word2->word = trim(substr($line, $delPos + $delimiterSize));
+                        $word2->language_id = $dict->language2_id;
+                        $word3 = Word::findOne(['word' => $word1->word, 'language_id' => $word1->language_id]);
+                        if ($word3 == null) {
+                            $word1->save(false);
+                            $word3 = $word1;
+                        }
+                        $word4 = Word::findOne(['word' => $word2->word, 'language_id' => $word2->language_id]);
+                        if ($word4 == null) {
+                            $word2->save(false);
+                            $word4 = $word2;
+                        }
+                        $translations[] = array($word3->getPrimaryKey(), $word4->getPrimaryKey(), $this->dictionary);
                     }
                 }
             }
@@ -108,13 +126,18 @@ class TranslationUploadForm extends \yii\base\Model {
                 $trans2[] = $val;
                 $i++;
                 if (($i % 5000) == 0) {
-                    $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1', 'word2', 'dictionary_id'], $trans2)->execute();
+                    $this->insertTranslation($con, $trans2);
                     $trans2 = array();
                 }
             }
+            $this->insertTranslation($con, $trans2);
         } else {
             $this->addError('file', Yii::t('app', 'Your file is corrupted.'));
         }
+    }
+
+    protected function insertTranslation($con, $trans) {
+        $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1_id', 'word2_id', 'dictionary_id'], $trans)->execute();
     }
 
 }

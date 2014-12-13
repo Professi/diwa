@@ -39,6 +39,8 @@ class Controller extends \yii\web\Controller {
     private $formTemplate = '<div class="row collapse"><div class="small-4 columns"><span class="prefix">{label}</div><div class="small-8 columns mobile-input">{input}<div>{error}</div></div></div>';
     private $formClass = 'small-12 columns small-centered';
     private $formTextAreaTemplate = '<div class="row collapse"><div class="small-12 columns" style="padding-left:.2em;">{input}{error}</div></div>';
+    public $breadcrumbs = array();
+    public $assetsDir;
 
     public function init() {
         parent::init();
@@ -94,14 +96,6 @@ class Controller extends \yii\web\Controller {
     public function getFormTemplate() {
         return $this->formTemplate;
     }
-
-    /**
-     * @var array the breadcrumbs of the current page. The value of this property will
-     * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-     * for more details on how to specify this property.
-     */
-    public $breadcrumbs = array();
-    public $assetsDir;
 
     /**
      * @throws CHttpException 403

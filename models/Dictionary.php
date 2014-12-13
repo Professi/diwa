@@ -25,7 +25,7 @@ use Yii;
  *
  * @author cehringfeld
  * @property integer $id
- * @property integer $langugage1_id
+ * @property integer $language1_id
  * @property integer $language2_id
  */
 class Dictionary extends \yii\db\ActiveRecord {
@@ -42,19 +42,23 @@ class Dictionary extends \yii\db\ActiveRecord {
     }
 
     public function attributeLabels() {
+        $lang1 = Yii::t('app', 'Language {no}', array('no' => 1));
+        $lang2 = Yii::t('app', 'Language {no}', array('no' => 2));
         return array(
             'id' => Yii::t('app', 'ID'),
             'language1' => Yii::t('app', 'Language {no}', array('no' => 1)),
             'language2' => Yii::t('app', 'Language {no}', array('no' => 2)),
+            'language1_id' => $lang1,
+            'language2_id' => $lang2,
         );
     }
 
     public function getLanguage1() {
-        return $this->hasOne(Language::className(), array('id' => 'language1_id'));
+        return $this->hasOne(Language::className(), array('id' => 'language1_id'))->one();
     }
 
     public function getLanguage2() {
-        return $this->hasOne(Language::className(), array('id' => 'language2_id'));
+        return $this->hasOne(Language::className(), array('id' => 'language2_id'))->one();
     }
 
     public function validate($attributeNames = null, $clearErrors = true) {
