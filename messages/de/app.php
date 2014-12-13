@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,6 +18,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Delimiters' => 'Separator',
+    'File' => 'Datei',
+    'Import' => 'Importieren',
+    'Upload translation file' => 'Übersetzungsdatei hochladen',
+    'View' => 'Ansicht',
+    'You must choose two different languages.' => 'Sie müssen zwei verschiedene Sprachen auswählen.',
+    'Your file is corrupted.' => 'Ihre Datei ist fehlerhaft.',
+    'Your file was successfully imported.' => 'Ihre Datei wurde erfolgreich importiert.',
     'Access denied.' => 'Zugriff verweigert.',
     'Adjective' => 'Adjektiv',
     'Administrator' => 'Administrator',

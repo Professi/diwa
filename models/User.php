@@ -17,7 +17,11 @@
  */
 
 namespace app\models;
+
 use Yii;
+use yii\db\Expression;
+use yii\behaviors\TimestampBehavior;
+
 /**
  * Description of Translation
  *
@@ -34,6 +38,18 @@ class User extends \yii\db\ActiveRecord {
 
     public static function tableName() {
         return 'user';
+    }
+
+  
+    
+    public function behaviors() {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+//                \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => 'lastLogin',
+//                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 
     public function attributeLabels() {

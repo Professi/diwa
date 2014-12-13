@@ -53,6 +53,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
     public function login($user, $password) {
         $this->user = $user;
         if ($this->validatePassword($password)) {
+
             return true;
         }
         $this->user = null;
@@ -66,6 +67,7 @@ class UserIdentity implements \yii\web\IdentityInterface {
     public function loginAuthKey($user, $authKey) {
         $this->user = $user;
         if ($this->validateAuthKey($authKey)) {
+            $this->user->update();
             return true;
         }
         $this->user = null;
