@@ -1,68 +1,71 @@
 <?php
 
 use yii\db\Migration;
+use yii\db\Schema;
 
 class m141201_200912_schema extends Migration {
 
     public function up() {
         $this->createTable('user', array(
-            'id' => 'pk',
-            'username' => 'string',
-            'password' => 'string',
-            'authKey' => 'string',
-            'role' => 'smallint',
-            'lastLogin' => 'timestamp',
+            'id' => Schema::TYPE_PK,
+            'username' => Schema::TYPE_STRING,
+            'password' => Schema::TYPE_STRING,
+            'authKey' => Schema::TYPE_STRING,
+            'role' => Schema::TYPE_SMALLINT,
+            'lastLogin' => Schema::TYPE_TIMESTAMP,
         ));
         $this->createTable('language', array(
-            'id' => 'pk',
-            'shortname' => 'string',
-            'name' => 'string',
+            'id' => Schema::TYPE_PK,
+            'shortname' => Schema::TYPE_STRING,
+            'name' => Schema::TYPE_STRING,
         ));
         $this->createTable('unknownword', array(
-            'id' => 'pk',
-            'name' => 'string',
-            'dictionary_id' => 'integer',
+            'id' => Schema::TYPE_PK,
+            'name' => Schema::TYPE_STRING,
+            'dictionary_id' => Schema::TYPE_INTEGER,
         ));
         $this->createTable('dictionary', array(
-            'id' => 'pk',
-            'language1_id' => 'integer',
-            'language2_id' => 'integer',
+            'id' => Schema::TYPE_PK,
+            'language1_id' => Schema::TYPE_INTEGER,
+            'language2_id' => Schema::TYPE_INTEGER,
         ));
         $this->createTable('translation', array(
-            'id' => 'bigpk',
-            'dictionary_id' => 'integer',
+            'id' => Schema::TYPE_BIGPK,
+            'dictionary_id' => Schema::TYPE_INTEGER,
             'word1_id' => 'bigint',
             'word2_id' => 'bigint',
         ));
         $this->createTable('searchrequest', array(
-            'id' => 'bigpk',
-            'dictionary_id' => 'integer',
-            'searchmethod' => 'integer',
-            'request' => 'string',
-            'ipAddr' => 'string',
-            'useragent_id' => 'integer',
-            'requestTime' => 'datetime',
+            'id' => Schema::TYPE_BIGPK,
+            'dictionary_id' => Schema::TYPE_INTEGER,
+            'searchmethod' => Schema::TYPE_INTEGER,
+            'request' => Schema::TYPE_STRING,
+            'ipAddr' => Schema::TYPE_STRING,
+            'useragent_id' => Schema::TYPE_INTEGER,
+            'requestTime' => Schema::TYPE_TIMESTAMP,
         ));
         $this->createTable('useragent', array(
-            'id' => 'pk',
-            'agent' => 'text',
-            'agentHash' => 'string'
+            'id' => Schema::TYPE_PK,
+            'agent' => Schema::TYPE_TEXT,
+            'agentHash' => Schema::TYPE_STRING
         ));
         $this->createTable('word', array(
-            'id' => 'bigpk',
-            'language_id' => 'integer',
-            'word' => 'string',
+            'id' => Schema::TYPE_BIGPK,
+            'language_id' => Schema::TYPE_INTEGER,
+            'word' => Schema::TYPE_STRING,
         ));
         $this->createTable('session', array(
             'id' => 'CHAR(40) NOT NULL PRIMARY KEY',
-            'expire' => 'integer',
-            'data' => 'blob',
+            'expire' => Schema::TYPE_INTEGER,
+            'data' => \yii\db\Schema::TYPE_BINARY,
         ));
+        
+        
         $this->createTable('shortcut', array(
-            'id' => 'pk',
-            'shortcut' => 'string',
-            'name' => 'string',
-            'kind' => 'smallint',
+            'id' => Schema::TYPE_PK,
+            'shortcut' => Schema::TYPE_STRING,
+            'name' => Schema::TYPE_STRING,
+            'kind' => Schema::TYPE_SMALLINT,
         ));
         $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'],true);
         $this->createIndex('idx_username1', 'user', ['username'], true);
@@ -83,7 +86,7 @@ class m141201_200912_schema extends Migration {
         $user->username = 'admin';
         $user->password = 'admin';
         $user->role = \app\models\enums\Role::ADMIN;
-        $user->lastLogin = 0;
+//        $user->lastLogin = time();
         $user->save();
         \app\models\Shortcut::defaultShortcuts();
     }

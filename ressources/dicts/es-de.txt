@@ -11546,7 +11546,7 @@ joven {f} :: Jugendliche {f}
 joven {m} :: Jugendliche {m}
 jovial {adj} :: heiter; humorvoll
 joya {f} {pl} :: Schmuck {m}
-joya {f} :: Schmuckstück {n};
+joya {f} :: Schmuckstück {n}
 joyas {f} {pl} :: Schmuck {m}
 joyería {f} :: Juweliergeschäft {n} Einkauf
 joyero {m} :: Juwelier {m}
@@ -12034,7 +12034,7 @@ liberar {v} :: befreien
 liberar {v} :: befreien; freilassen
 liberar {v} :: frei lassen
 líbero {m} :: Libero {m} [Fußball]
-libertad de culto {f} :: Glaubensfreiheit {f}; Religionsfreiheit {f};
+libertad de culto {f} :: Glaubensfreiheit {f}; Religionsfreiheit {f}
 libertinaje {m} :: Ausschweifung {f}
 libertino; libertina {adj} :: zügellos
 libertino {m} :: Lustmolch [pey.] [ugs.] {m}
@@ -17346,7 +17346,7 @@ profe {m} [coloq.] :: Lehrer {m}
 profesar {v} :: ausüben (Beruf)
 profesar {v} :: betreiben (Gewerbe)
 profesar {v} :: sich bekennen
-profesional {adj} :: beruflich; Berufs-;
+profesional {adj} :: beruflich; Berufs-
 profesional {adj} :: fachmännisch
 profesional {adj} :: gewerblich
 profesional {adj} :: professionell

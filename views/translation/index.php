@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'word1', 'value' => 'word1.word'],
             ['attribute' => 'dictionary.language2.shortname'],
             ['attribute' => 'word2', 'value' => 'word2.word'],
-            'partOfSpeech',
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);

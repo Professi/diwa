@@ -29,8 +29,6 @@ use Yii;
  */
 class Word extends \yii\db\ActiveRecord {
 
-    public $partOfSpeech = null;
-
     public function rules() {
         return [
             [['word'], 'string', 'max' => 255],
@@ -44,13 +42,18 @@ class Word extends \yii\db\ActiveRecord {
             'language' => Yii::t('app', 'Language'),
         );
     }
-    
+
     public function getLanguage() {
-        return $this->hasOne(Language::className(), ['id'=>'language_id']);
+        return $this->hasOne(Language::className(), ['id' => 'language_id']);
     }
 
     public static function tableName() {
         return 'word';
+    }
+
+    public function setValues($word, $langId) {
+        $this->word = $word;
+        $this->language_id = $langId;
     }
 
 }
