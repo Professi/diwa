@@ -9405,7 +9405,7 @@ género {m} :: Gattung {f}
 género {m} :: Genre {m}
 género {m} :: Geschlecht {n}
 genero {m} :: grammatisches Geschlecht {n}; Genus {n}
-género {m} :: :: Stoff {m}
+género {m} :: Stoff {m}
 generosidad {f} :: Freigiebigkeit {f}
 generosidad {f} :: Großzügigkeit {f}
 generoso; generosa {adj} :: freigiebig; großzügig
@@ -12256,7 +12256,7 @@ llevar {v} :: mitnehmen
 llevar {v} :: mit sich führen; zur Folge haben
 llorar {v} :: beweinen
 llorar :: weinen
-llorón {m}|llorona {f} :: Heulsuse {f} [coloq.]
+llorón {m};llorona {f} :: Heulsuse {f} [coloq.]
 lloroso; llorosa {adj} :: weinend
 llover :: regnen
 llovizna {f} :: Nieselregen {m}
@@ -12301,7 +12301,7 @@ lógicamente {adv} :: natürlich; logischerweise
 lógico; lógica {adj} :: logisch
 lógico; lógica :: logisch
 logística {f} :: Logistik {f}
-logopeda {m,f} :: Logopäde {m} | Logopädin {f}
+logopeda {m,f} :: Logopäde {m} ; Logopädin {f}
 lograr {v} :: erhalten
 lograr {v} :: erreichen
 lograr {v} :: es fertig bringen; schaffen; erreichen
@@ -13230,7 +13230,7 @@ meter {v} :: hineinstecken
 meter {v} :: hinein tun; tun
 meter {v} :: platzieren
 meter {v} :: stecken; hineinstecken
-metete {m,f} [coloq.] [Chile] :: Wichtigtuer {m}| Wichtigtuerin {f}
+metete {m,f} [coloq.] [Chile] :: Wichtigtuer {m}; Wichtigtuerin {f}
 metiche [coloq.]; metete [coloq.]; metido {adj} :: aufdringlich
 metódico; metódica {adj} :: methodisch
 metodología {f} :: Methodik {f}
@@ -13436,7 +13436,7 @@ mochillar {v} :: Rucksacktourismus betreiben
 moco {m} :: Popel {m}
 moco {m} :: Schleim {m}
 mocoso {adj} :: schleimig
-mocoso {m} | mocosa {f} :: Kind {n}
+mocoso {m} ; mocosa {f} :: Kind {n}
 moda {f} :: Mode {f}
 modal {adj} :: modal
 modales {m} {pl} :: Manieren {m} {pl} , Benimm {m}
@@ -13538,7 +13538,7 @@ moneda {f} :: Währung {f}
 monetario {adj} :: Geld-; Währungs-
 monigote {m} :: Hampelmann {m}
 monitor {m} :: Bildschirm {m}
-monitor {m}| monitora {f} :: Trainer {m}; Sportlehrer
+monitor {m}; monitora {f} :: Trainer {m}; Sportlehrer
 monitor {m} :: Monitor {m} [Computer]
 monja {f} :: Nonne {f}
 monje {m} :: Mönch {m}
@@ -13670,7 +13670,7 @@ motivar {v} :: motivieren
 motivo {m} :: Grund {m}; Beweggrund {m}; Anlass {m}
 motivo {m} :: Motiv {n}
 motivo {m} :: Motiv {n}; Thema {n}
-motociclista {m,f} :: Motorradfahrer {m} | Motorradfahrerin {f}
+motociclista {m,f} :: Motorradfahrer {m} ; Motorradfahrerin {f}
 moto {f} :: Motorrad {n}
 motora {f} :: Motorboot {n}
 motor {m} :: Antrieb {m}
@@ -14015,7 +14015,7 @@ nieva :: es schneit
 nieve {f} :: Schnee {m}
 ¡ni hablar! :: Kommt gar nicht in Frage!
 nihilismo {m} :: Nihilismus {m}
-nihilista {mf} :: Nihilist {m}| Nihilistin {f}
+nihilista {mf} :: Nihilist {m}; Nihilistin {f}
 Nilo {m} :: Nil {m}
 nimbo {m} :: Heiligenschein {m}; Nimbus {m}
 nimbo {m} :: Hof {m} [Astronomie]
@@ -14053,7 +14053,7 @@ Niza :: Nizza
 noble {adj} :: adelig
 noble {adj} :: großmütig; uneigennützig
 noble {adj} :: vornehm
-noble {m,f} :: Adeliger {m}| Adelige {f}
+noble {m,f} :: Adeliger {m}; Adelige {f}
 nobleza {f} :: Adel {m}
 Nochebuena {f} :: Heiligabend {m}
 noche {f} :: Nacht {f}; Abend {m}
@@ -14192,8 +14192,8 @@ núcleo {m} :: Kernstück {n}
 núcleo {m} :: Zentrum {n}
 nudismo {m} :: Freikörperkultur {f}
 nudista {adj} :: FKK-
-nudista {mf} :: FKK-Anhänger {m} | FKK-Anhängerin {f}
-nudista {m,f} :: Nudist {m}| Nudistin {f}
+nudista {mf} :: FKK-Anhänger {m} ; FKK-Anhängerin {f}
+nudista {m,f} :: Nudist {m}; Nudistin {f}
 nudo {m} :: Astknoten {m}
 nudo {m} :: Knoten {m}
 nudoso; nudosa {adj} :: astig
@@ -14374,7 +14374,7 @@ octógono {m} :: Achteck {n}
 octubre {m} :: Oktober {m}
 ocular {adj} :: Augen-
 ocular {m} :: Okular {n}
-oculista {mf} :: Augenarzt {m}| Augenärztin {f}
+oculista {mf} :: Augenarzt {m}; Augenärztin {f}
 ocultar impuestos :: Steuern hinter ziehen
 ocultar {v} :: geheim halten
 ocultar {v} :: verbergen; verheimlichen; verschweigen
@@ -14390,7 +14390,7 @@ ocupación {f} :: Beschäftigung {f}
 ocupación {f} :: Besetzung {f}
 ocupado {adj} :: beschäftigt
 ocupado {adj} :: besetzt
-ocupa {m} {f} [coloq.] :: Hausbesetzer {m}| Hausbesetzerin {f}
+ocupa {m} {f} [coloq.] :: Hausbesetzer {m}; Hausbesetzerin {f}
 ocupa {m} {pl} :: Hausbesetzer {m} {pl}
 ocupante {m} :: Besetzer {m}
 ocupante {m} :: Fahrgast {m}
@@ -14435,7 +14435,7 @@ oficina de seguros {f} :: Versicherungsbüro {n}
 oficina {f} :: Agentur {f}
 oficina {f} :: Behörde {f}
 oficina {f} :: Büro {n}
-oficinista {mf} :: Büroangestellte {m} | Büroangestellte {f}
+oficinista {mf} :: Büroangestellter {m} ; Büroangestellte {f}
 oficio divino {m} :: Gottesdienst {m}
 oficio {m} :: Amt {n}
 oficio {m} :: Beruf {m}
@@ -14859,7 +14859,7 @@ pacifismo {m} :: Pazifismus {m}
 pacifista {adj} :: pazifistisch
 pacifista {f} :: Pazifistin {f}; Kriegsgegnerin {f}
 pacifista {m} :: Pazifist {m}; Kriegsgegner {m}
-paco {m}| paca {f} [Chile] [coloq.] :: Bulle {m}
+paco {m}; paca {f} [Chile] [coloq.] :: Bulle {m}
 pactar {v} :: Pakt schließen
 pactar {v} :: vereinbaren
 pacto {m} :: Abmachung {f}; Pakt {m}
@@ -15188,8 +15188,8 @@ participación {f} :: Anteil {m}
 participación {f} :: Beteiligung {f}
 participación {f} :: Teilnahme {f}
 participante {adj} :: teilnehmend
-participante {m,f} :: Beteiligter {m}| Beteiligte {f}
-participante {m,f} :: Teilnehmer {m}| Teilnehmerin {f}
+participante {m,f} :: Beteiligter {m}; Beteiligte {f}
+participante {m,f} :: Teilnehmer {m}; Teilnehmerin {f}
 participar {v} :: mitmachen
 participar {v} :: mitspielen
 participar {v} :: sich beteiligen
@@ -15686,7 +15686,7 @@ penitencia {f} :: Sühne {f}
 penitenciaría {f} :: Zuchthaus {n}; Strafanstalt {f}
 penitenciería {f} [Am.] :: Gefängnis {n}; Strafanstalt {f}
 penitente {adj} :: reuig
-penitente {mf} :: Büßer {m} | Büßerin {f}
+penitente {mf} :: Büßer {m} ; Büßerin {f}
 peñón {m} :: Felsblock {m}
 penoso {adj} :: anstrengend; beschwerlich; mühsam
 penoso {adj} :: schmerzlich; leidvoll
@@ -16175,7 +16175,7 @@ pigmeo {m} :: Pygmäe {m}
 pijama {f} [Am.] :: Schlafanzug {m}; Pyjama {m}
 pijama {m} :: Schlafanzug {m}; Pyjama {m}
 pijo {m} :: Kind reicher Eltern {n}; Snob {m}
-pijo {m} | pija {f} :: Snob {m}
+pijo {m} ; pija {f} :: Snob {m}
 pijo; pija {adj} :: schicki-micki
 pila {f} :: Batterie {f}
 pila {f} :: Becken {n}; Spülbecken {n}
@@ -16528,7 +16528,7 @@ policíaco {adj} :: polizeilich
 policía {f} :: Polizei {f}
 policía {f} :: Polizistin {f}
 policial :: polizeilich; Polizei-
-policía {m,f} :: Polizist {m} | Polizistin {f}
+policía {m,f} :: Polizist {m} ; Polizistin {f}
 policía {m} :: Polizist {m}
 poliedro {m} :: Polyeder {n}
 poliéster {m} :: Polyester {m}
@@ -16602,7 +16602,7 @@ ponderar {v} :: gewichten
 ponderar {v} :: rühmen; loben
 ponencia {f} :: Referat {n}
 ponente {m} :: Berichterstatter {m}
-ponente {m,f} :: Sachbearbeiter {m} | Sachbearbeiterin {f}
+ponente {m,f} :: Sachbearbeiter {m} ; Sachbearbeiterin {f}
 ponente {m} :: Referent {m}
 poner a prueba {v} :: auf die Probe stellen
 poner el despertador :: den Wecker stellen
@@ -16834,7 +16834,7 @@ potente {adj} :: potent; zeugungsfähig
 potente :: zeugungsfähig
 potestad {f} :: Befugnis {f}
 poto {m} [coloq.] :: Hintern {m}
-potra {f} | potro {m} :: Fohlen {n}
+potra {f} ; potro {m} :: Fohlen {n}
 potro {m} :: Pferd {n}; Bock {m}
 poza {f} :: Pfütze {f}
 pozo {m} :: Brunnen {m}
@@ -16954,7 +16954,7 @@ preferencias {f} {pl} :: Einstellungen {f}; Vorlieben {f}
 preferentemente {adv} :: vorzugsweise
 preferible {adj} :: bevorzugt
 preferido {adj} :: Lieblings-
-preferido {m} | preferida {f} :: Liebling {m}
+preferido {m} ; preferida {f} :: Liebling {m}
 preferir {v} :: bevorzugen; lieber haben
 preferir  {v} {v} :: vorziehen; bevorzugen; lieber tun
 prefijo {m} :: Präfix {n}; Vorsilbe {f}
@@ -17234,8 +17234,7 @@ prisa {f} :: Eile {f}
 prisionera de guerra {f} :: Kriegsgefangene {f}
 prisionero {adj} :: gefangen
 prisionero de guerra {m} :: Kriegsgefangener {m}
-prisionero {m} | prisionera {f} :: Gefangene (ein Gefangener) {m} | Gefangene {f}
-prisionero {m} | prisionera {f} :: Häftling {m}; Sträfling {m}
+prisionero {m} | prisionera {f} :: Gefangene (ein Gefangener) {m} ; Häftling {m}; Sträfling {m} | Gefangene {f}
 prisión {f} :: Gefängnis {n}
 prisión preventiva {f} :: Untersuchungshaft {f}
 prisma {m} :: Prisma {n}
@@ -17353,7 +17352,7 @@ profesional {adj} :: gewerblich
 profesional {adj} :: professionell
 profesional {f} :: Profi {m}; Profi-Sportlerin {f}; Profi-Spielerin {f}
 profesional {m} {f} :: Berufstätiger {m}; Berufstätige {m}
-profesional {m} {f} :: Fachmann {m} | Fachfrau {f}
+profesional {m} {f} :: Fachmann {m} ; Fachfrau {f}
 profesional {m} :: Profi {m} {f}
 profesional {m} :: Profi {m}; Profi-Sportler {m}; Profi-Spieler {m}
 profesión {f} :: Beruf {m}
@@ -17575,7 +17574,7 @@ prostituir {v} :: prostituieren
 prostituta {f} :: Prostituierte {f}; Hure {f}; Nutte {f}
 protagonismo {m} :: Protagonismus {m}
 protagonista {f} :: Protagonistin {f}; Hauptperson {f}
-protagonista {m} {f} :: Hauptdarsteller {m} | Hauptdarstellerin {f}
+protagonista {m} {f} :: Hauptdarsteller {m} ; Hauptdarstellerin {f}
 protagonista {m} :: Hauptrolle {f}
 protagonista {m} :: Protagonist {m}
 protagonista {m} :: Protagonist {m}; Hauptperson {f}
@@ -18353,7 +18352,7 @@ rebelarse {v} :: rebellieren
 rebelarse {v} :: sich auflehnen
 rebelde {adj} :: aufsässig
 rebelde {adj} :: aufständisch; rebellisch; meuternd
-rebelde {m,f} :: Rebelle {m} |Rebellin {f}
+rebelde {m,f} :: Rebelle {m} ; Rebellin {f}
 rebelde {m} :: Rebell {m}; Aufständische {m}
 rebeldía {f} :: Aufsässigkeit {f}; Widerspenstigkeit {f}
 rebelión {f} :: Aufstand {m}; Revolte {f}
@@ -18423,7 +18422,7 @@ recepción {f} :: Aufnahme {f}
 recepción {f} :: Empfang {m}
 recepción {f} :: Erhalt {m}
 recepción {f} :: Rezeption {f}; Empfang {m}
-recepcionista {m,f} :: Empfangschef {m}| Empfangsdame {f}
+recepcionista {m,f} :: Empfangschef {m}; Empfangsdame {f}
 receptáculo {m} :: Behälter {m}
 receptivo {adj} :: empfänglich
 receptor {m} :: Empfänger {m}
@@ -18501,7 +18500,7 @@ reclusión {f} :: Einschließung {f}
 reclusión {f} :: Haft {f}
 recluso {m} :: Gefangener {m}
 recluso {m} :: Häftling {m}; Sträfling {m}
-recluta {m,f} :: Rekrut {m}| Rekrutin {f}
+recluta {m,f} :: Rekrut {m}; Rekrutin {f}
 reclutamiento {m} :: Rekrutierung {f}
 reclutar {v} :: anwerben
 reclutar {v} :: rekrutieren
@@ -18815,7 +18814,7 @@ refuerzo {m} :: Hilfe {f}
 refuerzo {m} :: Verstärkung {f}
 refuerzo {m} :: Verstärkung {f}; Nachschub [Militär] {m}
 refugiado de guerra {m} :: Kriegsflüchtling {m}
-refugiado {m} | refugiada {f} :: Flüchtling {m}
+refugiado {m} ; refugiada {f} :: Flüchtling {m}
 refugiarse :: fliehen
 refugiarse {v} :: flüchten; Zuflucht suchen
 refugiar {v} :: aufnehmen (Flüchtling)
@@ -19819,7 +19818,7 @@ retroceder {v} :: zurückgehen
 retroceder {v} :: zurückspulen
 retroceder {v} :: zurücktreten
 retroceder {v} :: zurückweichen
-retroceder {v} :: zurückziehen|
+retroceder {v} :: zurückziehen
 retroceso {m} :: Rückgang {m}
 retroceso {m} :: Rücklauf {m}
 retroceso {m} :: Rückschritt {m}
