@@ -38,7 +38,7 @@ class m141201_200912_schema extends Migration {
         $this->createTable('searchrequest', array(
             'id' => Schema::TYPE_BIGPK,
             'dictionary_id' => Schema::TYPE_INTEGER,
-            'searchmethod' => Schema::TYPE_INTEGER,
+            'searchMethod' => Schema::TYPE_INTEGER,
             'request' => Schema::TYPE_STRING,
             'ipAddr' => Schema::TYPE_STRING,
             'useragent_id' => Schema::TYPE_INTEGER,

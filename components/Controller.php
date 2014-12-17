@@ -21,6 +21,7 @@ namespace app\components;
 use Yii;
 use yii\helpers\Html;
 use app\models\enums\Role;
+use yii\web\NotFoundHttpException;
 
 /**
  * Description of Controller
@@ -98,7 +99,7 @@ class Controller extends \yii\web\Controller {
      * @throws CHttpException 404
      */
     public function throwPageNotFound() {
-        throw new \yii\web\HttpException(404, Yii::t('app', 'Requested page was not found.'));
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
     /**

@@ -18,6 +18,8 @@
 
 namespace app\models\enums;
 
+use Yii;
+
 /**
  * Description of SearchMethod
  *
@@ -34,7 +36,7 @@ abstract class SearchMethod {
     }
 
     public static function getMethodnames() {
-        return array(FUZZY => Yii::t('app', 'Fuzzy search'), COMFORT => Yii::t('app', 'Comfort search'), FAST => Yii::t('app', 'Fast search'));
+        return array(SearchMethod::FAST => Yii::t('app', 'Fast search'), SearchMethod::FUZZY => Yii::t('app', 'Fuzzy search'), SearchMethod::COMFORT => Yii::t('app', 'Comfort search'));
     }
 
 }

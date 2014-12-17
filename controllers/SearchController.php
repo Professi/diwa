@@ -21,7 +21,6 @@ namespace app\controllers;
 use Yii;
 use app\models\SearchRequest;
 use yii\data\ActiveDataProvider;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -42,9 +41,24 @@ class SearchController extends \app\components\Controller {
 
     public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
-        return $this->render('view', [
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
+                $r->save();
+            }
+        }
+        return $this->render('search', [
                     'model' => $model,
         ]);
+    }
+
+    public function getDictionaries() {
+        $dicts = \app\models\Dictionary::find()->all();
+        $r = array();
+        foreach ($dicts as $val) {
+            $r[$val->getPrimaryKey()] = $val->getLanguage1()->shortname . "<->" . $val->getLanguage2()->shortname;
+        }
+        return $r;
     }
 
     /**
@@ -83,7 +97,7 @@ class SearchController extends \app\components\Controller {
         if (($model = SearchRequest::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            $this->throwPageNotFound();
         }
     }
 

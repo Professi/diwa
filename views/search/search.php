@@ -14,32 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Search Requests');
+$this->title = Yii::t('app', 'Translate');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="search-request-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php $form = ActiveForm::begin(); ?>
 
-            'id',
-            'dictionary_id',
-            'request',
-            'ipAddr',
-            'useragent_id',
-            'requestTime',
-            ['class' => 'app\components\widgets\CustomActionColumn',
-                'template' => '{view}',
-                ],
-        ],
-    ]); ?>
+    <?= $form->field($model, 'searchWord')->textInput() ?>
 
+    <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
+
+    <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
+
+    <?= $form->field($model, 'maxEntries')->dropDownList([10, 20, 30, 40, 50]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-success']); ?>
+        <?= Html::submitButton(Yii::t('app', 'Clear input'), ['class' => 'btn btn-primary']); ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

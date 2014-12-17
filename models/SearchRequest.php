@@ -19,6 +19,9 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Description of SearchRequest
@@ -36,6 +39,18 @@ class SearchRequest extends \yii\db\ActiveRecord {
 
     public static function tableName() {
         return 'searchrequest';
+    }
+
+    public function behaviors() {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'requestTime',
+                ],
+                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 
     public function attributeLabels() {
@@ -68,17 +83,17 @@ class SearchRequest extends \yii\db\ActiveRecord {
         $request = new SearchRequest();
         $request->dictionary_id = $dictionary;
         $request->request = $word;
-        $request->method = $method;
+        $request->searchMethod = $method;
         $request->ipAddr = \Yii::$app->request->getUserIP();
         $userAgent = \Yii::$app->request->getUserAgent();
-        $hashedUseragent = UserAgent::createHash($userAgent);
-        $userAg = UserAgent::findOne(['agentHash' => $hashedUseragent]);
-        if ($userAg == null) {
-            $userAg = new UserAgent();
-            $userAg->agent = $userAgent;
-            $userAg->save();
+        if ($userAgent != null) {
+            $hashedUseragent = UserAgent::createHash($userAgent);
+            $userAg = UserAgent::findOne(['agentHash' => $hashedUseragent]);
+            if ($userAg == null) {
+                $userAg = UserAgent::createUserAgent($userAgent);
+            }
+            $request->useragent_id = $userAg->getPrimaryKey();
         }
-        $request->useragent_id = $userAg->getPrimaryKey();
         return $request;
     }
 

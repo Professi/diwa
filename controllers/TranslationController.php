@@ -128,7 +128,7 @@ class TranslationController extends \app\components\Controller
         if (($model = Translation::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            $this->throwPageNotFound();
         }
     }
 }

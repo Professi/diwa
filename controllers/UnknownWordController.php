@@ -109,10 +109,8 @@ class UnknownWordController extends \app\components\Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -123,12 +121,11 @@ class UnknownWordController extends \app\components\Controller
      * @return UnknownWord the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = UnknownWord::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            $this->throwPageNotFound();
         }
     }
 }

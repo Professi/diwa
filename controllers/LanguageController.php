@@ -131,7 +131,7 @@ class LanguageController extends \app\components\Controller {
         if (($model = Language::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            $this->throwPageNotFound();
         }
     }
 

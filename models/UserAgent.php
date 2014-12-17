@@ -15,15 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\models;
+
 use Yii;
+
 /**
  * Description of UserAgent
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  * @property integer $id
  * @property string $agent
- * @propery string $agentHash
+ * @property string $agentHash
  */
 class UserAgent extends \yii\db\ActiveRecord {
 
@@ -41,8 +44,8 @@ class UserAgent extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['agent'], 'required'],
             [['agentHash'], 'unique'],
+            [['agentHash'], 'string', 'max' => 255],
         ];
     }
 
@@ -52,6 +55,14 @@ class UserAgent extends \yii\db\ActiveRecord {
 
     public function beforeValidate() {
         $this->agentHash = UserAgent::createHash($this->agent);
+    }
+
+    public static function createUserAgent($userAgent) {
+        $userAg = new UserAgent();
+        $userAg->agent = $userAgent;
+        $userAg->agentHash = UserAgent::createHash($userAgent);
+        $userAg->save(false);
+        return $userAg;
     }
 
 }

@@ -17,7 +17,7 @@
  */
 
 namespace app\models\forms;
-
+use Yii;
 /**
  * Description of SearchForm
  * 
@@ -29,9 +29,29 @@ namespace app\models\forms;
  */
 class SearchForm extends \yii\base\Model {
 
-    private $searchMethod;
-    private $dictionary;
-    private $maxEntries;
-    private $searchWord;
+    public $searchMethod;
+    public $dictionary;
+    public $maxEntries;
+    public $searchWord;
+
+    /**
+     * @return array the validation rules.
+     */
+    public function rules() {
+        return [
+            [['searchMethod', 'dictionary', 'maxEntries', 'searchWord'], 'required'],
+            [['maxEntries'], 'integer'],
+            [['searchWord'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function attributeLabels() {
+        return array(
+            'searchMethod' => Yii::t('app', 'Search method'),
+            'dictionary' => Yii::t('app', 'Dictionary'),
+            'maxEntries' => Yii::t('app', 'Number of hits per page'),
+            'searchWord' => Yii::t('app', 'Search word'),
+        );
+    }
 
 }

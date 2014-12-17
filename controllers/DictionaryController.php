@@ -121,7 +121,7 @@ class DictionaryController extends \app\components\Controller {
         if (($model = Dictionary::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            $this->throwPageNotFound();
         }
     }
 
