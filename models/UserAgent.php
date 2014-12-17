@@ -46,12 +46,12 @@ class UserAgent extends \yii\db\ActiveRecord {
         ];
     }
 
-    private function createHash($agent) {
+    public static function createHash($agent) {
         return sha1($agent);
     }
 
     public function beforeValidate() {
-        $this->agentHash = $this->createHash($this->agent);
+        $this->agentHash = UserAgent::createHash($this->agent);
     }
 
 }

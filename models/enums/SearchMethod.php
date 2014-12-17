@@ -16,11 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace app\models\enums;
+
 /**
  * Description of SearchMethod
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class SearchMethod {
-    //put your code here
+abstract class SearchMethod {
+
+    const FUZZY = 0; //Many likes
+    const COMFORT = 1; //LIKE '%word%'
+    const FAST = 2; //Fulltextsearch
+
+    public static function getMethods() {
+        return array(FUZZY, COMFORT, FAST);
+    }
+
+    public static function getMethodnames() {
+        return array(FUZZY => Yii::t('app', 'Fuzzy search'), COMFORT => Yii::t('app', 'Comfort search'), FAST => Yii::t('app', 'Fast search'));
+    }
+
 }
+
+//Suchmethoden: 
+    //Fuzzy Search (drölfmilliarden likes)
+    /*Komfortsuche(" WHERE " . $lang1 . " LIKE '%$word%' 
+            //OR    " . $lang2 . " LIKE '%$word%'";*/
+    /*Schnellsuche: Volltextsuche $sql = " WHERE MATCH(" . $lang1 . ", " . $lang2 . ") AGAINST(\"$word\")"; */

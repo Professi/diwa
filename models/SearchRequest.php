@@ -17,7 +17,9 @@
  */
 
 namespace app\models;
+
 use Yii;
+
 /**
  * Description of SearchRequest
  *
@@ -25,6 +27,7 @@ use Yii;
  * @property integer $id
  * @property integer $dictionary_id
  * @property string $ipAddr
+ * @property integer $searchMethod
  * @property string $request
  * @property integer $useragent_id
  * @property datetime $timestamp
@@ -38,6 +41,7 @@ class SearchRequest extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => Yii::t('app', 'ID'),
+            'searchMethod' => Yii::t('app', 'Search method'),
             'requestTime' => Yii::t('app', 'Request time'),
             'dictionary' => Yii::t('app', 'Dictionary'),
             'ipAddr' => Yii::t('app', 'IP address'),
@@ -58,6 +62,24 @@ class SearchRequest extends \yii\db\ActiveRecord {
 
     public function getUserAgent() {
         return $this->hasOne(UserAgent::className(), ['id' => 'useragent_id']);
+    }
+
+    public static function createRequest($method, $dictionary, $word) {
+        $request = new SearchRequest();
+        $request->dictionary_id = $dictionary;
+        $request->request = $word;
+        $request->method = $method;
+        $request->ipAddr = \Yii::$app->request->getUserIP();
+        $userAgent = \Yii::$app->request->getUserAgent();
+        $hashedUseragent = UserAgent::createHash($userAgent);
+        $userAg = UserAgent::findOne(['agentHash' => $hashedUseragent]);
+        if ($userAg == null) {
+            $userAg = new UserAgent();
+            $userAg->agent = $userAgent;
+            $userAg->save();
+        }
+        $request->useragent_id = $userAg->getPrimaryKey();
+        return $request;
     }
 
 }

@@ -16,9 +16,6 @@
  */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -65,7 +62,7 @@ $this->beginPage();
                 <ul class="left show-for-small-only">
                     <?php
                     if (!Yii::$app->user->isGuest) {
-                        echo $this->context->generateFoundation5Menu($this->context->getMenu(), true);
+                        echo $this->context->getMenu()->generate(true);
                     }
                     ?>
                     <li>
@@ -80,7 +77,7 @@ $this->beginPage();
         <div class="sticky sticky-nav hide-for-small hide-on-print">
             <ul class="medium-block-grid-6 large-block-grid-8 text-center ul-nav" data-topbar>
                 <?php
-                echo $this->context->generateFoundation5Menu($this->context->getMenu(), false);
+                echo $this->context->getMenu()->generate(false);
                 ?>
                 <li>
                     <a onClick="event.preventDefault();

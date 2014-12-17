@@ -59,15 +59,19 @@ class m141201_200912_schema extends Migration {
             'expire' => Schema::TYPE_INTEGER,
             'data' => \yii\db\Schema::TYPE_BINARY,
         ));
-        
-        
+
         $this->createTable('shortcut', array(
             'id' => Schema::TYPE_PK,
             'shortcut' => Schema::TYPE_STRING,
             'name' => Schema::TYPE_STRING,
             'kind' => Schema::TYPE_SMALLINT,
         ));
-        $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'],true);
+        if (strpos($this->db->dsn, 'pgsql')) {
+            $this->execute('CREATE INDEX ft_idx_word1 ON `word` USING gin(language_id,word);');
+        } else if (strpos($this->db->dsn, 'mysql')) {
+            $this->execute('CREATE FULLTEXT INDEX ft_idx_word1 ON `word` (word);');
+        }
+        $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'], true);
         $this->createIndex('idx_username1', 'user', ['username'], true);
         $this->createIndex('idx_word1', 'word', ['word', 'language_id'], true);
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
@@ -101,6 +105,7 @@ class m141201_200912_schema extends Migration {
         $this->dropForeignKey('fk_dictionary_language1_id', 'dictionary');
         $this->dropForeignKey('fk_unknownword_dictionary_id', 'unknownword');
         $this->dropForeignKey('fk_word_language_id', 'word');
+        $this->dropIndex('ft_idx_word1', 'word');
         $this->dropIndex('idx_useragent_agentHash1', 'useragent');
         $this->dropIndex('idx_unknownword1', 'unknownword');
         $this->dropIndex('idx_language1', 'language');

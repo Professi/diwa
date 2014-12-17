@@ -17,6 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Comfort search' => 'Komfortsuche',
+    'Fast search' => 'Schnellsuche',
+    'Fuzzy search' => 'Unscharfe Suche',
+    'Search Request' => '@@Suchanfrage@@',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -69,7 +73,6 @@ return [
     'Requested page was not found.' => 'Die angeforderte Seite konnte nicht gefunden werden.',
     'Role' => 'Rolle',
     'Scottish English' => 'Schottisches Englisch',
-    'Search Request' => 'Suchanfrage',
     'Search Requests' => 'Suchanfragen',
     'Shortcut' => 'Abkürzung',
     'Shortname' => 'Kurzname',
