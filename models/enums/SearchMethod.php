@@ -40,9 +40,3 @@ abstract class SearchMethod {
     }
 
 }
-
-//Suchmethoden: 
-    //Fuzzy Search (drölfmilliarden likes)
-    /*Komfortsuche(" WHERE " . $lang1 . " LIKE '%$word%' 
-            //OR    " . $lang2 . " LIKE '%$word%'";*/
-    /*Schnellsuche: Volltextsuche $sql = " WHERE MATCH(" . $lang1 . ", " . $lang2 . ") AGAINST(\"$word\")"; */

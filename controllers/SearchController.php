@@ -22,6 +22,7 @@ use Yii;
 use app\models\SearchRequest;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use app\models\Word;
 
 /**
  * SearchRequestController implements the CRUD actions for SearchRequest model.
@@ -39,16 +40,23 @@ class SearchController extends \app\components\Controller {
         ];
     }
 
+    /**
+     * @TODO buggy
+     * @return type
+     */
     public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
+        $dataProvider = null;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
                 $r->save();
+                $dataProvider = \app\models\Translation::searchWords($model->searchMethod, $model->searchWord, $model->dictionary);
             }
         }
         return $this->render('search', [
                     'model' => $model,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 

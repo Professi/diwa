@@ -16,31 +16,54 @@
  */
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\ActiveForm;
-
+use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Translate');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="search-request-index">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'searchWord')->textInput() ?>
+<div class="row">
+    <div class="small-9 columns small-centered">
+        <fieldset>
+            <legend><?php echo $this->title; ?></legend>
+            <div class="search-request-index">
+                <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
+                <?= $form->field($model, 'searchWord')->textInput() ?>
 
-    <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
+                <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
 
-    <?= $form->field($model, 'maxEntries')->dropDownList([10, 20, 30, 40, 50]) ?>
+                <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-success']); ?>
-        <?= Html::submitButton(Yii::t('app', 'Clear input'), ['class' => 'btn btn-primary']); ?>
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-success']); ?>
+                    <?= Html::submitButton(Yii::t('app', 'Clear input'), ['class' => 'btn btn-primary']); ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
+        </fieldset>
     </div>
-
-    <?php ActiveForm::end(); ?>
 </div>
+
+<?php 
+if ($dataProvider != null) {
+    yii\widgets\Pjax::begin();
+    echo GridView::widget([
+    'dataProvider' => $dataProvider,
+                'columns' => [
+                ['attribute' => 'word1', 'value' => 'word1.word'],
+                ['attribute' => 'word2', 'value' => 'word2.word'],
+            ],
+]);
+    yii\widgets\Pjax::end();
+}
+?>
+
+
+
+
+

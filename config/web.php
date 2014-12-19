@@ -12,8 +12,7 @@ $config = [
     'language' => 'de',
     'bootstrap' => ['log'],
     'homeUrl' => ['site/index'],
-    'extensions' => array_merge(
-            require($vendorDir . '/yiisoft/extensions.php'), require($baseDir . '/extensions.php')),
+    'extensions' => require($vendorDir . '/yiisoft/extensions.php'),
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -63,7 +62,6 @@ $config = [
     ],
     'modules' => [
         'gii' => 'yii\gii\Module',
-    // ...
     ],
     'params' => $params,
 ];

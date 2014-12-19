@@ -21,9 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
-
-    <?=
-    GridView::widget([
+<?php yii\widgets\Pjax::begin();
+        echo GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -34,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);
+    yii\widgets\Pjax::end();
     ?>
 
 </div>

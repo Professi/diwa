@@ -17,7 +17,9 @@
  */
 
 namespace app\models\forms;
+
 use Yii;
+
 /**
  * Description of SearchForm
  * 
@@ -31,7 +33,6 @@ class SearchForm extends \yii\base\Model {
 
     public $searchMethod;
     public $dictionary;
-    public $maxEntries;
     public $searchWord;
 
     /**
@@ -39,8 +40,7 @@ class SearchForm extends \yii\base\Model {
      */
     public function rules() {
         return [
-            [['searchMethod', 'dictionary', 'maxEntries', 'searchWord'], 'required'],
-            [['maxEntries'], 'integer'],
+            [['searchMethod', 'dictionary', 'searchWord'], 'required'],
             [['searchWord'], 'string', 'max' => 255],
         ];
     }
@@ -49,9 +49,12 @@ class SearchForm extends \yii\base\Model {
         return array(
             'searchMethod' => Yii::t('app', 'Search method'),
             'dictionary' => Yii::t('app', 'Dictionary'),
-            'maxEntries' => Yii::t('app', 'Number of hits per page'),
             'searchWord' => Yii::t('app', 'Search word'),
         );
+    }
+
+    public function search() {
+        
     }
 
 }

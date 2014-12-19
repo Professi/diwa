@@ -73,6 +73,7 @@ class m141201_200912_schema extends Migration {
         }
         $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'], true);
         $this->createIndex('idx_username1', 'user', ['username'], true);
+        $this->createIndex('idx_user_authKey', 'user', ['authKey'], true);
         $this->createIndex('idx_word1', 'word', ['word', 'language_id'], true);
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
         $this->createIndex('idx_unknownword1', 'unknownword', ['name', 'dictionary_id'], true);
@@ -105,6 +106,7 @@ class m141201_200912_schema extends Migration {
         $this->dropForeignKey('fk_dictionary_language1_id', 'dictionary');
         $this->dropForeignKey('fk_unknownword_dictionary_id', 'unknownword');
         $this->dropForeignKey('fk_word_language_id', 'word');
+        $this->dropIndex('idx_user_authKey', 'user');
         $this->dropIndex('ft_idx_word1', 'word');
         $this->dropIndex('idx_useragent_agentHash1', 'useragent');
         $this->dropIndex('idx_unknownword1', 'unknownword');
