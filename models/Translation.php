@@ -21,6 +21,7 @@ namespace app\models;
 use Yii;
 use app\models\enums\SearchMethod;
 use yii\db\Query;
+use yii\data\SqlDataProvider;
 
 /**
  * Description of Translation
@@ -60,11 +61,11 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public function getWord1() {
-        return $this->hasOne(Word::className(), ['id' => 'word1_id'])->from(Translation::tableName() . ' w1');
+        return $this->hasOne(Word::className(), ['id' => 'word1_id'])->from(Translation::tableName());
     }
 
     public function getWord2() {
-        return $this->hasOne(Word::className(), ['id' => 'word2_id'])->from(Translation::tableName() . ' w2');
+        return $this->hasOne(Word::className(), ['id' => 'word2_id'])->from(Translation::tableName());
     }
 
     /**
@@ -92,45 +93,90 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public static function comfortSearch($word, $dict) {
-        $query = Translation::basicQuery();
-        $query->where(['like', 'w1.word', $word]);
-        $query->orWhere(['like', 'w2.word', $word]);
-        Translation::andDictionary($dict, $query);
-        return Translation::dataProvider($query);
+        $where = '((`word1`.`word` LIKE :word) OR (`word2`.`word` LIKE :word)) AND (dictionary_id=:dictId)';
+        $params = [':word' => '%' . $word . '%', ':dictId' => $dict];
+        return Translation::createSqlDataprovider($word, $dict, $where, $params);
+    }
+
+    public static function params($word, $dict) {
+        return [':word' => '%' . $word . '%', ':dictId' => $dict];
+    }
+
+    public static function createSqlDataprovider($word, $dict, $where, $params) {
+        $count = Yii::$app->db->createCommand(Translation::basicSqlQueryCount() . $where, $params)->queryScalar();
+        $dataProvider = new SqlDataProvider([
+            'sql' => Translation::basicSqlQuery() . $where,
+            'params' => $params,
+            'totalCount' => $count,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $dataProvider;
     }
 
     public static function fastSearch($word, $dict) {
-
-        $query = Translation::basicQuery();
+        $where = '';
+        $params = [':word' => $word, ':dictId' => $dict];
         if (strpos(\Yii::$app->db->dsn, 'mysql') == 0) {
-            $query->where('MATCH(word1.word) AGAINST(:word)', [':word' => $word]);
-        } else if (strpos(\Yii::$app->db->dsn, 'pgsql')) {
-            
+            $where = '(MATCH(`word1`.`word`) AGAINST(:word)) AND dictionary_id=:dictId';
+        } else if (strpos(\Yii::$app->db->dsn, 'pgsql') == 0) {
+            //        $where = '"word1.word" @@ to_tsquery(:word) AND (dictionary_id=:dictId)';
         }
-        Translation::andDictionary($dict, $query);
-        return Translation::dataProvider($query);
+        return Translation::createSqlDataprovider($word, $dict, $where, $params);
     }
 
     public static function fuzzySearch($word, $dict) {
-        $query = Translation::basicQuery();
-
-
-        Translation::andDictionary($dict, $query);
-        return Translation::dataProvider($query);
+        $params = Translation::getLevenshtein1($word);
+        $where = '(';
+        $first = true;
+        foreach ($params as $key => $value) {
+            if ($first) {
+                $first = false;
+            } else {
+                $where .= ' OR ';
+            }
+            $where .= '`word1`.`word` LIKE ' . $key;
+//                    . ' OR `word2`.`word` LIKE ' . $key;
+        }
+        $where .= ') AND dictionary_id=:dictId';
+        $params[':dictId'] = $dict;
+        return Translation::createSqlDataprovider($word, $dict, $where, $params);
     }
 
     public static function andDictionary($dict, &$query) {
         $query->andWhere('dictionary_id=:dictId', [':dictId' => $dict]);
     }
 
+    public static function basicSqlQuery() {
+        return 'SELECT `translation`.`id`, `word1`.`word` AS w1, `word2`.`word` AS w2 FROM `translation` LEFT JOIN `word` `word1` ON word1.id=translation.word1_id LEFT JOIN `word` `word2` ON word2.id=translation.word2_id WHERE ';
+    }
+
+    public static function basicSqlQueryCount() {
+        return 'SELECT COUNT(*) FROM `translation` LEFT JOIN `word` `word1` ON word1.id=translation.word1_id LEFT JOIN `word` `word2` ON word2.id=translation.word2_id WHERE ';
+    }
+
     public static function basicQuery() {
-        $query = Translation::find();
-        $query->joinWith('word1', true);
-        $query->joinWith('word2', true);
+//        $query = Translation::basicQuery();
+//        $query->where(['like', 'word1.word', $word]);
+//        $query->orWhere(['like', 'word2.word', $word]);
+//        Translation::andDictionary($dict, $query);
+//        return Translation::dataProvider($query);
+//        $query = Translation::find();
+//        $query->select(['translation.id', 'word1_id','word2_id','word1.word w1', 'word2.word w2']);
 //        $query->leftJoin('word word1', 'word1.id=' . Translation::tableName() . '.word1_id');
 //        $query->leftJoin('word word2', 'word2.id=' . Translation::tableName() . '.word2_id');
-//        $query->with(['word1', 'word2']);
-        return $query;
+////        $query->with(['word1', 'word2']);
+//        $query->multiple = true;
+//        return $query;
+//        $query = Translation::basicQuery();
+//        if (strpos(\Yii::$app->db->dsn, 'mysql') == 0) {
+//            $query->where('MATCH(w1.word,w2.word) AGAINST(:word)', [':word' => $word]);
+//        } else if (strpos(\Yii::$app->db->dsn, 'pgsql') == 0) {
+//            
+//        }
+//        Translation::andDictionary($dict, $query);
+//        return Translation::dataProvider($query);
     }
 
     public static function dataProvider($query) {
@@ -140,7 +186,35 @@ class Translation extends \yii\db\ActiveRecord {
         return $dataProvider;
     }
 
+    /**
+     * https://gordonlesti.com/fuzzy-fulltext-search-with-mysql/
+     * @param string $word
+     * @return array
+     */
+    public static function getLevenshtein1($word) {
+        $words = array();
+        for ($i = 0; $i < strlen($word); $i++) {
+            // insertions
+            $words[':wordI' . $i] = substr($word, 0, $i) . '_' . substr($word, $i) . '%';
+            // deletions
+            $words[':wordD' . $i] = substr($word, 0, $i) . substr($word, $i + 1) . '%';
+            // substitutions
+            $words[':wordS' . $i] = substr($word, 0, $i) . '_' . substr($word, $i + 1) . '%';
+        }
+        // last insertion
+        $words[':wordLast'] = $word . '_';
+        return $words;
+    }
+
     //Suchmethoden: 
     //Fuzzy Search (drölfmilliarden likes)
     /* Schnellsuche: Volltextsuche $sql = " WHERE MATCH(" . $lang1 . ", " . $lang2 . ") AGAINST(\"$word\")"; */
+    //Einzelwortsuche im Zusammenhang
+    /* $sql = " WHERE " . $lang1 . " LIKE '$word' 
+      OR    " . $lang2 . " LIKE '$word'
+      OR    " . $lang1 . " LIKE '$word {_}'
+      OR    " . $lang2 . " LIKE '$word {_}'
+      OR    " . $lang1 . " LIKE '$word {__}'
+      OR    " . $lang2 . " LIKE '$word {__}'";
+     */
 }

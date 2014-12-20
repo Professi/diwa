@@ -66,9 +66,9 @@ class m141201_200912_schema extends Migration {
             'name' => Schema::TYPE_STRING,
             'kind' => Schema::TYPE_SMALLINT,
         ));
-        if (strpos($this->db->dsn, 'pgsql')) {
-            $this->execute('CREATE INDEX ft_idx_word1 ON `word` USING gin(language_id,word);');
-        } else if (strpos($this->db->dsn, 'mysql')) {
+        if (strpos($this->db->dsn, 'pgsql') == 0) {
+            $this->execute('CREATE INDEX "ft_idx_word1" ON "word" USING gin(ts_vector("word"));');
+        } else if (strpos($this->db->dsn, 'mysql') == 0) {
             $this->execute('CREATE FULLTEXT INDEX ft_idx_word1 ON `word` (word);');
         }
         $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'], true);

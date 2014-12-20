@@ -18,6 +18,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -49,16 +50,22 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<?php 
+<?php
 if ($dataProvider != null) {
     yii\widgets\Pjax::begin();
     echo GridView::widget([
-    'dataProvider' => $dataProvider,
-                'columns' => [
-                ['attribute' => 'word1', 'value' => 'word1.word'],
-                ['attribute' => 'word2', 'value' => 'word2.word'],
-            ],
-]);
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['attribute' => 'word1',
+                'value' => function ($data) {
+                    return $data['w1'];
+                }],
+            ['attribute' => 'word2',
+                'value' => function ($data) {
+                    return $data['w2'];
+                }],
+        ],
+    ]);
     yii\widgets\Pjax::end();
 }
 ?>

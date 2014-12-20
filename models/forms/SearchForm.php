@@ -31,8 +31,8 @@ use Yii;
  */
 class SearchForm extends \yii\base\Model {
 
-    public $searchMethod;
-    public $dictionary;
+    public $searchMethod = 2;
+    public $dictionary = 1;
     public $searchWord;
 
     /**
