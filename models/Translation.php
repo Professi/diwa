@@ -136,8 +136,8 @@ class Translation extends \yii\db\ActiveRecord {
             } else {
                 $where .= ' OR ';
             }
-            $where .= '`word1`.`word` LIKE ' . $key;
-//                    . ' OR `word2`.`word` LIKE ' . $key;
+            $where .= 'word1.word LIKE ' . $key
+                    . ' OR word2.word LIKE ' . $key;
         }
         $where .= ') AND dictionary_id=:dictId';
         $params[':dictId'] = $dict;
@@ -149,11 +149,11 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public static function basicSqlQuery() {
-        return 'SELECT `translation`.`id`, `word1`.`word` AS w1, `word2`.`word` AS w2 FROM `translation` LEFT JOIN `word` `word1` ON word1.id=translation.word1_id LEFT JOIN `word` `word2` ON word2.id=translation.word2_id WHERE ';
+        return 'SELECT translation.id, word1.word AS w1, word2.word AS w2 FROM translation LEFT JOIN word word1 ON word1.id=translation.word1_id LEFT JOIN word word2 ON word2.id=translation.word2_id WHERE ';
     }
 
     public static function basicSqlQueryCount() {
-        return 'SELECT COUNT(*) FROM `translation` LEFT JOIN `word` `word1` ON word1.id=translation.word1_id LEFT JOIN `word` `word2` ON word2.id=translation.word2_id WHERE ';
+        return 'SELECT COUNT(*) FROM translation LEFT JOIN word word1 ON word1.id=translation.word1_id LEFT JOIN word word2 ON word2.id=translation.word2_id WHERE ';
     }
 
     public static function basicQuery() {
