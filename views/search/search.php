@@ -52,17 +52,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 if ($dataProvider != null) {
-    yii\widgets\Pjax::begin();
+    yii\widgets\Pjax::begin(['id'=>'list_data']);
     echo GridView::widget([
+        'id' => 'gridview',
         'dataProvider' => $dataProvider,
         'columns' => [
             ['attribute' => 'word1',
                 'value' => function ($data) {
-                    return $data['w1'];
+                    return $data['word1'];
+//        return print_r($data,false);
                 }],
-            ['attribute' => 'word2',
+            [
+                'attribute' => 'word2',
                 'value' => function ($data) {
-                    return $data['w2'];
+                    return $data['word2'];
                 }],
         ],
     ]);

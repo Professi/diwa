@@ -29,6 +29,8 @@ use app\models\Word;
  */
 class SearchController extends \app\components\Controller {
 
+    public $dataProvider = null;
+
     public function behaviors() {
         return [
             'verbs' => [
@@ -47,11 +49,31 @@ class SearchController extends \app\components\Controller {
     public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
         $dataProvider = null;
+        $session = \Yii::$app->session;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
                 $r->save();
+                if ($session->isActive) {
+                    $session['search'] = [
+                        'searchMethod' => $model->searchMethod,
+                        'dictionary' => $model->dictionary,
+                        'searchWord' => $model->searchWord,
+                    ];
+                }
+            }
+        }
+//        $dataProvider = \app\models\Translation::searchWords($model->searchMethod, $model->searchWord, $model->dictionary);
+        if ($session->isActive) {
+            if ($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search')) {
+                $model->searchMethod = $session['search']['searchMethod'];
+                $model->searchWord = $session['search']['searchWord'];
+                $model->dictionary = $session['search']['dictionary'];
                 $dataProvider = \app\models\Translation::searchWords($model->searchMethod, $model->searchWord, $model->dictionary);
+            } else {
+                if ($session->has('search')) {
+                    $session->remove('search');
+                }
             }
         }
         return $this->render('search', [

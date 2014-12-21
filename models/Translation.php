@@ -69,8 +69,6 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     /**
-     * War inside my head...............................................................................
-     * So much query bullshit gedöns!
      * @param type $searchMethod
      * @param type $searchWord
      * @param type $dictionary
@@ -93,16 +91,16 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public static function comfortSearch($word, $dict) {
-        $where = '((`word1`.`word` LIKE :word) OR (`word2`.`word` LIKE :word)) AND (dictionary_id=:dictId)';
+        $where = '((w1.word LIKE :word) OR (w2.word LIKE :word)) AND (dictionary_id=:dictId)';
         $params = [':word' => '%' . $word . '%', ':dictId' => $dict];
-        return Translation::createSqlDataprovider($word, $dict, $where, $params);
+        return Translation::createSqlDataprovider($where, $params);
     }
 
     public static function params($word, $dict) {
         return [':word' => '%' . $word . '%', ':dictId' => $dict];
     }
 
-    public static function createSqlDataprovider($word, $dict, $where, $params) {
+    public static function createSqlDataprovider($where, $params) {
         $count = Yii::$app->db->createCommand(Translation::basicSqlQueryCount() . $where, $params)->queryScalar();
         $dataProvider = new SqlDataProvider([
             'sql' => Translation::basicSqlQuery() . $where,
@@ -119,11 +117,11 @@ class Translation extends \yii\db\ActiveRecord {
         $where = '';
         $params = [':word' => $word, ':dictId' => $dict];
         if (strpos(\Yii::$app->db->dsn, 'mysql') == 0) {
-            $where = '(MATCH(`word1`.`word`) AGAINST(:word)) AND dictionary_id=:dictId';
+            $where = '(MATCH(w1.word) AGAINST(:word) OR MATCH(w2.word) AGAINST(:word)) AND dictionary_id=:dictId';
         } else if (strpos(\Yii::$app->db->dsn, 'pgsql') == 0) {
             //        $where = '"word1.word" @@ to_tsquery(:word) AND (dictionary_id=:dictId)';
         }
-        return Translation::createSqlDataprovider($word, $dict, $where, $params);
+        return Translation::createSqlDataprovider($where, $params);
     }
 
     public static function fuzzySearch($word, $dict) {
@@ -136,12 +134,12 @@ class Translation extends \yii\db\ActiveRecord {
             } else {
                 $where .= ' OR ';
             }
-            $where .= 'word1.word LIKE ' . $key
-                    . ' OR word2.word LIKE ' . $key;
+            $where .= 'w1.word LIKE ' . $key
+                    . ' OR w2.word LIKE ' . $key;
         }
         $where .= ') AND dictionary_id=:dictId';
         $params[':dictId'] = $dict;
-        return Translation::createSqlDataprovider($word, $dict, $where, $params);
+        return Translation::createSqlDataprovider($where, $params);
     }
 
     public static function andDictionary($dict, &$query) {
@@ -149,11 +147,11 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public static function basicSqlQuery() {
-        return 'SELECT translation.id, word1.word AS w1, word2.word AS w2 FROM translation LEFT JOIN word word1 ON word1.id=translation.word1_id LEFT JOIN word word2 ON word2.id=translation.word2_id WHERE ';
+        return 'SELECT t.id, w1.word AS word1 , w2.word AS word2 FROM translation t, word w1, word w2 WHERE t.word1_id=w1.id AND t.word2_id=w2.id AND ';
     }
 
     public static function basicSqlQueryCount() {
-        return 'SELECT COUNT(*) FROM translation LEFT JOIN word word1 ON word1.id=translation.word1_id LEFT JOIN word word2 ON word2.id=translation.word2_id WHERE ';
+        return 'SELECT COUNT(*) FROM translation t, word w1, word w2 WHERE t.word1_id=w1.id AND t.word2_id=w2.id AND ';
     }
 
     public static function basicQuery() {
