@@ -21,6 +21,7 @@ use app\models\Dictionary;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DictionaryController implements the CRUD actions for Dictionary model.
@@ -29,6 +30,15 @@ class DictionaryController extends \app\components\Controller {
 
     public function behaviors() {
         return [
+                        'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => $this->getAdvancedUserRoles(),
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

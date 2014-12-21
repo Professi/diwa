@@ -11,26 +11,16 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Agents'), 'url'
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-agent-view">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
+    <?=
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'agent:ntext',
             'agentHash',
         ],
-    ]) ?>
+    ])
+    ?>
 
 </div>
