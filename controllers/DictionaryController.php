@@ -80,7 +80,6 @@ class DictionaryController extends \app\components\Controller {
      */
     public function actionCreate() {
         $model = new Dictionary();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

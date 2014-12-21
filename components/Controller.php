@@ -48,13 +48,13 @@ class Controller extends \yii\web\Controller {
         parent::init();
     }
 
-    public function beforeAction($action) {
+    public function afterAction($action, $result) {
         $session = Yii::$app->session;
         if (!$session->isActive) {
             $session->open();
         }
         $session->set('lastAction', $action->actionMethod);
-        return parent::beforeAction($action);
+        return parent::afterAction($action, $result);
     }
 
     protected function setFormTextAreaTemplate($template) {

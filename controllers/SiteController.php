@@ -99,8 +99,8 @@ class SiteController extends \app\components\Controller {
         return $this->render('imprint');
     }
 
-    public function actionFaq() {
-        return $this->render('faq');
+    public function actionHelp() {
+        return $this->render('help');
     }
 
     public function actionStatistics() {

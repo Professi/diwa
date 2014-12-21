@@ -27,9 +27,9 @@ use Yii;
  */
 abstract class SearchMethod {
 
-    const FUZZY = 0; //Many likes
-    const COMFORT = 1; //LIKE '%word%'
-    const FAST = 2; //Fulltextsearch
+    const FUZZY = 0;
+    const COMFORT = 1;
+    const FAST = 2;
 
     public static function getMethods() {
         return array(FUZZY, COMFORT, FAST);
