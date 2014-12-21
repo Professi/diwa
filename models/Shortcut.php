@@ -19,6 +19,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\enums\ShortcutCategory;
 
 /**
  * Description of Branches
@@ -32,10 +33,6 @@ class Shortcut extends \yii\db\ActiveRecord {
     public static function tableName() {
         return 'shortcut';
     }
-
-    const PARTOFSPEECH = 0;
-    const USAGE = 1;
-    const BRANCH = 2;
 
     public function rules() {
         return [
@@ -53,22 +50,18 @@ class Shortcut extends \yii\db\ActiveRecord {
         );
     }
 
-    public function __construct($shortcut, $name, $kind, $config = array()) {
-        $this->shortcut = $shortcut;
-        $this->name = $name;
-        $this->kind = $kind;
-        parent::__construct($config);
-    }
-
     public static function defaultShortcuts() {
-        Shortcut::createShortcuts(Shortcut::defaultUsageNames(), Shortcut::USAGE);
-        Shortcut::createShortcuts(Shortcut::defaultBranchNames(), Shortcut::BRANCH);
-        Shortcut::createShortcuts(Shortcut::defaultPartOfSpeeches(), Shortcut::PARTOFSPEECH);
+        Shortcut::createShortcuts(Shortcut::defaultUsageNames(), ShortcutCategory::USAGE);
+        Shortcut::createShortcuts(Shortcut::defaultBranchNames(), ShortcutCategory::BRANCH);
+        Shortcut::createShortcuts(Shortcut::defaultPartOfSpeeches(), ShortcutCategory::PARTOFSPEECH);
     }
 
     public static function createShortcuts($array, $kind) {
         foreach ($array as $key => $value) {
             $shortcut = new Shortcut($key, $value, $kind);
+            $shortcut->shortcut = $shortcut;
+            $shortcut->name = $name;
+            $shortcut->kind = $kind;
             $shortcut->save();
         }
     }

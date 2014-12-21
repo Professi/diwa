@@ -151,6 +151,11 @@ class TranslationFileProcessor {
         return $pks;
     }
 
+    /**
+     * @TODO extend it for shortcuts
+     * @param type $word1
+     * @param type $word2
+     */
     protected function separateRelevances($word1, $word2) {
         $flash = '';
         $arrRels1 = $this->separateStrings($word1, $this->relevanceSeparator);

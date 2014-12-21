@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\controllers;
 
 use Yii;
@@ -30,7 +32,7 @@ class DictionaryController extends \app\components\Controller {
 
     public function behaviors() {
         return [
-                        'access' => [
+            'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
@@ -142,7 +144,7 @@ class DictionaryController extends \app\components\Controller {
         $model = new \app\models\forms\TranslationUploadForm();
         if ($model->load(Yii::$app->request->post())) {
             $model->file = \yii\web\UploadedFile::getInstances($model, 'file');
-            if(!empty($model->file)) {
+            if (!empty($model->file)) {
                 $model->file = $model->file[0];
             }
             if ($model->validate()) {

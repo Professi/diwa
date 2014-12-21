@@ -46,6 +46,18 @@ class SiteController extends \app\components\Controller {
 //                    'logout' => ['post'],
                 ],
             ],
+            [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['help'],
+                'duration' => 86400,
+                'variations' => [
+                    \Yii::$app->language,
+                ],
+                'dependency' => [
+                    'class' => 'yii\caching\DbDependency',
+                    'sql' => 'SELECT COUNT(*) FROM shortcut',
+                ],
+            ],
         ];
     }
 

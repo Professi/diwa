@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,6 +18,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Branch' => 'Branche',
+    'Help' => 'Hilfe',
+    'Part of speech' => 'Wortart',
+    'Usage' => 'Verwendung',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -153,7 +158,7 @@ return [
     'philosophy' => 'Philosophie',
     'physics' => 'Physik',
     'politics' => 'Politik',
-    'preposition' => 'tPräposition',
+    'preposition' => 'Präposition',
     'proverb' => 'Sprichwort',
     'religion' => 'Religion',
     'slang' => 'Jargon, Slang; saloppe Umgangssprache',
