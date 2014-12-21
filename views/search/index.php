@@ -29,12 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'dictionary_id',
             'request',
-            'ipAddr',
-            'useragent_id',
+            'searchMethod',
             'requestTime',
             ['class' => 'app\components\widgets\CustomActionColumn',
                 'template' => '{view}',

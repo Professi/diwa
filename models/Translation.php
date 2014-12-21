@@ -107,7 +107,7 @@ class Translation extends \yii\db\ActiveRecord {
             'params' => $params,
             'totalCount' => $count,
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => 50,
             ],
         ]);
         return $dataProvider;
