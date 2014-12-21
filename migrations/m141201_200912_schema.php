@@ -21,8 +21,7 @@ class m141201_200912_schema extends Migration {
         ));
         $this->createTable('unknownword', array(
             'id' => Schema::TYPE_PK,
-            'name' => Schema::TYPE_STRING,
-            'dictionary_id' => Schema::TYPE_INTEGER,
+            'searchRequest_id' => Schema::TYPE_BIGINT,
         ));
         $this->createTable('dictionary', array(
             'id' => Schema::TYPE_PK,
@@ -32,8 +31,8 @@ class m141201_200912_schema extends Migration {
         $this->createTable('translation', array(
             'id' => Schema::TYPE_BIGPK,
             'dictionary_id' => Schema::TYPE_INTEGER,
-            'word1_id' => 'bigint',
-            'word2_id' => 'bigint',
+            'word1_id' => Schema::TYPE_BIGINT,
+            'word2_id' => Schema::TYPE_BIGINT,
         ));
         $this->createTable('searchrequest', array(
             'id' => Schema::TYPE_BIGPK,
@@ -76,9 +75,9 @@ class m141201_200912_schema extends Migration {
         $this->createIndex('idx_user_authKey', 'user', ['authKey'], true);
         $this->createIndex('idx_word1', 'word', ['word', 'language_id'], true);
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
-        $this->createIndex('idx_unknownword1', 'unknownword', ['name', 'dictionary_id'], true);
+        $this->createIndex('idx_unknownword1', 'unknownword', ['searchRequest_id'], true);
         $this->createIndex('idx_useragent_agentHash1', 'useragent', ['agentHash'], true);
-        $this->addForeignKey('fk_unknownword_dictionary_id', 'unknownword', 'dictionary_id', 'dictionary', 'id');
+        $this->addForeignKey('fk_unknownword_searchRequest_id', 'unknownword', 'searchRequest_id', 'searchRequest', 'id');
         $this->addForeignKey('fk_dictionary_language1_id', 'dictionary', 'language1_id', 'language', 'id');
         $this->addForeignKey('fk_dictionary_language2_id', 'dictionary', 'language2_id', 'language', 'id');
         $this->addForeignKey('fk_word_language_id', 'word', 'language_id', 'language', 'id');
@@ -104,7 +103,7 @@ class m141201_200912_schema extends Migration {
         $this->dropForeignKey('fk_translation_dictionary_id', 'translation');
         $this->dropForeignKey('fk_dictionary_language2_id', 'dictionary');
         $this->dropForeignKey('fk_dictionary_language1_id', 'dictionary');
-        $this->dropForeignKey('fk_unknownword_dictionary_id', 'unknownword');
+        $this->dropForeignKey('fk_unknownword_searchRequest_id', 'unknownword');
         $this->dropForeignKey('fk_word_language_id', 'word');
         $this->dropIndex('idx_user_authKey', 'user');
         $this->dropIndex('ft_idx_word1', 'word');

@@ -26,7 +26,7 @@ use Yii;
  * @author cehringfeld
  * @property integer $id
  * @property string $word
- * @property integer $dictionary_id
+ * @property integer $searchRequest_id
  */
 class UnknownWord extends \yii\db\ActiveRecord {
 
@@ -36,8 +36,8 @@ class UnknownWord extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['word', 'dictionary_id'], 'required'],
-            [['dictionary_id'], 'integer'],
+            [['word', 'searchRequest_id'], 'required'],
+            [['searchRequest_id'], 'integer'],
             [['word'], 'unique'],
             [['word'], 'string', 'max' => 255]
         ];
@@ -47,12 +47,12 @@ class UnknownWord extends \yii\db\ActiveRecord {
         return array(
             'id' => Yii::t('app', 'ID'),
             'word' => Yii::t('app', 'Word'),
-            'dictionary' => Yii::t('app', 'Dictionary'),
+            'searchRequest' => Yii::t('app', 'Search Request'),
         );
     }
 
-    public function getDictionary() {
-        return $this->hasOne(\app\models\Dictionary::className(), array('id' => 'dictionary_id'));
+    public function getSearchRequest() {
+        return $this->hasOne(\app\models\SearchRequest::className(), array('id' => 'searchRequest_id'));
     }
 
 }

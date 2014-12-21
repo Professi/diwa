@@ -23,6 +23,7 @@ use app\models\SearchRequest;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use app\models\Word;
+use yii\filters\AccessControl;
 
 /**
  * SearchRequestController implements the CRUD actions for SearchRequest model.
@@ -33,6 +34,20 @@ class SearchController extends \app\components\Controller {
 
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['search'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => $this->getAdvancedUserRoles(),
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

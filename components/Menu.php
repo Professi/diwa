@@ -33,6 +33,7 @@ class Menu {
 
     private function __construct() {
         $this->menu = array(//icon,label,url,visible(bool)
+            array('fi-list', \Yii::t('app', 'Search'), array('search/search'), true),
             array('fi-power', \Yii::t('app', 'Login'), array('site/login'), Yii::$app->user->isGuest()),
             array('fi-flag', \Yii::t('app', 'Languages'), array('language/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
             array('fi-book', \Yii::t('app', 'Dictionaries'), array('dictionary/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),

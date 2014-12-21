@@ -17,7 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Search Request' => '@@Suchanfrage@@',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -26,6 +25,7 @@ return [
     'Austrian German' => 'österreichisches Deutsch',
     'Authentication key' => 'Authentifizierungsschlüssel',
     'Back to home' => 'Zurück zur Startseite',
+    'Bad datasets:' => 'Fehlerhafte Datensätze',
     'British English' => 'Britisches Englisch',
     'Clear input' => 'Eingabe löschen',
     'Comfort search' => 'Komfortsuche',
@@ -64,7 +64,6 @@ return [
     'Name' => 'Name',
     'No' => 'Nein',
     'Normal User' => 'Normaler Benutzer',
-    'Number of hits per page' => 'Anzahl der Treffer pro Seite',
     'Password' => 'Passwort',
     'Please fill out the following fields to login:' => 'Bitte füllen Sie die folgenden Felder aus um sich einzuloggen.',
     'Press <kbd>Esc</kbd> to toggle the navigation menu.' => 'Drücken Sie <kbd>Esc</kbd> um das Navigationsmenü ein- bzw. auszublenden.',
@@ -75,6 +74,7 @@ return [
     'Role' => 'Rolle',
     'Scottish English' => 'Schottisches Englisch',
     'Search' => 'Suchen',
+    'Search Request' => 'Suchanfrage',
     'Search Requests' => 'Suchanfragen',
     'Search method' => 'Suchmethode',
     'Search word' => 'Suchbegriff',

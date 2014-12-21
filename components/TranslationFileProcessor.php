@@ -152,6 +152,7 @@ class TranslationFileProcessor {
     }
 
     protected function separateRelevances($word1, $word2) {
+        $flash = '';
         $arrRels1 = $this->separateStrings($word1, $this->relevanceSeparator);
         $arrRels2 = $this->separateStrings($word2, $this->relevanceSeparator);
         $relcount = count($arrRels1);
@@ -166,15 +167,13 @@ class TranslationFileProcessor {
                 }
             }
         } else {
-            //@todo nicer output
-            echo('Bad Datasets:');
-            echo ('Word1:' . $word1);
-            echo('      ');
-            echo ('Word2:' . $word2);
-            echo('<br/>');
+            $flash .= $word1 . ' ' . $this->generalSeparators . ' ' . $word2 . '<br/>';
             $word1Obj = $this->createOrFindWord($word1, $this->dictionary->language1_id);
             $word2Obj = $this->createOrFindWord($word2, $this->dictionary->language2_id);
             $this->translations[] = array($word1Obj->getPrimaryKey(), $word2Obj->getPrimaryKey(), $this->dictionary->id);
+        }
+        if (!empty($flash)) {
+            Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br/>' . $flash);
         }
     }
 
