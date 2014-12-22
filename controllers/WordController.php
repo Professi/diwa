@@ -21,10 +21,9 @@ namespace app\controllers;
 use Yii;
 use app\models\Word;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\components\Controller;
 
 /**
  * WordController implements the CRUD actions for Word model.
@@ -36,6 +35,11 @@ class WordController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                    [
+                        'actions'=>['getWords'],
+                        'allow' =>true,
+                        'roles'=> ['?'],
+                    ],
                     [
                         'allow' => true,
                         'roles' => $this->getAdvancedUserRoles(),
@@ -66,6 +70,18 @@ class WordController extends Controller {
                         'model' => $model,
             ]);
         }
+    }
+
+    public function actionGetWords($dict,$term) {
+        \Yii::$app->response->format = 'json';
+        if (is_string($term) && is_numeric($dict)) {
+            $dictObj = \app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $dict])->one();
+            $words = Word::find()->where('word LIKE :word AND (language_id=:lang1Id OR language_id=:lang2Id)')
+                            ->params([':word' => $term. '%', ':lang1Id' => $dictObj->language1_id, ':lang2Id' => $dictObj->language2_id,])
+                            ->select(['word as value'])->limit(10)->asArray()->all();
+            return $words;
+        }
+        return [];
     }
 
     /**

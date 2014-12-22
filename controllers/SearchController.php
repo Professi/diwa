@@ -63,7 +63,9 @@ class SearchController extends \app\components\Controller {
      */
     public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
-        $dataProvider = null;
+        $dataProvider = new ActiveDataProvider([
+            'query'=> \app\models\Translation::find()->where(['dictionary_id'=>-1]),
+        ]);
         $session = \Yii::$app->session;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {

@@ -18,6 +18,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
+use yii\jui\AutoComplete;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -30,18 +32,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="small-9 columns small-centered">
         <fieldset>
             <legend><?php echo $this->title; ?></legend>
-            <div class="search-request-index">
+            <div clasourceUrlss="search-request-index">
                 <?php $form = ActiveForm::begin(); ?>
+                
+                
+                <?php
+                $form->beginField($model, 'searchWord');
+                echo AutoComplete::widget([
+                    'model' => $model,
+                    'attribute' => 'searchWord',
+                    'clientOptions' => [
 
-                <?= $form->field($model, 'searchWord')->textInput() ?>
+//        'source' => $data,actionGetWords($word, $dict)
+                        'source' => \yii\helpers\Url::to(['word/get-words', 'word' => $model->searchWord, 'dict' => $model->dictionary]),
+                        'autoFill' => true,
+                        'minLength' => '2',
+//    'select' => new JsExpression("function( event, ui ) {
+//        $('#user-company').val(ui.item.id);
+//     }")
+                    ],
+                ]);
+                $form->endField();
+                ?>
 
+                <?php // $form->field($model, 'searchWord')->textInput() ?>
                 <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
-
                 <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
-
                 <div class="form-group">
                     <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-success']); ?>
-                    <?= Html::submitButton(Yii::t('app', 'Clear input'), ['class' => 'btn btn-primary']); ?>
+                    <?= Html::button(Yii::t('app', 'Clear input'), ['id' => 'searchform-clearInput', 'class' => 'btn btn-primary']); ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -50,28 +69,31 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
+<div class="row <?php echo $dataProvider->count <= 0 ? 'hidden-for-small-up' : ''; ?>"></div>
 <?php
-if ($dataProvider != null) {
-    yii\widgets\Pjax::begin(['id'=>'list_data']);
-    echo GridView::widget([
-        'id' => 'gridview',
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['attribute' => 'word1',
-                'value' => function ($data) {
-                    return $data['word1'];
+$dict = app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one();
+$lang1 = Yii::t('app', $dict->getLanguage1()->name);
+$lang2 = Yii::t('app', $dict->getLanguage2()->name);
+yii\widgets\Pjax::begin(['id' => 'list_data']);
+echo GridView::widget([
+    'id' => 'gridview',
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        ['attribute' => $lang1,
+            'value' => function ($data) {
+                return $data['word1'];
 //        return print_r($data,false);
-                }],
-            [
-                'attribute' => 'word2',
-                'value' => function ($data) {
-                    return $data['word2'];
-                }],
-        ],
-    ]);
-    yii\widgets\Pjax::end();
-}
+            }],
+        [
+            'attribute' => $lang2,
+            'value' => function ($data) {
+                return $data['word2'];
+            }],
+    ],
+]);
+yii\widgets\Pjax::end();
 ?>
+<div class="row"></div>
 
 
 
