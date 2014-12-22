@@ -34,29 +34,35 @@ $this->params['breadcrumbs'][] = $this->title;
             <legend><?php echo $this->title; ?></legend>
             <div clasourceUrlss="search-request-index">
                 <?php $form = ActiveForm::begin(); ?>
-                
-                
+                <?php // $form->field($model, 'searchWord')->hiddenInput() ?>
+                <!-- @TODO noLabel???? on selection attr is not set-->
                 <?php
-                $form->beginField($model, 'searchWord');
                 echo AutoComplete::widget([
                     'model' => $model,
                     'attribute' => 'searchWord',
                     'clientOptions' => [
-
-//        'source' => $data,actionGetWords($word, $dict)
-                        'source' => \yii\helpers\Url::to(['word/get-words', 'word' => $model->searchWord, 'dict' => $model->dictionary]),
+                        'source' => new JsExpression("
+                            function( request, response ) {
+                                $.ajax({
+                                    url: \"" . \yii\helpers\Url::to(['word/get-words']) . "\",
+                                    dataType: \"json\",
+                                    data:{
+                                        term: request.term,
+                                        dict: $('#dict').find(':checked').val()
+                                    },
+                                    success: function(data) {
+                                        response(data);
+                                    }
+                                })
+                            }"),
                         'autoFill' => true,
                         'minLength' => '2',
-//    'select' => new JsExpression("function( event, ui ) {
-//        $('#user-company').val(ui.item.id);
-//     }")
                     ],
                 ]);
-                $form->endField();
                 ?>
-
-                <?php // $form->field($model, 'searchWord')->textInput() ?>
-                <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
+                <div id="dict">
+                    <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
+                </div>
                 <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
                 <div class="form-group">
                     <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-success']); ?>

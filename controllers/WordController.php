@@ -36,9 +36,9 @@ class WordController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions'=>['getWords'],
-                        'allow' =>true,
-                        'roles'=> ['?'],
+                        'actions' => ['getWords'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
@@ -72,16 +72,19 @@ class WordController extends Controller {
         }
     }
 
-    public function actionGetWords($dict,$term) {
+    public function actionGetWords($term,$dict) {
         \Yii::$app->response->format = 'json';
+        $wordArr = [];
         if (is_string($term) && is_numeric($dict)) {
             $dictObj = \app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $dict])->one();
             $words = Word::find()->where('word LIKE :word AND (language_id=:lang1Id OR language_id=:lang2Id)')
-                            ->params([':word' => $term. '%', ':lang1Id' => $dictObj->language1_id, ':lang2Id' => $dictObj->language2_id,])
-                            ->select(['word as value'])->limit(10)->asArray()->all();
-            return $words;
+                            ->params([':word' => $term . '%', ':lang1Id' => $dictObj->language1_id, ':lang2Id' => $dictObj->language2_id,])
+                            ->select(['word'])->limit(10)->asArray()->all();
+            foreach ($words as $wordObj) {
+                $wordArr[] = trim(preg_replace(["&{.*}&is", "&\[.*\]&is"], '', $wordObj['word']));
+            }
         }
-        return [];
+        return $wordArr;
     }
 
     /**
