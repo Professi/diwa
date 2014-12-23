@@ -84,16 +84,19 @@ echo GridView::widget([
     'id' => 'gridview',
     'dataProvider' => $dataProvider,
     'columns' => [
-        ['attribute' => $lang1,
-            'value' => function ($data) {
-                return $data['word1'];
-//        return print_r($data,false);
-            }],
-        [
-            'attribute' => $lang2,
-            'value' => function ($data) {
-                return $data['word2'];
-            }],
+        'id',
+        'word1.word',
+        'word2.word',
+//        ['attribute' => $lang1,
+//            'value' => function ($data) {
+//                return $data->word1;
+////        return print_r($data,false);
+//            }],
+//        [
+//            'attribute' => $lang2,
+//            'value' => function ($data) {
+//                return $data->word2;
+//            }],
     ],
 ]);
 yii\widgets\Pjax::end();

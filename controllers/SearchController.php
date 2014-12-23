@@ -82,13 +82,13 @@ class SearchController extends \app\components\Controller {
                 }
             }
         }
-//        $dataProvider = \app\models\Translation::searchWords($model->searchMethod, $model->searchWord, $model->dictionary);
         if ($session->isActive) {
             if ($validSearchRequest && ($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search'))) {
                 $model->searchMethod = $session['search']['searchMethod'];
                 $model->searchWord = $session['search']['searchWord'];
                 $model->dictionary = $session['search']['dictionary'];
-                $dataProvider = \app\models\Translation::searchWords($model->searchMethod, $model->searchWord, $model->dictionary);
+                $translator = new \app\components\Translator();
+                $dataProvider = $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary);
             } else {
                 if ($session->has('search')) {
                     $session->remove('search');
