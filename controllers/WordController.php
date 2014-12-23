@@ -77,7 +77,7 @@ class WordController extends Controller {
         $wordArr = [];
         if (is_string($term) && is_numeric($dict)) {
             $dictObj = \app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $dict])->one();
-            $words = Word::find()->where('word LIKE :word AND (language_id=:lang1Id OR language_id=:lang2Id)')
+            $words = Word::find()->where('(language_id=:lang1Id OR language_id=:lang2Id) AND word LIKE :word')
                             ->params([':word' => $term . '%', ':lang1Id' => $dictObj->language1_id, ':lang2Id' => $dictObj->language2_id,])
                             ->select(['word'])->limit(10)->asArray()->all();
             foreach ($words as $wordObj) {

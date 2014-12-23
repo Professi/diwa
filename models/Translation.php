@@ -113,6 +113,19 @@ class Translation extends \yii\db\ActiveRecord {
         return $dataProvider;
     }
 
+    /**
+     * 
+SELECT t.id, word1_id,word2_id,w1.word AS word1,w2.word AS word2 FROM
+(SELECT id FROM word WHERE (word.language_id = 1 OR word.language_id = 3) AND MATCH(word.word) AGAINST('Wörterbuch')) AS s1,
+translation t
+LEFT JOIN word w1 ON t.word1_id = w1.id
+LEFT JOIN word w2 ON t.word2_id = w2.id
+WHERE 
+dictionary_id='2' AND (s1.id =t.word1_id OR s1.id=word2_id) LIMIT 50
+     * 
+     * 
+     */
+    
     public static function fastSearch($word, $dict) {
         $where = '';
         $params = [':word' => $word, ':dictId' => $dict];

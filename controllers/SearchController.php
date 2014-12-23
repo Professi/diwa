@@ -63,12 +63,14 @@ class SearchController extends \app\components\Controller {
      */
     public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
+        $validSearchRequest = false;
         $dataProvider = new ActiveDataProvider([
-            'query'=> \app\models\Translation::find()->where(['dictionary_id'=>-1]),
+            'query' => \app\models\Translation::find()->where(['dictionary_id' => -1]),
         ]);
         $session = \Yii::$app->session;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
+                $validSearchRequest = true;
                 $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
                 $r->save();
                 if ($session->isActive) {
@@ -82,7 +84,7 @@ class SearchController extends \app\components\Controller {
         }
 //        $dataProvider = \app\models\Translation::searchWords($model->searchMethod, $model->searchWord, $model->dictionary);
         if ($session->isActive) {
-            if ($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search')) {
+            if ($validSearchRequest && ($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search'))) {
                 $model->searchMethod = $session['search']['searchMethod'];
                 $model->searchWord = $session['search']['searchWord'];
                 $model->dictionary = $session['search']['dictionary'];

@@ -75,7 +75,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<div class="row <?php echo $dataProvider->count <= 0 ? 'hidden-for-small-up' : ''; ?>"></div>
 <?php
 $dict = app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one();
 $lang1 = Yii::t('app', $dict->getLanguage1()->name);
