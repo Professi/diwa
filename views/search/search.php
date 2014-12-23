@@ -84,13 +84,18 @@ echo GridView::widget([
     'id' => 'gridview',
     'dataProvider' => $dataProvider,
     'columns' => [
-        'id',
-        'word1.word',
-        'word2.word',
+        ['attribute' => $lang1,
+            'value' => function ($data) {
+                return $data->getWord1()->word;
+            }],
+        ['attribute' => $lang2,
+            'value' => function ($data) {
+                return $data->getWord2()->word;
+            }],
 //        ['attribute' => $lang1,
 //            'value' => function ($data) {
-//                return $data->word1;
-////        return print_r($data,false);
+//                return print_r($data->getWord1(),false);
+//        return print_r($data,false);
 //            }],
 //        [
 //            'attribute' => $lang2,

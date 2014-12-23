@@ -40,23 +40,25 @@ class Translator extends \yii\base\Object {
     }
 
     public function translate($searchMethod, $searchWord, $dictionary = null) {
-        $result = null;
         $this->additionalParams = null;
         if (is_numeric($dictionary)) {
             $this->dictionaryObj = \app\models\Dictionary::find()->where('id=:id')->params([':id' => $dictionary])->one();
         }
         if ($this->dictionaryObj != null && is_string($searchWord) && is_numeric($searchMethod)) {
             $this->searchWord = $searchWord;
-            $cacheKey = $this->generateCacheKey($this->searchWord, SearchMethod::FAST);
+            $cacheKey = $this->generateCacheKey($this->searchWord, $searchMethod);
+            echo $cacheKey;
             $data = $this->getCacheData($cacheKey);
-            if ($data === false) {
-                $result = $this->getMethodResult($searchMethod);
-                if ($result != null) {
-                    $this->setCacheData($result, $cacheKey, $this->getDependency($this->dictionaryObj->id));
+            if ($data == false) {
+                $data = $this->getMethodResult($searchMethod);
+                if ($data != null) {
+                    $this->setCacheData($data, $cacheKey, $this->getDependency($this->dictionaryObj->id));
+                } else {
+                    $data = [];
                 }
             }
         }
-        return $this->createDataProvider($result);
+        return $this->createDataProvider($data);
     }
 
     protected function createDataProvider($result) {
@@ -107,30 +109,24 @@ class Translator extends \yii\base\Object {
 //                            ->leftJoin('word w1', 'w1.word=word1_id')
 //                            ->leftJoin('word w2', 'w2.word=word1_id');
 //                            ->where(['dictionary_id' => $this->dictionaryObj->id], ['in', 'w1.id', $wordsL1], ['in', 'w2.id', $wordsL2])
-
-            $empty1 = false;
-            if (empty($wordsL1)) {
-                $empty1 = true;
-                $translations->where(['in', 'word2_id', $wordsL1])
-                        ->andwhere(['dictionary_id' => $this->dictionaryObj->id]);
-            }
-            $empty2 = false;
-            if (empty($wordsL2)) {
-                $empty2 = true;
-                $translations->where(['in', 'word1_id', $wordsL1])
-                        ->andwhere(['dictionary_id' => $this->dictionaryObj->id]);
-            }
-            if (!$empty1 && !$empty2) {
+            if (!empty($wordsL1) && !empty($wordsL2)) {
                 $translations->where(['in', 'word1_id', $wordsL1])
                         ->orWhere(['in', 'word2_id', $wordsL2])
                         ->andwhere(['dictionary_id' => $this->dictionaryObj->id]);
-            } 
-//            print_r($translations->count());
-//            print_r($translations->createCommand());
-//                            ->all();
-//            print_r($translations->createCommand()->getRawSql());
+            } else if (empty($wordsL1)) {
+                $this->whereOneLang($translations, 'word2_id', $wordsL2);
+            } else if (empty($wordsL2)) {
+                $this->whereOneLang($translations, 'word1_id', $wordsL1);
+            } else {
+                return $translations; 
+            }
         }
         return $translations->all();
+    }
+
+    protected function whereOneLang(&$builder, $wordColumn, $arr) {
+        $builder->where(['in', $wordColumn, $arr])
+                ->andwhere(['dictionary_id' => $this->dictionaryObj->id]);
     }
 
     protected function getWords($lang, $where) {
@@ -155,6 +151,7 @@ class Translator extends \yii\base\Object {
 
     protected function setCacheData($data, $key, $dependency) {
         if ($this->cache != null) {
+            // $this->getDuration(), $dependency
             $this->cache->set($key, $data, $this->getDuration(), $dependency);
         }
     }
@@ -190,7 +187,7 @@ class Translator extends \yii\base\Object {
     }
 
     protected function generateCacheKey($word, $method) {
-        return md5($word . '[' . $method . ']');
+        return md5($word . '{' . $method . '}');
     }
 
     protected function getDependency($dictId) {

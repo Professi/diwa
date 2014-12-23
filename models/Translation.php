@@ -61,11 +61,11 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public function getWord1() {
-        return $this->hasOne(Word::className(), ['id' => 'word1_id'])->from(Translation::tableName());
+        return $this->hasOne(Word::className(), ['id' => 'word1_id'])->one();
     }
 
     public function getWord2() {
-        return $this->hasOne(Word::className(), ['id' => 'word2_id'])->from(Translation::tableName());
+        return $this->hasOne(Word::className(), ['id' => 'word2_id'])->one();
     }
 
 //    /**

@@ -69,6 +69,7 @@ class SearchController extends \app\components\Controller {
         ]);
         $session = \Yii::$app->session;
         if ($model->load(Yii::$app->request->post())) {
+            $model->searchWord = trim($model->searchWord);
             if ($model->validate()) {
                 $validSearchRequest = true;
                 $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
