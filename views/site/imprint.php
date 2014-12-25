@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Yii::$app->params['imprintPlace']; ?><br>
             <?= Yii::t('app', 'Email') . ':'; ?> <a href="mailto:<?= Yii::$app->params['imprintEmail']; ?>"><?= Yii::$app->params['imprintEmail']; ?></a>
         </p>
-        <p><?= Yii::t('app', 'This application is licensed with the GNU General Public License Version 3') . '(&nbsp;&nbsp;<a href="http://www.gnu.de/documents/gpl-3.0.en.html" ><i class="fi-page-export"></i>&nbsp;' . Yii::t('app', 'Link') . '</a> ).'; ?>
+        <p><?= Yii::t('app', 'This application is licensed with the GNU General Public License Version 3') . '&nbsp;&nbsp;<a href="http://www.gnu.de/documents/gpl-3.0.en.html" ><i class="fi-page-export"></i>&nbsp;' . Yii::t('app', 'Link') . '</a>.'; ?>
             <br><?= Yii::t('app', 'The authors are: {p1} and {p2}(Design).', ['p1' => 'Christian Ehringfeld', 'p2' => 'David Mock']); ?></p>
         <p><?= Yii::t('app', 'Website'); ?>&nbsp;&nbsp;<a href="http://www.synlos.net/"><i class="fi-page-export"></i>&nbsp;Link</a></p>
         <p><?= Yii::t('app', 'This site has been created with the following tools and ressources:'); ?><br>
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             Google Web Fonts&nbsp;&nbsp;<a href="http://www.google.com/webfonts"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             Subtle Patterns&nbsp;&nbsp;<a href="http://www.subtlepatterns.com"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             <?= Yii::t('app', 'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others'); ?>&nbsp;&nbsp;<a href="http://savannah.nongnu.org/projects/ding-es-de"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            <?= Yii::t('app', 'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!'); ?>
+            <?= Yii::t('app', 'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!'); ?><br>
             <?= Yii::t('app', 'German-English dictionary from Frank Richter, Creator of Ding'); ?>&nbsp;&nbsp;<a href="https://www-user.tu-chemnitz.de/~fri/ding/"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
         </p>
         <p class="text-center"><?= Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']); ?> </p>

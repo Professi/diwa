@@ -19,7 +19,7 @@
  */
 return [
     'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others' => 'Deutsch-Spanisch Wörterbuch von Zeno Gantner, Matthias Buchmeier und anderen',
-    'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre es nicht möglich gewesen dieses Projekt zu realisieren! Vielen Dank!',
+    'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre dieses Projekt nicht realisierbar! Vielen Dank!',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',

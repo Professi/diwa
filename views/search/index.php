@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-                        ['attribute' => 'dictionary',
-                  'value' => function ($data) {
-                  $dict = $data->getDictionary()->one();
-        
-                    return $dict->getLanguage1()->one()->shortname.'<->'.$dict->getLanguage2()->one()->shortname;
+            ['attribute' => 'dictionary',
+                'value' => function ($data) {
+                    $dict = $data->getDictionary()->one();
+
+                    return $dict->getLanguage1()->one()->shortname . '<->' . $dict->getLanguage2()->one()->shortname;
                 }],
             'request',
             ['attribute' => 'searchMethod',

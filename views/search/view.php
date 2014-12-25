@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -26,15 +27,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="search-request-view">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?= DetailView::widget([
+    <?=
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'dictionary_id',
+            ['attribute' => 'dictionary',
+                'value' => function ($data) {
+                    $dict = $data->getDictionary()->one();
+                    return $dict->getLanguage1()->one()->shortname . '<->' . $dict->getLanguage2()->one()->shortname;
+                }],
             'request',
             'ipAddr',
             'useragent_id',
             'requestTime',
+            ['attribute' => 'searchMethod',
+                'value' => function ($data) {
+                    return app\models\enums\SearchMethod::getMethodnames()[$data->searchMethod];
+                }],
         ],
-    ]) ?>
+    ])
+    ?>
 </div>

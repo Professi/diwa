@@ -33,11 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'language1',
-                'value' => $model->getLanguage1()->name,
+                'value' => $model->getLanguage1()->one()->name,
             ],
             [
                 'attribute' => 'language2',
-                'value' => $model->getLanguage2()->name,
+                'value' => $model->getLanguage2()->one()->name,
             ],
         ],
     ])

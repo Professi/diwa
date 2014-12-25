@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\UnknownWord */
 
-$this->title = $model->name;
+$this->title = $model->getSearchRequest()->one()->request;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Unknown Words'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,8 +31,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'dictionary_id',
+            ['attribute' => 'searchRequest.dictionary.language1',
+                'value' => $model->getSearchRequest()->one()->getDictionary()->one()->getLanguage1()->one()->name,
+            ],
+            ['attribute' => 'searchRequest.dictionary.language2',
+                'value' => $model->getSearchRequest()->one()->getDictionary()->one()->getLanguage2()->one()->name,
+            ],
+            'searchRequest.request',
+            ['attribute' => 'searchMethod',
+                'value' => app\models\enums\SearchMethod::getMethodnames()[$model->getSearchRequest()->one()->searchMethod],
+            ],
         ],
     ])
     ?>
