@@ -27,17 +27,22 @@ class AppAsset extends AssetBundle {
     public $css = [
         'css/app.css',
     ];
-    public $js = [
-        YII_DEBUG ? 'js/jquery-ui.js' : 'js/jquery-ui.min.js',
-        'js/fastclick.js',
-        'js/modernizr.js',
-        'js/placeholder.js',
-        'js/foundation.min.js',
-        YII_DEBUG ? 'js/app.js' : 'js/app.min.js'
-    ];
+    public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
     ];
+
+    public function __construct($config = array()) {
+        parent::__construct($config);
+        $this->js = [
+            YII_DEBUG ? 'js/jquery-ui.js' : 'js/jquery-ui.min.js',
+            'js/fastclick.js',
+            'js/modernizr.js',
+            'js/placeholder.js',
+            'js/foundation.min.js',
+            YII_DEBUG ? 'js/app.js' : 'js/app.min.js'
+        ];
+    }
 
 }
