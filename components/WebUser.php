@@ -33,7 +33,7 @@ class WebUser extends \yii\web\User {
      * @return bool Permission granted?
      */
     public function checkAccess($role, $params = null) {
-        if ($this->getIdentity() == null || empty($this->getIdentity()->getId())) {
+        if ($this->getIdentity() == null || !$this->getIdentity()->getId()) {
             return false;
         }
         return ($role === $this->getIdentity()->getRole());
@@ -75,15 +75,15 @@ class WebUser extends \yii\web\User {
     private function checkRole($role) {
         return ($this->getIdentity() != null && $this->getIdentity()->getRole() == $role);
     }
-    
+
     public function login(\yii\web\IdentityInterface $identity, $duration = 0) {
-       if(parent::login($identity, $duration)) {
-           $user = $identity->getUser();
-           $user->update();
-           
-           return true;
-       }
-       return false;
+        if (parent::login($identity, $duration)) {
+            $user = $identity->getUser();
+            $user->update();
+
+            return true;
+        }
+        return false;
     }
 
 }
