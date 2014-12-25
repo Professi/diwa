@@ -77,7 +77,7 @@ class m141201_200912_schema extends Migration {
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
         $this->createIndex('idx_unknownword1', 'unknownword', ['searchRequest_id'], true);
         $this->createIndex('idx_useragent_agentHash1', 'useragent', ['agentHash'], true);
-        $this->addForeignKey('fk_unknownword_searchRequest_id', 'unknownword', 'searchRequest_id', 'searchRequest', 'id');
+        $this->addForeignKey('fk_unknownword_searchRequest_id', 'unknownword', 'searchRequest_id', 'searchrequest', 'id');
         $this->addForeignKey('fk_dictionary_language1_id', 'dictionary', 'language1_id', 'language', 'id');
         $this->addForeignKey('fk_dictionary_language2_id', 'dictionary', 'language2_id', 'language', 'id');
         $this->addForeignKey('fk_word_language_id', 'word', 'language_id', 'language', 'id');

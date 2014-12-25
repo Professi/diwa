@@ -58,9 +58,9 @@ class Shortcut extends \yii\db\ActiveRecord {
 
     public static function createShortcuts($array, $kind) {
         foreach ($array as $key => $value) {
-            $shortcut = new Shortcut($key, $value, $kind);
-            $shortcut->shortcut = $shortcut;
-            $shortcut->name = $name;
+            $shortcut = new Shortcut();
+            $shortcut->shortcut = $key;
+            $shortcut->name = $value;
             $shortcut->kind = $kind;
             $shortcut->save();
         }
