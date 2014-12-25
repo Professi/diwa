@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -58,14 +59,6 @@ class Dictionary extends \yii\db\ActiveRecord {
 
     public function getLanguage2() {
         return $this->hasOne(Language::className(), array('id' => 'language2_id'));
-    }
-
-    public function validate($attributeNames = null, $clearErrors = true) {
-        parent::validate($attributeNames, $clearErrors);
-        if ($this->language1_id == $this->language2_id) {
-            $this->addError('language1_id', Yii::t('app', 'You must choose two different languages.'));
-        }
-        return !$this->hasErrors();
     }
 
 }
