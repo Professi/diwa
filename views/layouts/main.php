@@ -40,7 +40,7 @@ $this->beginPage();
         <h1 class="text-center hide show-for-print" style="font-family: 'ClickerScript-Regular';"><?= Yii::t('app', 'DiWA'); ?></h1>
         <nav class="top-bar hide-on-print" data-topbar data-options="is_hover: false">
             <ul class="title-area">
-                <li class="name esta-logo">
+                <li class="name">
                     <h2> 
                         <?php echo Html::a(Yii::t('app', 'DiWA'), ['/site/index']); ?>
                     </h2>
