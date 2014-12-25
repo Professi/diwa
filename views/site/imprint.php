@@ -25,22 +25,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="small-12 columns">
         <h2 class='subheader'><?php echo Html::encode(Yii::t('app', 'Imprint')); ?></h2>
         <hr>
-        <p> <?php echo Yii::$app->params['imprintName']; ?><br>
-            <?php echo Yii::$app->params['imprintStreet']; ?><br>
-            <?php echo Yii::$app->params['imprintPlace']; ?><br>
-            <?php echo Yii::t('app', 'Email') . ':'; ?> <a href="mailto:<?php echo Yii::$app->params['imprintEmail']; ?>"><?php echo Yii::$app->params['imprintEmail']; ?></a>
+        <p> <?= Yii::$app->params['imprintName']; ?><br>
+            <?= Yii::$app->params['imprintStreet']; ?><br>
+            <?= Yii::$app->params['imprintPlace']; ?><br>
+            <?= Yii::t('app', 'Email') . ':'; ?> <a href="mailto:<?= Yii::$app->params['imprintEmail']; ?>"><?= Yii::$app->params['imprintEmail']; ?></a>
         </p>
-        <p><?php echo Yii::t('app', 'This application is licensed with the GNU General Public License Version 3') . '(&nbsp;&nbsp;<a href="http://www.gnu.de/documents/gpl-3.0.en.html" ><i class="fi-page-export"></i>&nbsp;' . Yii::t('app', 'Link') . '</a> ).'; ?>
-            <br><?php echo Yii::t('app', 'The authors are: {ppl1} and {ppl2}(Design).', ['ppl1' => 'Christian Ehringfeld', 'ppl2' => 'David Mock']); ?></p>
-        <p><?php echo Yii::t('app', 'Website'); ?>&nbsp;&nbsp;<a href="http://www.synlos.net/"><i class="fi-page-export"></i>&nbsp;Link</a></p>
-        <p><?php echo Yii::t('app', 'This site has been created with the following tools and ressources:'); ?><br>
-            PHP&nbsp;&nbsp;<a href="http://www.php.net"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            Yii2 Framework&nbsp;&nbsp;<a href="http://www.yiiframework.com" ><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            ZURB Foundation Framework&nbsp;&nbsp;<a href="http://foundation.zurb.com"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            IcoMoon Icon Fonts&nbsp;&nbsp;<a href="http://icomoon.io"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            Google Web Fonts&nbsp;&nbsp;<a href="http://www.google.com/webfonts"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            Subtle Patterns&nbsp;&nbsp;<a href="http://www.subtlepatterns.com"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
+        <p><?= Yii::t('app', 'This application is licensed with the GNU General Public License Version 3') . '(&nbsp;&nbsp;<a href="http://www.gnu.de/documents/gpl-3.0.en.html" ><i class="fi-page-export"></i>&nbsp;' . Yii::t('app', 'Link') . '</a> ).'; ?>
+            <br><?= Yii::t('app', 'The authors are: {p1} and {p2}(Design).', ['p1' => 'Christian Ehringfeld', 'p2' => 'David Mock']); ?></p>
+        <p><?= Yii::t('app', 'Website'); ?>&nbsp;&nbsp;<a href="http://www.synlos.net/"><i class="fi-page-export"></i>&nbsp;Link</a></p>
+        <p><?= Yii::t('app', 'This site has been created with the following tools and ressources:'); ?><br>
+            PHP&nbsp;&nbsp;<a href="http://www.php.net"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Yii2 Framework&nbsp;&nbsp;<a href="http://www.yiiframework.com" ><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            ZURB Foundation Framework&nbsp;&nbsp;<a href="http://foundation.zurb.com"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            IcoMoon Icon Fonts&nbsp;&nbsp;<a href="http://icomoon.io"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Google Web Fonts&nbsp;&nbsp;<a href="http://www.google.com/webfonts"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Subtle Patterns&nbsp;&nbsp;<a href="http://www.subtlepatterns.com"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            <?= Yii::t('app', 'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others'); ?>&nbsp;&nbsp;<a href="http://savannah.nongnu.org/projects/ding-es-de"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
+            <?= Yii::t('app', 'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!'); ?>
+            <?= Yii::t('app', 'German-English dictionary from Frank Richter, Creator of Ding'); ?>&nbsp;&nbsp;<a href="https://www-user.tu-chemnitz.de/~fri/ding/"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
         </p>
-        <p class="text-center"><?php echo Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']); ?> </p>
+        <p class="text-center"><?= Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']); ?> </p>
     </div>
 </div>

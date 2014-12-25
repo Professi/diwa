@@ -18,14 +18,13 @@
 
 use yii\grid\GridView;
 
-$lang1 = Yii::t('app', $dict->getLanguage1()->name);
-$lang2 = Yii::t('app', $dict->getLanguage2()->name);
+$lang1 = Yii::t('app', $dict['language1']['name']);
+$lang2 = Yii::t('app', $dict['language2']['name']);
 yii\widgets\Pjax::begin(['id' => 'list_data']);
 echo GridView::widget([
     'id' => 'gridview',
     'dataProvider' => $dataProvider,
     'columns' => [
-        'id',
         ['attribute' => $lang1,
             'value' => function ($data) {
                 if (Yii::$app->params['cacheTranslatedWords']) {

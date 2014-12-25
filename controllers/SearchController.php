@@ -25,6 +25,7 @@ use yii\filters\VerbFilter;
 use app\models\Dictionary;
 use app\components\Translator;
 use yii\filters\AccessControl;
+use app\components\CachedDbDependency;
 
 /**
  * SearchRequestController implements the CRUD actions for SearchRequest model.
@@ -58,11 +59,12 @@ class SearchController extends \app\components\Controller {
         ];
     }
 
-    public function actionSearch() {
+    public function actionSearch($newCall = false) {
         $model = new \app\models\forms\SearchForm();
         $partial = '';
         $dataProvider = null;
         $session = \Yii::$app->session;
+        ($newCall && $session->has('search')) ? $session->remove('search') : '';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
             $r->save();
@@ -74,10 +76,9 @@ class SearchController extends \app\components\Controller {
                 'searchWord' => $model->searchWord,
             ];
         }
-        if (($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search'))) {
-            $model->searchMethod = $session['search']['searchMethod'];
-            $model->searchWord = $session['search']['searchWord'];
-            $model->dictionary = $session['search']['dictionary'];
+        if ($session->has('search')) {
+            $model->load($session['search']);
+            $model->searchWord = $session['search']['searchWord']; //don't know why it don't work
             if (empty($dataProvider)) {
                 $translator = new Translator();
                 $dataProvider = $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary);
@@ -85,10 +86,6 @@ class SearchController extends \app\components\Controller {
             $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
                 'dict' => Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one()]
             );
-        } else {
-            if ($session->has('search')) {
-                $session->remove('search');
-            }
         }
         return $this->render('search', [
                     'model' => $model,
@@ -96,11 +93,19 @@ class SearchController extends \app\components\Controller {
         ]);
     }
 
+    protected function cachedDictionaries() {
+        $dep = new CachedDbDependency(['sql' => 'SELECT COUNT(*) FROM ' . Dictionary::tableName()]);
+        $dicts = Yii::$app->db->cache(function ($db) {
+            $q = \app\models\Dictionary::find()->with('language1', 'language2');
+            return $q->asArray()->all();
+        }, 86400, $dep);
+        return $dicts;
+    }
+
     public function getDictionaries() {
-        $dicts = \app\models\Dictionary::find()->all();
-        $r = array();
-        foreach ($dicts as $val) {
-            $r[$val->getPrimaryKey()] = $val->getLanguage1()->shortname . "<->" . $val->getLanguage2()->shortname;
+        $r = [];
+        foreach ($this->cachedDictionaries() as $val) {
+            $r[$val['id']] = $val['language1']['shortname'] . "<->" . $val['language2']['shortname'];
         }
         return $r;
     }

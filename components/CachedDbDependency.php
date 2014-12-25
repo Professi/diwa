@@ -40,17 +40,16 @@ class CachedDbDependency extends \yii\caching\DbDependency {
         if ($db->enableQueryCache) {
             // temporarily disable and re-enable query caching
             $db->enableQueryCache = false;
-            $result = $this->getResult($db);
+            $result = $this->getResult($db, $cache);
             $db->enableQueryCache = true;
         } else {
-            $result = $this->getResult($db);
+            $result = $this->getResult($db, $cache);
         }
         return $result;
     }
 
-    protected function getResult($db) {
+    protected function getResult($db, &$cache) {
         $command = $db->createCommand($this->sql, $this->params);
-        $cache = Yii::$app->cache;
         if ($cache != null) {
             $key = md5($command->rawSql ^ '1');
             $data = $cache->get($key);

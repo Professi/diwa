@@ -53,7 +53,10 @@ class Controller extends \yii\web\Controller {
         if (!$session->isActive) {
             $session->open();
         }
-        $session->set('lastAction', $action->actionMethod);
+        if(!($action->controller instanceof \app\controllers\SearchController && 
+                $action->actionMethod == 'actionSearch') && $session->has('search')) {
+            $session->remove('search');
+        }
         return parent::afterAction($action, $result);
     }
 
@@ -66,7 +69,7 @@ class Controller extends \yii\web\Controller {
     }
 
     protected function setMenu($menu) {
-        $this->menu = menu;
+        $this->menu = $menu;
     }
 
     public function getMenu() {

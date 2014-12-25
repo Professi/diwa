@@ -41,7 +41,7 @@ class SearchForm extends \yii\base\Model {
     public function rules() {
         return [
             [['searchMethod', 'dictionary', 'searchWord'], 'required'],
-            [['searchWord'], 'string', 'max' => 255],
+            [['searchWord'], 'string', 'max' => 255, 'min' => 2],
             [['dictionary', 'searchMethod'], 'integer'],
         ];
     }

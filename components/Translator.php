@@ -62,6 +62,7 @@ class Translator extends \yii\base\Object {
 
     public function translateData($searchMethod, $searchWord, $dictionary = null) {
         $this->additionalParams = null;
+        $data = [];
         if (is_numeric($dictionary)) {
             $this->dictionaryObj = \app\models\Dictionary::find()->where('id=:id')->params([':id' => $dictionary])->one();
         }

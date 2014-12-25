@@ -53,11 +53,11 @@ class Dictionary extends \yii\db\ActiveRecord {
     }
 
     public function getLanguage1() {
-        return $this->hasOne(Language::className(), array('id' => 'language1_id'))->one();
+        return $this->hasOne(Language::className(), array('id' => 'language1_id'));
     }
 
     public function getLanguage2() {
-        return $this->hasOne(Language::className(), array('id' => 'language2_id'))->one();
+        return $this->hasOne(Language::className(), array('id' => 'language2_id'));
     }
 
     public function validate($attributeNames = null, $clearErrors = true) {
