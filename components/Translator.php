@@ -207,10 +207,10 @@ class Translator extends \yii\base\Object {
 
     public function fastSearch() {
         $where = '';
-        if (strpos(\Yii::$app->db->dsn, 'mysql') == 0) {
+        if (\Yii::$app->db->getDriverName() == 'mysql') {
             $where = '(MATCH(word) AGAINST(:word))';
-        } else if (strpos(\Yii::$app->db->dsn, 'pgsql') == 0) {
-            $where = '"word" @@ to_tsquery(:word)';
+        } else if (\Yii::$app->db->getDriverName() == 'pgsql') {
+            $where = 'word @@ to_tsquery(\'simple\',:word)';
         }
         return $where;
     }

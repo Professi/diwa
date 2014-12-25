@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -25,18 +26,28 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="search-request-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'dictionary_id',
+                        ['attribute' => 'dictionary',
+                  'value' => function ($data) {
+                  $dict = $data->getDictionary()->one();
+        
+                    return $dict->getLanguage1()->one()->shortname.'<->'.$dict->getLanguage2()->one()->shortname;
+                }],
             'request',
-            'searchMethod',
+            ['attribute' => 'searchMethod',
+                'value' => function ($data) {
+                    return app\models\enums\SearchMethod::getMethodnames()[$data->searchMethod];
+                }],
             'requestTime',
             ['class' => 'app\components\widgets\CustomActionColumn',
                 'template' => '{view}',
-                ],
+            ],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>

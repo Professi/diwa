@@ -65,10 +65,10 @@ class m141201_200912_schema extends Migration {
             'name' => Schema::TYPE_STRING,
             'kind' => Schema::TYPE_SMALLINT,
         ));
-        if (strpos($this->db->dsn, 'pgsql') == 0) {
-            $this->execute('CREATE INDEX "ft_idx_word1" ON "word" USING gin(ts_vector("word"));');
-        } else if (strpos($this->db->dsn, 'mysql') == 0) {
-            $this->execute('CREATE FULLTEXT INDEX ft_idx_word1 ON `word` (word);');
+        if (\Yii::$app->db->getDriverName() == 'pgsql') {
+            $this->execute('CREATE INDEX "ft_idx_word_simple" ON "word" USING gin(to_tsvector(\'simple\',"word"));');
+        } else if (\Yii::$app->db->getDriverName() == 'mysql') {
+            $this->execute('CREATE FULLTEXT INDEX ft_idx_word ON `word` (word);');
         }
         $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'], true);
         $this->createIndex('idx_username1', 'user', ['username'], true);

@@ -22,6 +22,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use app\models\Dictionary;
 
 /**
  * Description of SearchRequest
@@ -71,8 +72,8 @@ class SearchRequest extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function getDirectory() {
-        return $this->hasOne(Directory::className(), ['id' => 'dictionary_id']);
+    public function getDictionary() {
+        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id']);
     }
 
     public function getUserAgent() {

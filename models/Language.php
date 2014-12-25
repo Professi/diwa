@@ -51,4 +51,12 @@ class Language extends \yii\db\ActiveRecord {
         );
     }
 
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+//        $db = Yii::$app->db;
+//        if (strpos($db->dsn, 'pgsql') == 0) {
+//            $db->createCommand('CREATE INDEX "ft_idx_word' . $this->getPrimaryKey() . '" ON "word" USING gin(to_tsvector('. Yii::t('app', $this->name). ',"word")) WHERE language_id=' . $this->getPrimaryKey() . ';')->execute();
+//        }
+    }
+
 }

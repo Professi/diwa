@@ -13,18 +13,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'dictionary_id',
-
+            'searchRequest.request',
+            ['attribute' => 'searchRequest.searchMethod',
+                'value' => function ($data) {
+                    return app\models\enums\SearchMethod::getMethodnames()[$data->getSearchRequest()->one()->searchMethod];
+                }],
             ['class' => 'app\components\widgets\CustomActionColumn',
-                'template'=>'{view}{delete}'],
+                'template' => '{view}{delete}'],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>
