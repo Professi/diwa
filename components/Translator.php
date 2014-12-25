@@ -39,7 +39,28 @@ class Translator extends \yii\base\Object {
         $this->cache = \Yii::$app->cache;
     }
 
-    public function translate($searchMethod, $searchWord, $dictionary = null) {
+    public function translateRequest($searchRequest) {
+        $data = $this->translateData($searchRequest->searchMethod, $searchRequest->request, $searchRequest->dictionary_id);
+        if (empty($data)) {
+            $this->createUnknownWord($searchRequest);
+        }
+        return $this->createDataProvider($data);
+    }
+
+    protected function createUnknownWord($searchRequest) {
+        $u = \app\models\UnknownWord::find()->leftJoin('searchrequest sr', 'searchRequest_id=sr.id')
+                ->where('sr.searchMethod=:sm AND LCASE(sr.request)=:word')
+                ->params([':sm' => $searchRequest->searchMethod,
+                    ':word' => strtolower($searchRequest->request)])
+                ->one();
+        if (empty($u)) {
+            $unknown = new \app\models\UnknownWord();
+            $unknown->searchRequest_id = $searchRequest->getPrimaryKey();
+            $unknown->save();
+        }
+    }
+
+    public function translateData($searchMethod, $searchWord, $dictionary = null) {
         $this->additionalParams = null;
         if (is_numeric($dictionary)) {
             $this->dictionaryObj = \app\models\Dictionary::find()->where('id=:id')->params([':id' => $dictionary])->one();
@@ -47,7 +68,6 @@ class Translator extends \yii\base\Object {
         if ($this->dictionaryObj != null && is_string($searchWord) && is_numeric($searchMethod)) {
             $this->searchWord = $searchWord;
             $cacheKey = $this->generateCacheKey($this->searchWord, $searchMethod);
-            echo $cacheKey;
             $data = $this->getCacheData($cacheKey);
             if ($data == false) {
                 $data = $this->getMethodResult($searchMethod);
@@ -58,7 +78,11 @@ class Translator extends \yii\base\Object {
                 }
             }
         }
-        return $this->createDataProvider($data);
+        return $data;
+    }
+
+    public function translate($searchMethod, $searchWord, $dictionary = null) {
+        return $this->createDataProvider($this->translateData($searchMethod, $searchWord, $dictionary));
     }
 
     protected function createDataProvider($result) {
@@ -72,6 +96,10 @@ class Translator extends \yii\base\Object {
                 'pagination' => [
                     'pageSize' => 50,
                 ],
+            ]);
+        } else {
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => [],
             ]);
         }
         return $dataProvider;
@@ -105,23 +133,24 @@ class Translator extends \yii\base\Object {
         if ($where != null) {
             $wordsL1 = $this->getWords($this->dictionaryObj->language1_id, $where);
             $wordsL2 = $this->getWords($this->dictionaryObj->language2_id, $where);
-            $translations = Translation::find();
-//                            ->leftJoin('word w1', 'w1.word=word1_id')
-//                            ->leftJoin('word w2', 'w2.word=word1_id');
-//                            ->where(['dictionary_id' => $this->dictionaryObj->id], ['in', 'w1.id', $wordsL1], ['in', 'w2.id', $wordsL2])
+            $q = Translation::find()->asArray();
+            if (\Yii::$app->params['cacheTranslatedWords']) {
+                $q->with('word1', 'word2');
+            }
             if (!empty($wordsL1) && !empty($wordsL2)) {
-                $translations->where(['in', 'word1_id', $wordsL1])
+                $q->where(['in', 'word1_id', $wordsL1])
                         ->orWhere(['in', 'word2_id', $wordsL2])
                         ->andwhere(['dictionary_id' => $this->dictionaryObj->id]);
+                $translations = $q->all();
             } else if (empty($wordsL1)) {
-                $this->whereOneLang($translations, 'word2_id', $wordsL2);
+                $this->whereOneLang($q, 'word2_id', $wordsL2);
+                $translations = $q->all();
             } else if (empty($wordsL2)) {
-                $this->whereOneLang($translations, 'word1_id', $wordsL1);
-            } else {
-                return $translations; 
+                $this->whereOneLang($q, 'word1_id', $wordsL1);
+                $translations = $q->all();
             }
         }
-        return $translations->all();
+        return $translations;
     }
 
     protected function whereOneLang(&$builder, $wordColumn, $arr) {
@@ -151,7 +180,6 @@ class Translator extends \yii\base\Object {
 
     protected function setCacheData($data, $key, $dependency) {
         if ($this->cache != null) {
-            // $this->getDuration(), $dependency
             $this->cache->set($key, $data, $this->getDuration(), $dependency);
         }
     }
@@ -191,7 +219,7 @@ class Translator extends \yii\base\Object {
     }
 
     protected function getDependency($dictId) {
-        return new \yii\caching\DbDependency(['sql' => 'SELECT COUNT(*) FROM translation WHERE dictionary_id=:id', 'params' => [':id' => $dictId]]);
+        return new CachedDbDependency(['sql' => 'SELECT COUNT(*) FROM translation WHERE dictionary_id=:id', 'params' => [':id' => $dictId]]);
     }
 
     protected function getDuration() {

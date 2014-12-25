@@ -22,7 +22,8 @@ use Yii;
 use app\models\SearchRequest;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use app\models\Word;
+use app\models\Dictionary;
+use app\components\Translator;
 use yii\filters\AccessControl;
 
 /**
@@ -57,48 +58,41 @@ class SearchController extends \app\components\Controller {
         ];
     }
 
-    /**
-     * @TODO buggy
-     * @return type
-     */
     public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
-        $validSearchRequest = false;
-        $dataProvider = new ActiveDataProvider([
-            'query' => \app\models\Translation::find()->where(['dictionary_id' => -1]),
-        ]);
+        $partial = '';
+        $dataProvider = null;
         $session = \Yii::$app->session;
-        if ($model->load(Yii::$app->request->post())) {
-            $model->searchWord = trim($model->searchWord);
-            if ($model->validate()) {
-                $validSearchRequest = true;
-                $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
-                $r->save();
-                if ($session->isActive) {
-                    $session['search'] = [
-                        'searchMethod' => $model->searchMethod,
-                        'dictionary' => $model->dictionary,
-                        'searchWord' => $model->searchWord,
-                    ];
-                }
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
+            $r->save();
+            $translator = new Translator();
+            $dataProvider = $translator->translateRequest($r);
+            $session['search'] = [
+                'searchMethod' => $model->searchMethod,
+                'dictionary' => $model->dictionary,
+                'searchWord' => $model->searchWord,
+            ];
         }
-        if ($session->isActive) {
-            if ($validSearchRequest && ($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search'))) {
-                $model->searchMethod = $session['search']['searchMethod'];
-                $model->searchWord = $session['search']['searchWord'];
-                $model->dictionary = $session['search']['dictionary'];
-                $translator = new \app\components\Translator();
+        if (($session->has('lastAction') && $session->get('lastAction') == 'actionSearch' && $session->has('search'))) {
+            $model->searchMethod = $session['search']['searchMethod'];
+            $model->searchWord = $session['search']['searchWord'];
+            $model->dictionary = $session['search']['dictionary'];
+            if (empty($dataProvider)) {
+                $translator = new Translator();
                 $dataProvider = $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary);
-            } else {
-                if ($session->has('search')) {
-                    $session->remove('search');
-                }
+            }
+            $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
+                'dict' => Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one()]
+            );
+        } else {
+            if ($session->has('search')) {
+                $session->remove('search');
             }
         }
         return $this->render('search', [
                     'model' => $model,
-                    'dataProvider' => $dataProvider,
+                    'partial' => $partial,
         ]);
     }
 

@@ -7,5 +7,6 @@ return [
     'username' => 'diwa',
     'password' => 'diwa',
     'charset' => 'utf8',
+    'enableQueryCache'=> !YII_DEBUG,
     'enableSchemaCache' => !YII_DEBUG,
 ];

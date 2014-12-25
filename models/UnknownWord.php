@@ -25,7 +25,6 @@ use Yii;
  *
  * @author cehringfeld
  * @property integer $id
- * @property string $word
  * @property integer $searchRequest_id
  */
 class UnknownWord extends \yii\db\ActiveRecord {
@@ -36,17 +35,14 @@ class UnknownWord extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['word', 'searchRequest_id'], 'required'],
+            [['searchRequest_id'], 'required'],
             [['searchRequest_id'], 'integer'],
-            [['word'], 'unique'],
-            [['word'], 'string', 'max' => 255]
         ];
     }
 
     public function attributeLabels() {
         return array(
             'id' => Yii::t('app', 'ID'),
-            'word' => Yii::t('app', 'Word'),
             'searchRequest' => Yii::t('app', 'Search Request'),
         );
     }

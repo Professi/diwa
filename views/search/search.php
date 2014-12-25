@@ -17,7 +17,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\grid\GridView;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
 
@@ -74,41 +73,4 @@ $this->params['breadcrumbs'][] = $this->title;
         </fieldset>
     </div>
 </div>
-
-<?php
-$dict = app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one();
-$lang1 = Yii::t('app', $dict->getLanguage1()->name);
-$lang2 = Yii::t('app', $dict->getLanguage2()->name);
-yii\widgets\Pjax::begin(['id' => 'list_data']);
-echo GridView::widget([
-    'id' => 'gridview',
-    'dataProvider' => $dataProvider,
-    'columns' => [
-        ['attribute' => $lang1,
-            'value' => function ($data) {
-                return $data->getWord1()->word;
-            }],
-        ['attribute' => $lang2,
-            'value' => function ($data) {
-                return $data->getWord2()->word;
-            }],
-//        ['attribute' => $lang1,
-//            'value' => function ($data) {
-//                return print_r($data->getWord1(),false);
-//        return print_r($data,false);
-//            }],
-//        [
-//            'attribute' => $lang2,
-//            'value' => function ($data) {
-//                return $data->word2;
-//            }],
-    ],
-]);
-yii\widgets\Pjax::end();
-?>
-<div class="row"></div>
-
-
-
-
-
+<?php echo $partial;?>

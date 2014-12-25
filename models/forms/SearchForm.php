@@ -42,6 +42,7 @@ class SearchForm extends \yii\base\Model {
         return [
             [['searchMethod', 'dictionary', 'searchWord'], 'required'],
             [['searchWord'], 'string', 'max' => 255],
+            [['dictionary', 'searchMethod'], 'integer'],
         ];
     }
 
@@ -53,8 +54,9 @@ class SearchForm extends \yii\base\Model {
         );
     }
 
-    public function search() {
-        
+    public function beforeValidate() {
+        $this->searchWord = trim($this->searchWord);
+        return parent::beforeValidate();
     }
 
 }
