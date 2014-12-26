@@ -62,7 +62,6 @@ class WordController extends Controller {
      */
     public function actionCreate() {
         $model = new Word();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -72,7 +71,7 @@ class WordController extends Controller {
         }
     }
 
-    public function actionGetWords($term,$dict) {
+    public function actionGetWords($term, $dict) {
         \Yii::$app->response->format = 'json';
         $wordArr = [];
         if (is_string($term) && is_numeric($dict)) {
@@ -84,7 +83,7 @@ class WordController extends Controller {
                 $wordArr[] = trim(preg_replace(["&{.*}&is", "&\[.*\]&is"], '', $wordObj['word']));
             }
         }
-        return $wordArr;
+        return array_unique($wordArr);
     }
 
     /**
