@@ -32,19 +32,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            ['attribute' => 'dictionary',
-                'value' => function ($data) {
-                    $dict = $data->getDictionary()->one();
-                    return $dict->getLanguage1()->one()->shortname . '<->' . $dict->getLanguage2()->one()->shortname;
-                }],
+            ['attribute' => 'dictionary.language1',
+                'value' => $model->getDictionary()->one()->getLanguage1()->one()->shortname
+            ],
+            ['attribute' => 'dictionary.language2',
+                'value' => $model->getDictionary()->one()->getLanguage2()->one()->shortname
+            ],
             'request',
             'ipAddr',
-            'useragent_id',
+            'userAgent.agent',
             'requestTime',
             ['attribute' => 'searchMethod',
-                'value' => function ($data) {
-                    return app\models\enums\SearchMethod::getMethodnames()[$data->searchMethod];
-                }],
+                'value' => app\models\enums\SearchMethod::getMethodnames()[$model->searchMethod]
+            ],
         ],
     ])
     ?>

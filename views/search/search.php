@@ -33,8 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <legend><?php echo $this->title; ?></legend>
             <div clasourceUrlss="search-request-index">
                 <?php $form = ActiveForm::begin(); ?>
-                <?php // $form->field($model, 'searchWord')->hiddenInput() ?>
-                <!-- @TODO noLabel???? on selection attr is not set-->
+                <?= $form->field($model, 'searchWord', ['template' => '{label}']) ?>
                 <?php
                 echo AutoComplete::widget([
                     'model' => $model,
@@ -58,6 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'minLength' => '2',
                     ],
                 ]);
+                echo $form->field($model, 'searchWord', ['template' => '{error}'])
                 ?>
                 <div id="dict">
                     <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
@@ -73,4 +73,4 @@ $this->params['breadcrumbs'][] = $this->title;
         </fieldset>
     </div>
 </div>
-<?php echo $partial;?>
+<?php echo $partial; ?>

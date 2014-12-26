@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'dictionary',
                 'value' => function ($data) {
                     $dict = $data->getDictionary()->one();
-
                     return $dict->getLanguage1()->one()->shortname . '<->' . $dict->getLanguage2()->one()->shortname;
                 }],
             'request',
