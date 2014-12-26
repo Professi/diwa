@@ -68,7 +68,7 @@ class Translator extends \yii\base\Object {
         }
         if ($this->dictionaryObj != null && is_string($searchWord) && is_numeric($searchMethod)) {
             $this->searchWord = $searchWord;
-            $cacheKey = $this->generateCacheKey($this->searchWord, $searchMethod);
+            $cacheKey = $this->generateCacheKey($this->searchWord, $searchMethod, $this->dictionaryObj->getPrimaryKey());
             $data = $this->getCacheData($cacheKey);
             if ($data == false) {
                 $data = $this->getMethodResult($searchMethod);
@@ -135,6 +135,7 @@ class Translator extends \yii\base\Object {
             $wordsL1 = $this->getWords($this->dictionaryObj->language1_id, $where);
             $wordsL2 = $this->getWords($this->dictionaryObj->language2_id, $where);
             $q = Translation::find()->asArray();
+            $q->select(['id', 'word1_id', 'word2_id']);
             if (\Yii::$app->params['cacheTranslatedWords']) {
                 $q->with('word1', 'word2');
             }
@@ -142,12 +143,12 @@ class Translator extends \yii\base\Object {
                 $q->where(['in', 'word1_id', $wordsL1])
                         ->orWhere(['in', 'word2_id', $wordsL2])
                         ->andwhere(['dictionary_id' => $this->dictionaryObj->id]);
-                $translations = $q->all();
             } else if (empty($wordsL1)) {
                 $this->whereOneLang($q, 'word2_id', $wordsL2);
-                $translations = $q->all();
             } else if (empty($wordsL2)) {
                 $this->whereOneLang($q, 'word1_id', $wordsL1);
+            }
+            if ($q->where != null) {
                 $translations = $q->all();
             }
         }
@@ -170,6 +171,7 @@ class Translator extends \yii\base\Object {
         }
         $words = \app\models\Word::find()->select(['id'])
                         ->where('language_id=:lang AND ' . $where)
+                        ->limit(1500)
                         ->params($params)
                         ->asArray()->all();
         $result = array();
@@ -215,8 +217,8 @@ class Translator extends \yii\base\Object {
         return $where;
     }
 
-    protected function generateCacheKey($word, $method) {
-        return md5($word . '{' . $method . '}');
+    protected function generateCacheKey($word, $method, $dictId) {
+        return md5($word . '{' . $method . '}' . '[' . $dictId . ']');
     }
 
     protected function getDependency($dictId) {

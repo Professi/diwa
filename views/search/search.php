@@ -19,7 +19,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -36,11 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 $form = ActiveForm::begin([
                             'method' => 'get',
-                            'action' => Url::to(['search/search', 'newCall' => 0]),
                 ]);
                 ?>
-                <?= $form->field($model, 'searchWord', ['template' => '{label}']) ?>
                 <?php
+                echo $form->field($model, 'searchWord', ['template' => '{label}']);
                 echo AutoComplete::widget([
                     'model' => $model,
                     'attribute' => 'searchWord',

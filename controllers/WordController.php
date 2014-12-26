@@ -36,7 +36,7 @@ class WordController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['getWords'],
+                        'actions' => ['get-words'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],

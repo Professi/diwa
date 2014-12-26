@@ -59,12 +59,11 @@ class SearchController extends \app\components\Controller {
         ];
     }
 
-    public function actionSearch($newCall = false) {
+    public function actionSearch() {
         $model = new \app\models\forms\SearchForm();
         $partial = '';
         $dataProvider = null;
         $session = \Yii::$app->session;
-        ($newCall && $session->has('search')) ? $session->remove('search') : '';
         if ($model->load(Yii::$app->request->get()) && $model->validate()) {
             $translator = new Translator();
             if (($session->has('search') && $session->get('search') != $model->searchWord) || !$session->has('search')) {
