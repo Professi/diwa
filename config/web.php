@@ -3,14 +3,12 @@
 $baseDir = __DIR__;
 $params = require($baseDir . '/params.php');
 $vendorDir = dirname($baseDir) . '/vendor';
-
-
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'sourceLanguage' => 'en',
     'language' => 'de',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'lang'],
     'homeUrl' => ['site/index'],
     'extensions' => require($vendorDir . '/yiisoft/extensions.php'),
     'components' => [
@@ -46,9 +44,8 @@ $config = [
             ],
         ],
         'db' => require($baseDir . '/db.php'),
+        'lang' => '\app\components\widgets\LanguageSwitcher',
         'urlManager' => [
-            //'languageParam' => 'lang',
-            // The keys will become labels on the language switcher widget
             'enablePrettyUrl' => false,
             'showScriptName' => false,
             'rules' => [],
@@ -65,7 +62,6 @@ $config = [
     ],
     'params' => $params,
 ];
-
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
@@ -74,5 +70,4 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
 }
-
 return $config;

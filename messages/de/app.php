@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Message translations.
  *
@@ -18,8 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others' => 'Deutsch-Spanisch Wörterbuch von Zeno Gantner, Matthias Buchmeier und anderen',
-    'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre dieses Projekt nicht realisierbar! Vielen Dank!',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -48,6 +45,7 @@ return [
     'File' => 'Datei',
     'Fuzzy search' => 'Unscharfe Suche',
     'German-English dictionary from Frank Richter, Creator of Ding' => 'Deutsch-Englisch Wörterbuch von Frank Richter, Erschaffer von Ding',
+    'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others' => 'Deutsch-Spanisch Wörterbuch von Zeno Gantner, Matthias Buchmeier und anderen',
     'Hash of user agent' => 'Hash des User Agenten',
     'Help' => 'Hilfe',
     'ID' => 'ID',
@@ -109,11 +107,11 @@ return [
     'Users' => 'Benutzer',
     'View' => 'Ansicht',
     'Website' => 'Webseite',
+    'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre dieses Projekt nicht realisierbar! Vielen Dank!',
     'Word' => 'Wort',
     'Word {no}' => 'Wort {no}',
     'Words' => 'Wörter',
     'Yes' => 'Ja',
-    'You must choose two different languages.' => 'Sie müssen zwei verschiedene Sprachen auswählen.',
     'Your file is corrupted.' => 'Ihre Datei ist fehlerhaft.',
     'Your file was successfully imported.' => 'Ihre Datei wurde erfolgreich importiert.',
     'Your message' => 'Ihre Nachricht',

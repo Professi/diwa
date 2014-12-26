@@ -32,7 +32,7 @@ abstract class ShortcutCategory {
     const BRANCH = 2;
 
     public static function getCategories() {
-        return array(PARTOFSPEECH, USAGE, BRANCH);
+        return array(ShortcutCategory::PARTOFSPEECH, ShortcutCategory::USAGE, ShortcutCategory::BRANCH);
     }
 
     public static function getCategoryNames() {

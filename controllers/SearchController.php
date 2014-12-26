@@ -66,7 +66,7 @@ class SearchController extends \app\components\Controller {
         $session = \Yii::$app->session;
         if ($model->load(Yii::$app->request->get()) && $model->validate()) {
             $translator = new Translator();
-            if (($session->has('search') && $session->get('search') != $model->searchWord) || !$session->has('search')) {
+            if (!$session->has('search') || ($session->has('search') && $session->get('search') != $model->searchWord)) {
                 $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
                 $r->save();
                 $dataProvider = $translator->translateRequest($r);
@@ -76,7 +76,8 @@ class SearchController extends \app\components\Controller {
             }
             if (!empty($dataProvider)) {
                 $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
-                    'dict' => Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one()]
+                    'dict' => Dictionary::find()->where('id=:dictId')
+                        ->params([':dictId' => $model->dictionary])->one()]
                 );
             }
         }

@@ -30,7 +30,7 @@ abstract class Role {
     const NORMAL = 2;
 
     public static function getRoles() {
-        return array(ADMIN, TRANSLATOR, NORMAL);
+        return array(Role::ADMIN, Role::TRANSLATOR, Role::NORMAL);
     }
 
     public static function getRoleNames() {

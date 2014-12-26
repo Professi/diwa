@@ -32,7 +32,7 @@ abstract class SearchMethod {
     const FAST = 2;
 
     public static function getMethods() {
-        return array(FUZZY, COMFORT, FAST);
+        return array(SearchMethod::FUZZY, SearchMethod::COMFORT, SearchMethod::FAST);
     }
 
     public static function getMethodnames() {

@@ -85,15 +85,17 @@ $this->beginPage();
                         <i class="fi-print"></i><span><?php echo Yii::t('app', 'Print'); ?></span>
                     </a>
                 </li>
-                <!--<li class="no-highlight">
+                <li class="no-highlight">
                     <div id="language-selector">
                         <i class="fi-comment-quotes"></i>
                 <?php
-                /*                 * @todo */
-// pheme\i18n\LanguageSwitcher::widget(); 
+                echo \yii\widgets\Menu::widget([
+                    'options' => ['class' => 'right inline-list'],
+                    'items' => Yii::$app->lang->getMenuItems(),
+                ]);
                 ?>
                     </div>
-                </li>-->
+                </li>
             </ul>
         </div>
         <section role="main" class="content-wrapper">
