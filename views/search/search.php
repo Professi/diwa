@@ -19,6 +19,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -32,7 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <fieldset>
             <legend><?php echo $this->title; ?></legend>
             <div clasourceUrlss="search-request-index">
-                <?php $form = ActiveForm::begin(); ?>
+                <?php
+                $form = ActiveForm::begin([
+                            'method' => 'get',
+                            'action' => Url::to(['search/search', 'newCall' => 0]),
+                ]);
+                ?>
                 <?= $form->field($model, 'searchWord', ['template' => '{label}']) ?>
                 <?php
                 echo AutoComplete::widget([

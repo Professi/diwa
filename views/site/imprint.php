@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <p><?= Yii::t('app', 'This application is licensed with the GNU General Public License Version 3') . '&nbsp;&nbsp;<a href="http://www.gnu.de/documents/gpl-3.0.en.html" ><i class="fi-page-export"></i>&nbsp;' . Yii::t('app', 'Link') . '</a>.'; ?>
             <br><?= Yii::t('app', 'The authors are: {p1} and {p2}(Design).', ['p1' => 'Christian Ehringfeld', 'p2' => 'David Mock']); ?></p>
-        <p><?= Yii::t('app', 'Website'); ?>&nbsp;&nbsp;<a href="http://www.synlos.net/"><i class="fi-page-export"></i>&nbsp;Link</a></p>
+        <p><?= Yii::t('app', 'Website'); ?>&nbsp;&nbsp;<a href="http://www.http://synlos.net/redmine/projects/diwa/"><i class="fi-page-export"></i>&nbsp;Link</a></p>
         <p><?= Yii::t('app', 'This site has been created with the following tools and ressources:'); ?><br>
             PHP&nbsp;&nbsp;<a href="http://www.php.net"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             Yii2 Framework&nbsp;&nbsp;<a href="http://www.yiiframework.com" ><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>

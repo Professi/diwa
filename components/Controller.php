@@ -53,7 +53,7 @@ class Controller extends \yii\web\Controller {
         if (!$session->isActive) {
             $session->open();
         }
-        if(!($action->controller instanceof \app\controllers\SearchController && 
+        if (!($action->controller instanceof \app\controllers\SearchController &&
                 $action->actionMethod == 'actionSearch') && $session->has('search')) {
             $session->remove('search');
         }

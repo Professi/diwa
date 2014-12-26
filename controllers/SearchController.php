@@ -65,27 +65,21 @@ class SearchController extends \app\components\Controller {
         $dataProvider = null;
         $session = \Yii::$app->session;
         ($newCall && $session->has('search')) ? $session->remove('search') : '';
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
-            $r->save();
+        if ($model->load(Yii::$app->request->get()) && $model->validate()) {
             $translator = new Translator();
-            $dataProvider = $translator->translateRequest($r);
-            $session['search'] = [
-                'searchMethod' => $model->searchMethod,
-                'dictionary' => $model->dictionary,
-                'searchWord' => $model->searchWord,
-            ];
-        }
-        if ($session->has('search')) {
-            $model->load($session['search']);
-            $model->searchWord = $session['search']['searchWord']; //don't know why it don't work
-            if (empty($dataProvider)) {
-                $translator = new Translator();
+            if (($session->has('search') && $session->get('search') != $model->searchWord) || !$session->has('search')) {
+                $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
+                $r->save();
+                $dataProvider = $translator->translateRequest($r);
+                $session->set('search', $model->searchWord);
+            } else {
                 $dataProvider = $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary);
             }
-            $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
-                'dict' => Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one()]
-            );
+            if (!empty($dataProvider)) {
+                $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
+                    'dict' => Dictionary::find()->where('id=:dictId')->params([':dictId' => $model->dictionary])->one()]
+                );
+            }
         }
         return $this->render('search', [
                     'model' => $model,
