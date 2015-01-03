@@ -57,14 +57,17 @@ class LoginForm extends \yii\base\Model {
      * @return boolean whether the user is logged in successfully
      */
     public function login() {
+        $rc = false;
         if ($this->validate()) {
             $identity = new \app\components\UserIdentity();
             $identity->setUser($this->getUser());
             if (!(Yii::$app->user->loginByPassword($identity, $this->password, $this->rememberMe ? 3600 * 24 * 30 : 0))) {
                 $this->addError('password', Yii::t('app', 'Incorrect username or password.'));
+            } else {
+                $rc = true;
             }
         }
-        return false;
+        return $rc;
     }
 
     /**

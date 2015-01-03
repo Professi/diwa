@@ -32,6 +32,7 @@ class Word extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['word'], 'string', 'max' => 255],
+            [['language_id'], 'integer']
         ];
     }
 
