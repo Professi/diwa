@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -33,16 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="row">
-        <?php
-        $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'options' => ['class' => $this->context->getFormClass()],
-                    'errorCssClass' => $this->context->getErrorCssClass(),
-                    'fieldConfig' => [
-                        'template' => $this->context->getFormTemplate(),
-                    ],
-        ]);
-        ?>
+        <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
         <fieldset>
             <legend><?php echo Yii::t('app', 'Login'); ?></legend>
             <?= $form->field($model, 'username') ?>
@@ -54,6 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <?= Html::submitButton('Login', ['class' => 'small button', 'name' => 'login-button']) ?>
         </fieldset>
-        <?php ActiveForm::end(); ?>
+        <?php yii\widgets\ActiveForm::end(); ?>
     </div>
 </div>

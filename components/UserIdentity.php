@@ -50,12 +50,10 @@ class UserIdentity implements \yii\web\IdentityInterface {
         return $identity;
     }
 
-    public function login($user, $password) {
-        $this->user = $user;
+    public function loginByPassword($password) {
         if ($this->validatePassword($password)) {
             return true;
         }
-        $this->user = null;
         return false;
     }
 

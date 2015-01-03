@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\models\forms;
 
 use Yii;
@@ -39,8 +41,6 @@ class LoginForm extends \yii\base\Model {
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
         ];
     }
 
@@ -53,22 +53,6 @@ class LoginForm extends \yii\base\Model {
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
-     */
-    public function validatePassword($attribute, $params) {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, Yii::t('app', 'Incorrect username or password.'));
-            }
-        }
-    }
-
-    /**
      * Logs in a user using the provided username and password.
      * @return boolean whether the user is logged in successfully
      */
@@ -76,7 +60,9 @@ class LoginForm extends \yii\base\Model {
         if ($this->validate()) {
             $identity = new \app\components\UserIdentity();
             $identity->setUser($this->getUser());
-            return Yii::$app->user->login($identity, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            if (!(Yii::$app->user->loginByPassword($identity, $this->password, $this->rememberMe ? 3600 * 24 * 30 : 0))) {
+                $this->addError('password', Yii::t('app', 'Incorrect username or password.'));
+            }
         }
         return false;
     }

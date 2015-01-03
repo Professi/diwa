@@ -36,7 +36,7 @@ $this->beginPage();
         <?php $this->head() ?>
     </head>
     <body>
-        <?php $this->beginBody(); ?>
+        <?php $this->beginBody();?>
         <?= $this->render('header.php', ['asset' => $asset]); ?>
         <?= $this->render('content.php', ['content' => $content]); ?>
         <?= $this->render('footer.php'); ?>

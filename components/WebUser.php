@@ -78,12 +78,23 @@ class WebUser extends \yii\web\User {
 
     public function login(\yii\web\IdentityInterface $identity, $duration = 0) {
         if (parent::login($identity, $duration)) {
-            $user = $identity->getUser();
-            $user->update();
-
+            $this->updateUser($identity);
             return true;
         }
         return false;
+    }
+
+    public function loginByPassword(\yii\web\IdentityInterface $identity, $password, $duration = 0) {
+        if ($identity->loginByPassword($password) && parent::login($identity, $duration)) {
+            $this->updateUser($identity);
+            return true;
+        }
+        return false;
+    }
+
+    protected function updateUser($identity) {
+        $user = $identity->getUser();
+        $user->update();
     }
 
 }
