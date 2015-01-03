@@ -10,7 +10,7 @@ $lang = \yii\helpers\ArrayHelper::map(\app\models\Language::find()->all(), 'id',
 ?>
 
 <div class="dictionary-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
 
     <?= $form->field($model, 'language1_id')->dropDownList($lang) ?>
 

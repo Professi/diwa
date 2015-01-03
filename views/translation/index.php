@@ -17,12 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?=
         Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => 'Translation',
+                    'modelClass' => Yii::t('app', 'Translation'),
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
-<?php yii\widgets\Pjax::begin();
-        echo GridView::widget([
+    <?php
+    yii\widgets\Pjax::begin();
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],

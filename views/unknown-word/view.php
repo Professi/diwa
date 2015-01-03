@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->getSearchRequest()->one()->getDictionary()->one()->getLanguage2()->one()->name,
             ],
             'searchRequest.request',
-            ['attribute' => 'searchMethod',
+            ['attribute' => 'searchRequest.searchMethod',
                 'value' => app\models\enums\SearchMethod::getMethodnames()[$model->getSearchRequest()->one()->searchMethod],
             ],
         ],

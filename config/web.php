@@ -1,8 +1,9 @@
 <?php
 
 $baseDir = __DIR__;
-$params = require($baseDir . '/params.php');
+$params = require($baseDir . DIRECTORY_SEPARATOR . 'params.php');
 $vendorDir = dirname($baseDir) . '/vendor';
+$mailer = require ($baseDir . DIRECTORY_SEPARATOR . 'mailer.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -14,7 +15,8 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'test',
+            //you SHOULD change it
+            'cookieValidationKey' => 'Pheinen5AhNei9shaiX6ge7AAex8Au2jDoogoh8B',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,13 +29,7 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],
+        'mailer' => $mailer,
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -46,9 +42,13 @@ $config = [
         'db' => require($baseDir . '/db.php'),
         'lang' => '\app\components\widgets\LanguageSwitcher',
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => false, //see http://stackoverflow.com/questions/26525320/enable-clean-url-in-yii2
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => array(
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ),
         ],
         'session' => [
             'class' => 'yii\web\DbSession',

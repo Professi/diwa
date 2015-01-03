@@ -18,9 +18,9 @@
 
 namespace app\models\enums;
 
+use Yii;
+
 /**
- * Description of Role
- *
  * @author cehringfeld
  */
 abstract class Role {
@@ -34,7 +34,7 @@ abstract class Role {
     }
 
     public static function getRoleNames() {
-        return array(ADMIN => Yii::t('app', 'Administrator'), TERMINOLOGIST => Yii::t('app', 'Terminologist'), NORMAL => Yii::t('app', 'Normal User'));
+        return array(Role::ADMIN => Yii::t('app', 'Administrator'), Role::TERMINOLOGIST => Yii::t('app', 'Terminologist'), Role::NORMAL => Yii::t('app', 'Normal User'));
     }
 
 }

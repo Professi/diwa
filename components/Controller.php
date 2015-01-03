@@ -19,7 +19,6 @@
 namespace app\components;
 
 use Yii;
-use yii\helpers\Html;
 use app\models\enums\Role;
 use yii\web\NotFoundHttpException;
 
@@ -30,22 +29,19 @@ use yii\web\NotFoundHttpException;
  */
 class Controller extends \yii\web\Controller {
 
-    /**
-     * @var string the default layout for the controller view. Defaults to '//layouts/column1',
-     * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
-     */
-    public $layout = 'column1';
     private $menu;
-    private $errorCssClass = 'error';
-    private $formTemplate = '<div class="row collapse"><div class="small-4 columns"><span class="prefix">{label}</div><div class="small-8 columns mobile-input">{input}<div>{error}</div></div></div>';
-    private $formClass = 'small-12 columns small-centered';
-    private $formTextAreaTemplate = '<div class="row collapse"><div class="small-12 columns" style="padding-left:.2em;">{input}{error}</div></div>';
     public $breadcrumbs = array();
     public $assetsDir;
+    private $appAssetTemplate;
 
     public function init() {
-        $this->menu = Menu::getInstance();
+        $this->instantiateViewVariables();
         parent::init();
+    }
+
+    public function instantiateViewVariables() {
+        $this->menu = \app\components\Menu::getInstance();
+        $this->appAssetTemplate = \app\assets\AppAssetTemplate::getInstance();
     }
 
     public function afterAction($action, $result) {
@@ -60,14 +56,6 @@ class Controller extends \yii\web\Controller {
         return parent::afterAction($action, $result);
     }
 
-    protected function setFormTextAreaTemplate($template) {
-        $this->formTextAreaTemplate = $template;
-    }
-
-    public function getFormTextAreaTemplate() {
-        return $this->formTextAreaTemplate;
-    }
-
     protected function setMenu($menu) {
         $this->menu = $menu;
     }
@@ -76,28 +64,8 @@ class Controller extends \yii\web\Controller {
         return $this->menu;
     }
 
-    protected function setFormClass($class) {
-        $this->formClass = $class;
-    }
-
-    public function getFormClass() {
-        return $this->formClass;
-    }
-
-    protected function setErrorCssClass($class) {
-        $this->errorCssClass = $class;
-    }
-
-    public function getErrorCssClass() {
-        return $this->errorCssClass;
-    }
-
-    protected function setFormTemplate($template) {
-        $this->formTemplate = $template;
-    }
-
-    public function getFormTemplate() {
-        return $this->formTemplate;
+    public function getAssetTemplate() {
+        return $this->appAssetTemplate;
     }
 
     /**

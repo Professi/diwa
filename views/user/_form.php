@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 

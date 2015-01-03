@@ -1,0 +1,43 @@
+<?php
+
+/* Copyright (C) 2014  Christian Ehringfeld
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+return [
+    'class' => 'yii\swiftmailer\Mailer',
+    'viewPath' => '@app/mail',
+    // send all mails to a file by default. You have to set
+    // 'useFileTransport' to false and configure a transport
+    // for the mailer to send real emails.
+    'useFileTransport' => true,
+];
+
+/**
+ * If you want to use a real "mailer" you can choose this config. You can use every other mailer component. For instance PHPMailer. 
+return [
+    'class' => 'yii\swiftmailer\Mailer',
+    'viewPath' => '@app/mail',
+    'useFileTransport' => false, //set this property to false to send mails to real email addresses
+    //comment the following array to send mail using php's mail function
+    'transport' => [
+        'class' => 'Swift_SmtpTransport',
+        'host' => 'smtp.gmail.com',
+        'username' => 'username@gmail.com',
+        'password' => 'password',
+        'port' => '587',
+        'encryption' => 'tls', //tls or ssl
+    ]
+];
+*/

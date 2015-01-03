@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="language-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
 
     <?= $form->field($model, 'shortname')->textInput(['maxlength' => 255]) ?>
 

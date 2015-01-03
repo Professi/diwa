@@ -9,15 +9,11 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="word-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
     <?= $form->field($model, 'word')->textarea(['rows' => 6]) ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

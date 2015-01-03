@@ -16,14 +16,14 @@
  */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\ContactForm */
 
-$this->title = 'Contact';
+$this->title = Yii::t('app', 'Contact');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">
@@ -41,16 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="row">
-        <?php
-        $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'options' => ['class' => $this->context->getFormClass()],
-                    'errorCssClass' => $this->context->getErrorCssClass(),
-                    'fieldConfig' => [
-                        'template' => $this->context->getFormTemplate(),
-                    ],
-        ]);
-        ?>
+        <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
         <fieldset>
             <legend><?php echo Yii::t('app', 'Contact'); ?></legend>
             <?= $form->field($model, 'name') ?>
@@ -58,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'subject') ?>
             <?=
             $form->field($model, 'body')->textArea(['rows' => 6, 'cols' => 50, 'placeholder' => Yii::t('app', 'Your message'),
-                'template' => $this->context->getFormTextAreaTemplate(),
+                'template' => '{input}',
                     ]
             );
             ?>

@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Translation' => 'Übersetzung',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -26,6 +27,7 @@ return [
     'Authentication key' => 'Authentifizierungsschlüssel',
     'Back to home' => 'Zurück zur Startseite',
     'Bad datasets:' => 'Fehlerhafte Datensätze',
+    'Body' => 'Nachricht',
     'Branch' => 'Branche',
     'British English' => 'Britisches Englisch',
     'Clear input' => 'Eingabe löschen',
@@ -50,7 +52,7 @@ return [
     'Help' => 'Hilfe',
     'ID' => 'ID',
     'IP address' => 'IP Adresse',
-    'If you have questions, please fill out the following form to contact us. Thank you.' => 'Falls Sie Fragen haben, füllen Sie bitte das Kontaktformular aus um uns zu kontaktieren. Vielen Dank.',
+    'If you have questions, please fill out the following form to contact us. Thank you.' => 'Falls Sie Fragen haben, können Sie uns mit dem nachfolgenden Kontaktformular kontaktieren. Vielen Dank.',
     'If you upload something, grab a coffee and lean back. This could take a while.' => 'Falls Sie etwas hochladen, nehmen Sie sich einen Kaffee und lehnen Sie sich zurück. Das könnte eine Weile dauern.',
     'Import' => 'Importieren',
     'Import translation file' => 'Importieren Sie eine Übersetzungsdatei',
@@ -87,6 +89,7 @@ return [
     'Shortname' => 'Kurzname',
     'Southern German' => 'Süddeutsch',
     'Statistics' => 'Statistik',
+    'Subject' => 'Betreff',
     'Swiss German' => 'Schweizerisch',
     'Terminologist' => 'Terminologe',
     'Thank you for contacting us. We will respond to you as soon as possible.' => 'Vielen Dank, dass Sie uns kontaktieren. Wir werden Ihnen so schnell wie möglich antworten.',
@@ -105,6 +108,7 @@ return [
     'User agent' => 'User Agent',
     'Username' => 'Benutzername',
     'Users' => 'Benutzer',
+    'Verification Code' => 'Sicherheitscode',
     'View' => 'Ansicht',
     'Website' => 'Webseite',
     'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre dieses Projekt nicht realisierbar! Vielen Dank!',

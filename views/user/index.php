@@ -14,25 +14,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'User',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?=
+        Html::a(Yii::t('app', 'Create {modelClass}', [
+                    'modelClass' => Yii::t('app', 'User'),
+                ]), ['create'], ['class' => 'btn btn-success'])
+        ?>
     </p>
-
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'username',
-            'password',
-            'authKey',
-            'role',
+            ['attribute' => 'role',
+                'value' => function ($data) {
+                    return \app\models\enums\Role::getRoleNames()[$data->role];
+                }],
             'lastLogin',
-
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>
