@@ -14,21 +14,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => Yii::t('app', 'Word'),
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?=
+        Html::a(Yii::t('app', 'Create {modelClass}', [
+                    'modelClass' => Yii::t('app', 'Word'),
+                ]), ['create'], ['class' => 'btn btn-success'])
+        ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'word:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['attribute' => 'language',
+                'value' => 'language.name'],
+            ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>

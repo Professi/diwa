@@ -21,6 +21,7 @@ namespace app\models\forms;
 use app\models\Word;
 use app\models\Dictionary;
 use app\models\Translation;
+use Yii;
 
 /**
  * Description of TranslationForm
@@ -29,20 +30,21 @@ use app\models\Translation;
  */
 class TranslationForm extends \yii\base\Model {
 
-    public $dictionary;
+    public $dictionary_id;
     public $word1;
     public $word2;
     private $wordObj1;
     private $wordObj2;
     private $dictObj;
+    private $translationId = null;
 
     /**
      * @return array the validation rules.
      */
     public function rules() {
         return [
-            [['dictionary', 'word1', 'word2'], 'required'],
-            [['dictionary'], 'integer'],
+            [['dictionary_id', 'word1', 'word2'], 'required'],
+            [['dictionary_id'], 'integer'],
             [['word1', 'word2'], 'string', 'max' => 255]
         ];
     }
@@ -50,18 +52,18 @@ class TranslationForm extends \yii\base\Model {
     public function attributeLabels() {
         return array(
             'dictionary' => Yii::t('app', 'Dictionary'),
-            'word1' => Yii::t('app', 'Word {no}', ['{no}' => 1]),
-            'word2' => Yii::t('app', 'Word {no}', ['{no}' => 2]),
+            'word1' => Yii::t('app', 'Word {no}', ['no' => 1]),
+            'word2' => Yii::t('app', 'Word {no}', ['no' => 2]),
         );
     }
 
     public function validate($attributeNames = null, $clearErrors = true) {
         $rc = parent::validate($attributeNames, $clearErrors);
         if ($rc) {
-            $this->dictObj = Dictionary::findOne($this->dictionary);
-            $this->wordObj1 = $this->findWord($this->word1, $dictObj->language1_id);
-            $this->wordObj2 = $this->findWord($this->word2, $dictObj->language2_id);
-            if ($this->findTranslation($wordObj1, $wordObj2)) {
+            $this->dictObj = Dictionary::findOne($this->dictionary_id);
+            $this->wordObj1 = $this->findWord($this->word1, $this->dictObj->language1_id);
+            $this->wordObj2 = $this->findWord($this->word2, $this->dictObj->language2_id);
+            if ($this->findTranslation($this->wordObj1, $this->wordObj2)) {
                 $rc = false;
             }
         }
@@ -80,23 +82,25 @@ class TranslationForm extends \yii\base\Model {
     }
 
     protected function createTranslation() {
+        $rc = false;
         $translation = new Translation();
-        $translation->word1_id = $this->getWordId($this->wordObj1, $this->dictObj->language1_id);
-        $translation->word2_id = $this->getWordId($this->wordObj2, $this->dictObj->language2_id);
+        $translation->word1_id = $this->getWordId($this->wordObj1, $this->word1, $this->dictObj->language1_id);
+        $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
         $translation->dictionary_id = $this->dictObj->getPrimaryKey();
         if (!(Translation::find()->where(['word1_id' => $translation->word1_id, 'word2_id' => $translation->word2_id, 'dictionary_id' => $translation->dictionary_id])->one())) {
-            return $translation->save();
+            $rc = $translation->save();
+            $this->translationId = $translation->getPrimaryKey();
         }
-        return false;
+        return $rc;
     }
 
-    protected function getWordId($word, $languageId) {
-        if ($word != null) {
+    protected function getWordId($word, $str, $languageId) {
+        if ($word instanceof Word) {
             return $word->getPrimaryKey();
         }
         $wordObj = new Word();
-        $wordObj->setValues($word, $languageId);
-        $wordObj->save(false);
+        $wordObj->setValues($str, $languageId);
+        $wordObj->insert();
         return $wordObj->getPrimaryKey();
     }
 
@@ -106,6 +110,10 @@ class TranslationForm extends \yii\base\Model {
         } else {
             return \app\models\Translation::find()->where(['word1_id' => $word1->getPrimaryKey(), 'word2_id' => $word2->getPrimaryKey(), 'dictionary_id' => $this->dictionary])->one();
         }
+    }
+
+    public function getTranslationId() {
+        return $this->translationId;
     }
 
 }

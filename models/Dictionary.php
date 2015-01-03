@@ -46,8 +46,8 @@ class Dictionary extends \yii\db\ActiveRecord {
         $lang2 = Yii::t('app', 'Language {no}', array('no' => 2));
         return array(
             'id' => Yii::t('app', 'ID'),
-            'language1' => Yii::t('app', 'Language {no}', array('no' => 1)),
-            'language2' => Yii::t('app', 'Language {no}', array('no' => 2)),
+            'language1' => $lang1,
+            'language2' => $lang2,
             'language1_id' => $lang1,
             'language2_id' => $lang2,
         );

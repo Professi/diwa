@@ -39,6 +39,7 @@ class Menu {
             array('fi-book', \Yii::t('app', 'Dictionaries'), array('dictionary/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
             array('fi-refresh', \Yii::t('app', 'Search Requests'), array('search/index'), Yii::$app->user->isAdmin()),
             array('fi-comments', \Yii::t('app', 'Translations'), array('translation/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
+            array('fi-comment-minus', \Yii::t('app', 'Words'), array('word/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
             array('fi-comment-minus', \Yii::t('app', 'Unknown Words'), array('unknown-word/index'), Yii::$app->user->isTerminologist() || Yii::$app->user->isAdmin()),
             array('fi-monitor', \Yii::t('app', 'User Agents'), array('user-agent/index'), Yii::$app->user->isAdmin()),
             array('fi-torsos', \Yii::t('app', 'Users'), array('user/index'), Yii::$app->user->isAdmin()),

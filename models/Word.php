@@ -41,6 +41,7 @@ class Word extends \yii\db\ActiveRecord {
             'id' => Yii::t('app', 'ID'),
             'word' => Yii::t('app', 'Word'),
             'language' => Yii::t('app', 'Language'),
+            'language_id' => Yii::t('app', 'Language'),
         );
     }
 

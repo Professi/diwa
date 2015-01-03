@@ -78,7 +78,9 @@ class WebUser extends \yii\web\User {
 
     public function login(\yii\web\IdentityInterface $identity, $duration = 0) {
         if (parent::login($identity, $duration)) {
-            $this->updateUser($identity);
+            $user = $identity->getUser();
+            $user->getBehavior('timestamp')->touch('lastLogin');
+            $identity->getUser()->update();
             return true;
         }
         return false;
@@ -89,11 +91,6 @@ class WebUser extends \yii\web\User {
             return $this->login($identity, $duration);
         }
         return false;
-    }
-
-    protected function updateUser($identity) {
-        $user = $identity->getUser();
-        $user->update();
     }
 
 }

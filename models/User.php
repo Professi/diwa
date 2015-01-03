@@ -47,9 +47,6 @@ class User extends \yii\db\ActiveRecord {
         return [
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'lastLogin',
-                ],
                 'value' => new Expression('NOW()'),
             ],
         ];

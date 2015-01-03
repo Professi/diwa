@@ -81,10 +81,11 @@ class TranslationController extends \app\components\Controller {
      * @return mixed
      */
     public function actionCreate() {
-        $model = new Translation();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new \app\models\forms\TranslationForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->create()) {
+                return $this->redirect(['view', 'id' => $model->getTranslationId()]);
+            }
         } else {
             return $this->render('create', [
                         'model' => $model,
@@ -100,8 +101,13 @@ class TranslationController extends \app\components\Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $word1 = $model->getWord1()->one();
+            $word2 = $model->getWord2()->one();
+            $word1->word = Yii::$app->request->post()['Word1']['word'];
+            $word2->word = Yii::$app->request->post()['Word2']['word'];
+            $word1->update();
+            $word2->update();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

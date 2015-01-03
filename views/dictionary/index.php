@@ -30,8 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]);
         ?>
-
-
         <p>
             <?=
             Html::a(Yii::t('app', 'Import translation file', [
