@@ -86,6 +86,11 @@ class SearchRequest extends \yii\db\ActiveRecord {
         $request->request = $word;
         $request->searchMethod = $method;
         $request->ipAddr = \Yii::$app->request->getUserIP();
+        if (strpos($request->ipAddr, '.')) {
+            $request->ipAddr = preg_replace('/[0-9]+\z/', '0', $request->ipAddr);
+        } else {
+            $request->ipAddr = hash('sha256', $request->ipAddr); //should be enough for the first
+        }
         $userAgent = \Yii::$app->request->getUserAgent();
         if ($userAgent != null) {
             $hashedUseragent = UserAgent::createHash($userAgent);

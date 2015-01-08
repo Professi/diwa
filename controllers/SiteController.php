@@ -30,19 +30,18 @@ class SiteController extends \app\components\Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'statistics'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-//                    'logout' => ['post'],
+                    [
+                        'actions' => ['statistics'],
+                        'allow' => true,
+                        'roles' => $this->getAdvancedUserRoles(),
+                    ]
                 ],
             ],
             [
@@ -114,7 +113,7 @@ class SiteController extends \app\components\Controller {
     }
 
     public function actionStatistics() {
-        throw new \yii\base\UserException('Not implemented.');
+        return $this->render('statistics');
     }
 
 }
