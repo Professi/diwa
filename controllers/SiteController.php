@@ -20,7 +20,6 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use app\models\forms\LoginForm;
 use app\models\forms\ContactForm;
 
@@ -30,18 +29,13 @@ class SiteController extends \app\components\Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'statistics'],
+                'only' => ['logout'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [
-                        'actions' => ['statistics'],
-                        'allow' => true,
-                        'roles' => $this->getAdvancedUserRoles(),
-                    ]
                 ],
             ],
             [
@@ -110,10 +104,6 @@ class SiteController extends \app\components\Controller {
 
     public function actionHelp() {
         return $this->render('help');
-    }
-
-    public function actionStatistics() {
-        return $this->render('statistics');
     }
 
 }

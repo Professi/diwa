@@ -82,9 +82,9 @@ class SearchRequest extends \yii\db\ActiveRecord {
 
     public static function createRequest($method, $dictionary, $word) {
         $request = new SearchRequest();
-        $request->dictionary_id = $dictionary;
         $request->request = $word;
         $request->searchMethod = $method;
+        $request->dictionary_id = $dictionary;
         $request->ipAddr = \Yii::$app->request->getUserIP();
         if (strpos($request->ipAddr, '.')) {
             $request->ipAddr = preg_replace('/[0-9]+\z/', '0', $request->ipAddr);

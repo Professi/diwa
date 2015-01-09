@@ -17,6 +17,7 @@
 
 use yii\helpers\Html;
 use yii\data\ArrayDataProvider;
+use miloschuman\highcharts\Highcharts;
 
 /* @var $this yii\web\View */
 $this->title = Yii::t('app', 'Statistics');
@@ -24,18 +25,33 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
+    <h1><?= $this->title; ?></h1>
     <div class="small-12 columns">
-        <?= Yii::t('app', 'Searchrequests:') . ' ' . app\models\SearchRequest::find()->count(); ?>
+        <?= Yii::t('app', 'Search requests') . ': ' . $totalRequests ?>
         <br><br>
-        <?= Yii::t('app', 'The most common search terms:') ?><br>
+        <h3><?= Yii::t('app', 'The most common search terms') . ':' ?></h3>
         <?php
-        $dataProvider = app\models\SearchRequest::find()->select(['request', 'COUNT(*) as c'])->groupBy('request')->orderBy('c DESC')->asArray()->limit(20)->all();
-        foreach ($dataProvider as $value) {
+        foreach ($mostCommon as $value) {
             echo $value['request'] . ' - ' . $value['c'] . ' ' . Yii::t('app', 'times') . '<br>';
         }
         ?>
         <br>
-
+        <?= Highcharts::widget([
+            'options' => [
+                'title' => ['text' => Yii::t('app', 'Search requests per month')],
+                'xAxis' => [
+                    'categories' => $monthLabels
+                ],
+                'yAxis' => [
+                    'title' => ['text' => Yii::t('app', 'Requests')],
+                    'min' => 0,
+                ],
+                'series' => [
+                    ['name' => 'Requests', 'data' => $months],
+                ]
+            ]
+        ]);
+        ?>
 
     </div>
 </div>

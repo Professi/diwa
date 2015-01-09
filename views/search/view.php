@@ -22,7 +22,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\SearchRequest */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Search Requests'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Search requests'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="search-request-view">

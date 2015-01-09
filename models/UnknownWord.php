@@ -43,7 +43,7 @@ class UnknownWord extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => Yii::t('app', 'ID'),
-            'searchRequest' => Yii::t('app', 'Search Request'),
+            'searchRequest' => Yii::t('app', 'Search request'),
         );
     }
 

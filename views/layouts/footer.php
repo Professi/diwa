@@ -35,12 +35,7 @@
         <?php
         echo \yii\widgets\Menu::widget([
             'options' => ['class' => 'right inline-list'],
-            'items' => [
-                ['label' => Yii::t('app', 'FAQ'), 'url' => ['/site/help']],
-                ['label' => Yii::t('app', 'Imprint'), 'url' => ['/site/imprint']],
-                ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
-                ['label' => Yii::t('app', 'Statistics'), 'url' => ['/site/statistics'], 'visible' => Yii::$app->user->isAdmin() || Yii::$app->user->isTerminologist()]
-            ],
+            'items' => $this->context->getAssetTemplate()->getFooterMenu(),
         ]);
         ?>
     </div>

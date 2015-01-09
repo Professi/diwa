@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\UnknownWord */
 
 $this->title = $model->getSearchRequest()->one()->request;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Unknown Words'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Unknown words'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="unknown-word-view">
