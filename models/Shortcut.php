@@ -38,6 +38,7 @@ class Shortcut extends \yii\db\ActiveRecord {
         return [
             [['shortcut'], 'required'],
             [['shortcut'], 'unique'],
+            [['shortcut', 'name', 'kind'], 'safe'],
         ];
     }
 

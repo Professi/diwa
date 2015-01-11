@@ -53,7 +53,7 @@ class AppAssetTemplate {
 
     public function getFooterMenu() {
         return [
-            ['label' => \Yii::t('app', 'FAQ'), 'url' => ['/site/help']],
+            ['label' => \Yii::t('app', 'Help'), 'url' => ['/site/help']],
             ['label' => \Yii::t('app', 'Imprint'), 'url' => ['/site/imprint']],
             ['label' => \Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
             ['label' => \Yii::t('app', 'Statistics'), 'url' => ['/statistic/statistics'], 'visible' => \Yii::$app->user->isAdmin() || \Yii::$app->user->isTerminologist()]

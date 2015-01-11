@@ -1,34 +1,19 @@
 <?php
 
-/* Copyright (C) 2014  Christian Ehringfeld
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 namespace app\controllers;
 
 use Yii;
-use app\models\Translation;
+use app\models\Shortcut;
 use yii\data\ActiveDataProvider;
+use app\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * TranslationController implements the CRUD actions for Translation model.
+ * ShortcutController implements the CRUD actions for Shortcut model.
  */
-class TranslationController extends \app\components\Controller {
+class ShortcutController extends Controller {
 
     public function behaviors() {
         return [
@@ -51,12 +36,12 @@ class TranslationController extends \app\components\Controller {
     }
 
     /**
-     * Lists all Translation models.
+     * Lists all Shortcut models.
      * @return mixed
      */
     public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
-            'query' => Translation::find(),
+            'query' => Shortcut::find(),
         ]);
 
         return $this->render('index', [
@@ -65,7 +50,7 @@ class TranslationController extends \app\components\Controller {
     }
 
     /**
-     * Displays a single Translation model.
+     * Displays a single Shortcut model.
      * @param integer $id
      * @return mixed
      */
@@ -76,16 +61,15 @@ class TranslationController extends \app\components\Controller {
     }
 
     /**
-     * Creates a new Translation model.
+     * Creates a new Shortcut model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate() {
-        $model = new \app\models\forms\TranslationForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->create()) {
-                return $this->redirect(['view', 'id' => $model->getTranslationId()]);
-            }
+        $model = new Shortcut();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                         'model' => $model,
@@ -94,20 +78,15 @@ class TranslationController extends \app\components\Controller {
     }
 
     /**
-     * Updates an existing Translation model.
+     * Updates an existing Shortcut model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $word1 = $model->getWord1()->one();
-            $word2 = $model->getWord2()->one();
-            $word1->word = Yii::$app->request->post()['Word1']['word'];
-            $word2->word = Yii::$app->request->post()['Word2']['word'];
-            $word1->update();
-            $word2->update();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -117,7 +96,7 @@ class TranslationController extends \app\components\Controller {
     }
 
     /**
-     * Deletes an existing Translation model.
+     * Deletes an existing Shortcut model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -129,26 +108,18 @@ class TranslationController extends \app\components\Controller {
     }
 
     /**
-     * Finds the Translation model based on its primary key value.
+     * Finds the Shortcut model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Translation the loaded model
+     * @return Shortcut the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-        if (($model = Translation::findOne($id)) !== null) {
+        if (($model = Shortcut::findOne($id)) !== null) {
             return $model;
         } else {
-            $this->throwPageNotFound();
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    /**
-     * 
-     * Yii::t not detecting word "translation" correct in views
-     */
-    private function dummy() {
-        return Yii::t('app', 'Translation');
     }
 
 }

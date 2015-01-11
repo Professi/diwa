@@ -2,39 +2,39 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\models\Dictionary;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Translations');
+$this->title = Yii::t('app', 'Shortcuts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="translation-index">
+<div class="shortcut-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?=
         Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => Yii::t('app', 'Translation'),
+                    'modelClass' => Yii::t('app', 'Shortcut'),
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
-    <?php
-    yii\widgets\Pjax::begin();
-    echo GridView::widget([
+
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['attribute' => 'language1', 'value'=>'dictionary.language1.shortname'],
-            ['attribute' => 'word1', 'value' => 'word1.word'],
-            ['attribute' => 'language2', 'value'=>'dictionary.language2.shortname'],
-            ['attribute' => 'word2', 'value' => 'word2.word'],
+            'shortcut',
+            'name',
+            ['attribute' => 'kind',
+                'value' => function ($data) {
+                    return is_numeric($data->kind) ? app\models\enums\ShortcutCategory::getCategoryNames()[$data->kind] : '';
+                }],
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);
-    yii\widgets\Pjax::end();
     ?>
 
 </div>

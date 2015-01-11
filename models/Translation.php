@@ -47,8 +47,10 @@ class Translation extends \yii\db\ActiveRecord {
         return array(
             'id' => Yii::t('app', 'ID'),
             'dictionary' => Yii::t('app', 'Dictionary'),
-            'word1' => Yii::t('app', 'Word {no}', array('no' => 1)),
-            'word2' => Yii::t('app', 'Word {no}', array('no' => 2)),
+            'word1' => Yii::t('app', 'Word {no}', ['no' => 1]),
+            'word2' => Yii::t('app', 'Word {no}', ['no' => 2]),
+            'language1' => Yii::t('app', 'Language {no}',['no'=>1]),
+            'language2' => Yii::t('app', 'Language {no}',['no'=>2]),
         );
     }
 

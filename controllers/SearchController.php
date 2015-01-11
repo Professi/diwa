@@ -77,7 +77,7 @@ class SearchController extends \app\components\Controller {
             if (!empty($dataProvider)) {
                 $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
                     'dict' => Dictionary::find()->where('id=:dictId')
-                        ->params([':dictId' => $model->dictionary])->one()]
+                            ->params([':dictId' => $model->dictionary])->one()]
                 );
             }
         }
