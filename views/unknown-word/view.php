@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             ['attribute' => 'searchRequest.dictionary.language1',
                 'value' => $model->getSearchRequest()->one()->getDictionary()->one()->getLanguage1()->one()->name,
             ],

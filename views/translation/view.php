@@ -6,14 +6,12 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Translation */
 
-$this->title = $model->id;
+$this->title = $model->word1->word . ' - ' . $model->word2->word;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Translations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="translation-view">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=
@@ -26,16 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ])
         ?>
     </p>
-
     <?=
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            ['attribute' => 'dictionary.language1',
+            ['attribute' => 'language1',
                 'value' => $model->getDictionary()->getLanguage1()->one()->shortname
             ],
-            ['attribute' => 'dictionary.language2',
+            ['attribute' => 'language2',
                 'value' => $model->getDictionary()->getLanguage2()->one()->shortname
             ],
             'word1.word',

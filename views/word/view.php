@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Word */
 
-$this->title = $model->id;
+$this->title = $model->word;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Words'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'word:ntext',
             ['attribute' => 'language', 'value' => $model->getLanguage()->one()->name]
         ],

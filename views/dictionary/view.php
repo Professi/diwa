@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Dictionary */
 
-$this->title = $model->id;
+$this->title = $model->language1->name . ' - ' . $model->language2->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Dictionaries'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             [
                 'attribute' => 'language1',
                 'value' => $model->getLanguage1()->one()->name,
