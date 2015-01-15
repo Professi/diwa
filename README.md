@@ -9,3 +9,6 @@ For caching you can use every by yii2 supported cache method(MemCache, FileCache
 
 See for more informations:
 http://synlos.net/redmine/projects/diwa
+
+You can checkout this demo:
+http://synlos.net/diwa/

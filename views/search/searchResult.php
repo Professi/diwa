@@ -25,20 +25,20 @@ echo GridView::widget([
     'id' => 'gridview',
     'dataProvider' => $dataProvider,
     'columns' => [
-        ['attribute' => $lang1,
+        [
+            'attribute' => 'word1.word',
+            'label' => $lang1,
             'value' => function ($data) {
-                if (Yii::$app->params['cacheTranslatedWords']) {
-                    return $data['word1']['word'];
-                }
-                return app\models\Word::findOne($data['word1_id'])->word;
-            }],
-        ['attribute' => $lang2,
+                return $data['word1']['word'];
+            }
+        ],
+        [
+            'attribute' => 'word2.word',
+            'label' => $lang2,
             'value' => function ($data) {
-                if (Yii::$app->params['cacheTranslatedWords']) {
-                    return $data['word2']['word'];
-                }
-                return app\models\Word::findOne($data['word2_id'])->word;
-            }],
+                return $data['word2']['word'];
+            }
+        ],
     ],
 ]);
 yii\widgets\Pjax::end();

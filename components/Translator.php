@@ -91,11 +91,12 @@ class Translator extends \yii\base\Object {
         if ($result != null) {
             $dataProvider = new ArrayDataProvider([
                 'allModels' => $result,
+                'key' => 'id',
                 'sort' => [
-                    'attributes' => ['word1', 'word2'],
+                    'attributes' => ['word1.word', 'word2.word'],
                 ],
                 'pagination' => [
-                    'pageSize' => 50,
+                    'pageSize' => $this->getPageSize(),
                 ],
             ]);
         } else {
@@ -136,9 +137,7 @@ class Translator extends \yii\base\Object {
             $wordsL2 = $this->getWords($this->dictionaryObj->language2_id, $where);
             $q = Translation::find()->asArray();
             $q->select(['id', 'word1_id', 'word2_id']);
-            if (\Yii::$app->params['cacheTranslatedWords']) {
-                $q->with('word1', 'word2');
-            }
+            $q->with('word1', 'word2');
             if (!empty($wordsL1) && !empty($wordsL2)) {
                 $q->where(['in', 'word1_id', $wordsL1])
                         ->orWhere(['in', 'word2_id', $wordsL2])
@@ -171,7 +170,7 @@ class Translator extends \yii\base\Object {
         }
         $words = \app\models\Word::find()->select(['id'])
                         ->where('language_id=:lang AND ' . $where)
-                        ->limit(1500)
+                        ->limit($this->getTranslationLimitPerResult())
                         ->params($params)
                         ->asArray()->all();
         $result = array();
@@ -183,7 +182,7 @@ class Translator extends \yii\base\Object {
 
     protected function setCacheData($data, $key, $dependency) {
         if ($this->cache != null) {
-            $this->cache->set($key, $data, $this->getDuration(), $dependency);
+            $this->cache->set($key, $data, $this->getDuration(count($data)), $dependency);
         }
     }
 
@@ -225,8 +224,26 @@ class Translator extends \yii\base\Object {
         return new CachedDbDependency(['sql' => 'SELECT COUNT(*) FROM translation WHERE dictionary_id=:id', 'params' => [':id' => $dictId]]);
     }
 
-    protected function getDuration() {
-        return 0;
+    protected function getDuration($size) {
+        if ($size < 100) {
+            return 0;
+        } else if ($size < 300) {
+            return 86400; //one day
+        } else if ($size < 750) {
+            return 3600; // one hour
+        } else if ($size < 1000) {
+            return 1800; //30 minutes
+        } else {
+            return 600; //10 minutes
+        }
+    }
+
+    protected function getTranslationLimitPerResult() {
+        return 1500;
+    }
+
+    protected function getPageSize() {
+        return 50;
     }
 
     /**
