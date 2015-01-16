@@ -51,7 +51,7 @@ class m141201_200912_schema extends Migration {
         $this->createTable('word', array(
             'id' => Schema::TYPE_BIGPK,
             'language_id' => Schema::TYPE_INTEGER,
-            'word' => Schema::TYPE_STRING,
+            'word' => Schema::TYPE_TEXT,
         ));
         $this->createTable('session', array(
             'id' => 'CHAR(40) NOT NULL PRIMARY KEY',
@@ -73,7 +73,6 @@ class m141201_200912_schema extends Migration {
         $this->createIndex('idx_shortcut1', 'shortcut', ['shortcut'], true);
         $this->createIndex('idx_username1', 'user', ['username'], true);
         $this->createIndex('idx_user_authKey', 'user', ['authKey'], true);
-        $this->createIndex('idx_word1', 'word', ['word', 'language_id'], true);
         $this->createIndex('idx_language1', 'language', ['shortname', 'name'], true);
         $this->createIndex('idx_unknownword1', 'unknownword', ['searchRequest_id'], true);
         $this->createIndex('idx_useragent_agentHash1', 'useragent', ['agentHash'], true);
@@ -111,7 +110,6 @@ class m141201_200912_schema extends Migration {
         $this->dropIndex('idx_unknownword1', 'unknownword');
         $this->dropIndex('idx_language1', 'language');
         $this->dropIndex('idx_username1', 'user');
-        $this->dropIndex('idx_word1', 'word');
         $this->dropIndex('idx_shortcut1', 'shortcut');
         $this->dropTable('shortcut');
         $this->dropTable('session');

@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Translation' => 'Übersetzung',
+    'Normal search' => 'Normale Suche',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -101,6 +101,7 @@ return [
     'This application is licensed with the GNU General Public License Version 3' => 'Diese Anwendung wurde mit der GNU General Public License Version 3 lizensiert.',
     'This site has been created with the following tools and ressources:' => 'Diese Seite wurde mit Hilfe der folgenden Ressourcen entwickelt und erstellt:',
     'Translate' => 'Übersetzen',
+    'Translation' => 'Übersetzung',
     'Translations' => 'Übersetzungen',
     'Unknown words' => 'Unbekannte Wörter',
     'Update' => 'Aktualisieren',

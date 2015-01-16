@@ -30,13 +30,14 @@ abstract class SearchMethod {
     const FUZZY = 0;
     const COMFORT = 1;
     const FAST = 2;
+    const NORMAL = 3;
 
     public static function getMethods() {
-        return array(SearchMethod::FUZZY, SearchMethod::COMFORT, SearchMethod::FAST);
+        return array(SearchMethod::FUZZY, SearchMethod::COMFORT, SearchMethod::FAST, SearchMethod::NORMAL);
     }
 
     public static function getMethodnames() {
-        return array(SearchMethod::FAST => Yii::t('app', 'Fast search'), SearchMethod::FUZZY => Yii::t('app', 'Fuzzy search'), SearchMethod::COMFORT => Yii::t('app', 'Comfort search'));
+        return array(SearchMethod::FAST => Yii::t('app', 'Fast search'), SearchMethod::FUZZY => Yii::t('app', 'Fuzzy search'), SearchMethod::COMFORT => Yii::t('app', 'Comfort search'), SearchMethod::NORMAL => Yii::t('app', 'Normal search'));
     }
 
 }

@@ -49,8 +49,8 @@ class Translation extends \yii\db\ActiveRecord {
             'dictionary' => Yii::t('app', 'Dictionary'),
             'word1' => Yii::t('app', 'Word {no}', ['no' => 1]),
             'word2' => Yii::t('app', 'Word {no}', ['no' => 2]),
-            'language1' => Yii::t('app', 'Language {no}',['no'=>1]),
-            'language2' => Yii::t('app', 'Language {no}',['no'=>2]),
+            'language1' => Yii::t('app', 'Language {no}', ['no' => 1]),
+            'language2' => Yii::t('app', 'Language {no}', ['no' => 2]),
         );
     }
 
@@ -59,15 +59,23 @@ class Translation extends \yii\db\ActiveRecord {
     }
 
     public function getDictionary() {
-        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id'])->one();
+        return $this->hasOne(Dictionary::className(), ['id' => 'dictionary_id']);
     }
 
     public function getWord1() {
-        return $this->hasOne(Word::className(), ['id' => 'word1_id']);
+        return $this->hasOne(Word::className(), ['id' => 'word1_id'])->from(Word::tableName() . ' word1');
     }
 
     public function getWord2() {
-        return $this->hasOne(Word::className(), ['id' => 'word2_id']);
+        return $this->hasOne(Word::className(), ['id' => 'word2_id'])->from(Word::tableName() . ' word2');
+    }
+
+    public function getWord1Term() {
+        return empty($this->word1) ? '' : $this->word1->word;
+    }
+
+    public function getWord2Term() {
+        return empty($this->word2) ? '' : $this->word2->word;
     }
 
 }

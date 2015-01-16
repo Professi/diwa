@@ -119,6 +119,9 @@ class Translator extends \yii\base\Object {
             case SearchMethod::FAST:
                 $where = $this->fastSearch();
                 break;
+            case SearchMethod::NORMAL:
+                $where = $this->comfortSearch(false);
+                break;
         }
         return $this->getResult($where);
     }
@@ -186,8 +189,9 @@ class Translator extends \yii\base\Object {
         }
     }
 
-    public function comfortSearch() {
-        $this->additionalParams = [':word' => '%' . $this->searchWord . '%'];
+    public function comfortSearch($firstJoker = true) {
+        $param = $firstJoker ? '%' : '';
+        $this->additionalParams = [':word' => $param . $this->searchWord . '%'];
         return 'word LIKE :word';
     }
 
