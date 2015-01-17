@@ -55,11 +55,10 @@ class UnknownWordController extends \app\components\Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => UnknownWord::find(),
-        ]);
-
+        $filterModel = new \app\models\search\UnknownWordSearch();
+        $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+                    'filterModel' => $filterModel,
                     'dataProvider' => $dataProvider,
         ]);
     }

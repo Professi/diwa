@@ -28,7 +28,7 @@ use app\models\enums\ShortcutCategory;
  * @property string $name
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class Shortcut extends \yii\db\ActiveRecord {
+class Shortcut extends \app\components\CustomActiveRecord {
 
     public static function tableName() {
         return 'shortcut';
@@ -44,7 +44,7 @@ class Shortcut extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
+            'id' => self::getIdLabel(),
             'shortcut' => Yii::t('app', 'Shortcut'),
             'name' => Yii::t('app', 'Name'),
             'kind' => Yii::t('app', 'Kind'),
@@ -144,6 +144,18 @@ class Shortcut extends \yii\db\ActiveRecord {
             '{conj}' => Yii::t('app', 'conjunction'),
             '{interj}' => Yii::t('app', 'interjection'),
         );
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Shortcut');
     }
 
 }

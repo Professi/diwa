@@ -72,8 +72,9 @@ class TranslationSearch extends Translation {
             return $dataProvider;
         }
         $query->joinWith(['dictionary' => function ($q) {
-                $q->andFilterWhere(['dictionary.language1_id' => $this->language1]);
-                $q->andFilterWhere(['dictionary.language2_id' => $this->language2]);
+                $q->andFilterWhere(['dictionary.language1_id' => $this->language1,
+                    'dictionary.language2_id' => $this->language2
+                        ]);
             }, 'word1' => function ($q) {
                 if (!empty($this->word1Term)) {
                     $q->andWhere('word1.word LIKE :word1');

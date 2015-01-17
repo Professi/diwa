@@ -37,12 +37,11 @@ class Word extends \app\components\CustomActiveRecord {
     }
 
     public function attributeLabels() {
-        $lang = Yii::t('app', 'Language');
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'word' => Yii::t('app', 'Word'),
-            'language' => $lang,
-            'language_id' => $lang,
+            'id' => self::getIdLabel(),
+            'word' => self::getLabel(),
+            'language' => Language::getLabel(),
+            'language_id' => Language::getLabel(),
         );
     }
 
@@ -62,9 +61,13 @@ class Word extends \app\components\CustomActiveRecord {
     public function getId() {
         return $this->id;
     }
-    
+
     public function setId($id) {
         $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Word');
     }
 
 }

@@ -45,12 +45,12 @@ class Translation extends \app\components\CustomActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'dictionary' => Yii::t('app', 'Dictionary'),
-            'word1' => Yii::t('app', 'Word {no}', ['no' => 1]),
-            'word2' => Yii::t('app', 'Word {no}', ['no' => 2]),
-            'language1' => Yii::t('app', 'Language {no}', ['no' => 1]),
-            'language2' => Yii::t('app', 'Language {no}', ['no' => 2]),
+            'id' => self::getIdLabel(),
+            'dictionary' => Dictionary::getLabel(),
+            'word1' => Word::getLabel() . ' 1',
+            'word2' => Word::getLabel() . ' 2',
+            'language1' => Language::getLabel() . ' 1',
+            'language2' => Language::getLabel() . ' 2',
         );
     }
 
@@ -84,6 +84,10 @@ class Translation extends \app\components\CustomActiveRecord {
 
     public function setId($id) {
         $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Translation');
     }
 
 }

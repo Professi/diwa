@@ -18,25 +18,27 @@
 
 namespace app\models\search;
 
-use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Word;
+use app\models\UnknownWord;
 
 /**
- * Description of WordSearch
+ * UnknownWordSearch represents the model behind the search form about `app\models\UnknownWord`.
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class WordSearch extends Word {
+class UnknownWordSearch extends UnknownWord {
+
+    public $searchMethod;
+    public $dictionary;
+    public $request;
 
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-            [['id', 'language_id'], 'integer'],
-            [['word'], 'safe'],
+            [['id', 'searchRequest_id'], 'integer'],
+            [['searchMethod', 'dictionary', 'request'], 'safe']
         ];
     }
 
@@ -48,14 +50,14 @@ class WordSearch extends Word {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        $query = Word::find();
-        $query->joinWith(['language']);
+        $query = UnknownWord::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
                 'attributes' => [
-                    'language_id' => $this->sortArray('language.shortname'),
-                    'word' => $this->sortArray('word'),
+                    'searchMethod' => $this->sortArray('searchMethod'),
+                    'dictionary' => $this->sortArray('dictionary_id'),
+                    'request' => $this->sortArray('request'),
                 ],
             ],
         ]);
@@ -63,13 +65,14 @@ class WordSearch extends Word {
         if (!$this->validate()) {
             return $dataProvider;
         }
-        $query->andFilterWhere([
-            'language_id' => $this->language_id,
-        ]);
-        if (!empty(trim($this->word))) {
-            $query->andWhere('word LIKE :word');
-            $query->addParams([':word' => trim($this->word . '%')]);
-        }
+        $query->joinWith(['searchRequest' => function ($q) {
+                $q->andFilterWhere(['searchMethod' => $this->searchMethod,
+                    'dictionary_id' => $this->dictionary]);
+                if (!empty(trim($this->request))) {
+                    $q->andWhere('request LIKE :word');
+                    $q->addParams([':word' => trim($this->request . '%')]);
+                }
+            }]);
         return $dataProvider;
     }
 

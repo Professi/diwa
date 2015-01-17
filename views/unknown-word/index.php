@@ -8,6 +8,7 @@ use yii\grid\GridView;
 
 $this->title = Yii::t('app', 'Unknown words');
 $this->params['breadcrumbs'][] = $this->title;
+$dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'shortname');
 ?>
 <div class="unknown-word-index">
 
@@ -16,13 +17,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $filterModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'searchRequest.request',
-            ['value'=>'searchRequest.dictionary.shortname','label'=>  Yii::t('app', 'Dictionary')],
-            ['attribute' => 'searchRequest.searchMethod',
+            ['attribute' => 'request',
+                'value' => 'searchRequest.request',
+                'label' => app\models\SearchRequest::getLabel()],
+            [
+                'attribute' => 'dictionary',
+                'value' => 'searchRequest.dictionary.shortname',
+                'filter' => $dicts,
+                'label' => \app\models\Dictionary::getLabel(),
+            ],
+            ['attribute' => 'searchMethod',
+                'filter' => app\models\enums\SearchMethod::getMethodnames(),
                 'value' => function ($data) {
-                    return app\models\enums\SearchMethod::getMethodnames()[$data->getSearchRequest()->one()->searchMethod];
+                    return app\models\enums\SearchMethod::getMethodnames()[$data->searchRequest->searchMethod];
                 }],
             ['class' => 'app\components\widgets\CustomActionColumn',
                 'template' => '{view}{delete}'],

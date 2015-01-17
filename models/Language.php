@@ -28,7 +28,7 @@ use Yii;
  * @property string $shortname
  * @property string $name
  */
-class Language extends \yii\db\ActiveRecord {
+class Language extends \app\components\CustomActiveRecord {
 
     public static function tableName() {
         return 'language';
@@ -57,6 +57,18 @@ class Language extends \yii\db\ActiveRecord {
 //        if (strpos($db->dsn, 'pgsql') == 0) {
 //            $db->createCommand('CREATE INDEX "ft_idx_word' . $this->getPrimaryKey() . '" ON "word" USING gin(to_tsvector('. Yii::t('app', $this->name). ',"word")) WHERE language_id=' . $this->getPrimaryKey() . ';')->execute();
 //        }
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Language');
     }
 
 }

@@ -18,12 +18,24 @@
 
 namespace app\components;
 
+use Yii;
+
 /**
  * Description of CustomActiveRecord
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
 abstract class CustomActiveRecord extends \yii\db\ActiveRecord {
+
+    abstract public static function getLabel();
+
+    public static function getIdLabel() {
+        return Yii::t('app', 'ID');
+    }
+
+    abstract public function getId();
+
+    abstract public function setId($id);
 
     protected function sortArray($name) {
         return [
@@ -36,7 +48,4 @@ abstract class CustomActiveRecord extends \yii\db\ActiveRecord {
         ];
     }
 
-    abstract public function getId();
-
-    abstract public function setId($id);
 }

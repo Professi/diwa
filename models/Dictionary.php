@@ -30,7 +30,7 @@ use app\components\CachedDbDependency;
  * @property integer $language2_id
  * @property boolean $active
  */
-class Dictionary extends \yii\db\ActiveRecord {
+class Dictionary extends \app\components\CustomActiveRecord {
 
     public static function tableName() {
         return 'dictionary';
@@ -45,10 +45,11 @@ class Dictionary extends \yii\db\ActiveRecord {
     }
 
     public function attributeLabels() {
-        $lang1 = Yii::t('app', 'Language {no}', array('no' => 1));
-        $lang2 = Yii::t('app', 'Language {no}', array('no' => 2));
+
+        $lang1 = Language::getLabel() . ' 1';
+        $lang2 = Language::getLabel() . ' 2';
         return array(
-            'id' => Yii::t('app', 'ID'),
+            'id' => self::getIdLabel(),
             'active' => Yii::t('app', 'Active'),
             'language1' => $lang1,
             'language2' => $lang2,
@@ -80,6 +81,18 @@ class Dictionary extends \yii\db\ActiveRecord {
             return $q->all();
         }, 86400, $dep);
         return $dicts;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Dictionary');
     }
 
 }

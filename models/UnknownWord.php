@@ -27,7 +27,7 @@ use Yii;
  * @property integer $id
  * @property integer $searchRequest_id
  */
-class UnknownWord extends \yii\db\ActiveRecord {
+class UnknownWord extends \app\components\CustomActiveRecord {
 
     public static function tableName() {
         return 'unknownword';
@@ -42,13 +42,25 @@ class UnknownWord extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'searchRequest' => Yii::t('app', 'Search request'),
+            'id' => self::getIdLabel(),
+            'searchRequest' => SearchRequest::getLabel(),
         );
     }
 
     public function getSearchRequest() {
         return $this->hasOne(\app\models\SearchRequest::className(), array('id' => 'searchRequest_id'));
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Unknown Word');
     }
 
 }

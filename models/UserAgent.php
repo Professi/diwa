@@ -28,7 +28,7 @@ use Yii;
  * @property string $agent
  * @property string $agentHash
  */
-class UserAgent extends \yii\db\ActiveRecord {
+class UserAgent extends \app\components\CustomActiveRecord {
 
     public static function tableName() {
         return 'useragent';
@@ -36,8 +36,8 @@ class UserAgent extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'agent' => Yii::t('app', 'User agent'),
+            'id' => self::getIdLabel(),
+            'agent' => UserAgent::getLabel(),
             'agentHash' => Yii::t('app', 'Hash of user agent'),
         );
     }
@@ -63,6 +63,18 @@ class UserAgent extends \yii\db\ActiveRecord {
         $userAg->agentHash = UserAgent::createHash($userAgent);
         $userAg->save(false);
         return $userAg;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'User agent');
     }
 
 }

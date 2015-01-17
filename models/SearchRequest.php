@@ -36,7 +36,7 @@ use app\models\Dictionary;
  * @property integer $useragent_id
  * @property datetime $timestamp
  */
-class SearchRequest extends \yii\db\ActiveRecord {
+class SearchRequest extends \app\components\CustomActiveRecord {
 
     public static function tableName() {
         return 'searchrequest';
@@ -56,13 +56,13 @@ class SearchRequest extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
+            'id' => self::getIdLabel(),
             'searchMethod' => Yii::t('app', 'Search method'),
             'requestTime' => Yii::t('app', 'Request time'),
-            'dictionary' => Yii::t('app', 'Dictionary'),
+            'dictionary' => Dictionary::getLabel(),
             'ipAddr' => Yii::t('app', 'IP address'),
-            'request' => Yii::t('app', 'Request'),
-            'userAgent' => Yii::t('app', 'User agent'),
+            'request' => SearchRequest::getLabel(),
+            'userAgent' => UserAgent::getLabel(),
         );
     }
 
@@ -101,6 +101,18 @@ class SearchRequest extends \yii\db\ActiveRecord {
             $request->useragent_id = $userAg->getPrimaryKey();
         }
         return $request;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'Search request');
     }
 
 }

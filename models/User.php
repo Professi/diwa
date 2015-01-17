@@ -35,7 +35,7 @@ use yii\db\ActiveRecord;
  * @property timestamp $lastLogin
  * 
  */
-class User extends \yii\db\ActiveRecord {
+class User extends \app\components\CustomActiveRecord {
 
     const MAX_PW_LENGTH = 40;
 
@@ -54,7 +54,7 @@ class User extends \yii\db\ActiveRecord {
 
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
+            'id' => self::getIdLabel(),
             'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
             'authKey' => Yii::t('app', 'Authentication key'),
@@ -65,7 +65,7 @@ class User extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['username'],'trim'],
+            [['username'], 'trim'],
             [['username', 'password', 'role'], 'required'],
             [['username'], 'unique'],
             [['username', 'password'], 'string', 'max' => User::MAX_PW_LENGTH]
@@ -117,6 +117,14 @@ class User extends \yii\db\ActiveRecord {
      */
     public function validatePassword($password) {
         return Yii::$app->getSecurity()->validatePassword($password, $this->password);
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public static function getLabel() {
+        return Yii::t('app', 'User');
     }
 
 }
