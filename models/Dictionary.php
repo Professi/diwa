@@ -19,6 +19,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\CachedDbDependency;
 
 /**
  * Description of Dictionary
@@ -27,6 +28,7 @@ use Yii;
  * @property integer $id
  * @property integer $language1_id
  * @property integer $language2_id
+ * @property boolean $active
  */
 class Dictionary extends \yii\db\ActiveRecord {
 
@@ -38,6 +40,7 @@ class Dictionary extends \yii\db\ActiveRecord {
         return [
             [['language1_id', 'language2_id'], 'required'],
             [['language1_id', 'language2_id'], 'integer'],
+            [['active'], 'boolean'],
         ];
     }
 
@@ -46,11 +49,20 @@ class Dictionary extends \yii\db\ActiveRecord {
         $lang2 = Yii::t('app', 'Language {no}', array('no' => 2));
         return array(
             'id' => Yii::t('app', 'ID'),
+            'active' => Yii::t('app', 'Active'),
             'language1' => $lang1,
             'language2' => $lang2,
             'language1_id' => $lang1,
             'language2_id' => $lang2,
         );
+    }
+
+    public function getShortname() {
+        return $this->language1->shortname . '-' . $this->language2->shortname;
+    }
+
+    public function getLongname() {
+        return Yii::t('app', $this->language1->name) . '-' . Yii::t('app', $this->language2->name);
     }
 
     public function getLanguage1() {
@@ -59,6 +71,15 @@ class Dictionary extends \yii\db\ActiveRecord {
 
     public function getLanguage2() {
         return $this->hasOne(Language::className(), array('id' => 'language2_id'));
+    }
+
+    public static function cachedDictionaries() {
+        $dep = new CachedDbDependency(['sql' => 'SELECT COUNT(*) FROM ' . self::tableName()]);
+        $dicts = Yii::$app->db->cache(function ($db) {
+            $q = \app\models\Dictionary::find()->with('language1', 'language2')->where(['active' => true]);
+            return $q->all();
+        }, 86400, $dep);
+        return $dicts;
     }
 
 }

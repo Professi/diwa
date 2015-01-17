@@ -5,7 +5,7 @@ use yii\db\Schema;
 
 class m141201_200912_schema extends Migration {
 
-    public function up() {
+    public function safeUp() {
         $this->createTable('user', array(
             'id' => Schema::TYPE_PK,
             'username' => Schema::TYPE_STRING,
@@ -89,12 +89,11 @@ class m141201_200912_schema extends Migration {
         $user->username = 'admin';
         $user->password = 'admin';
         $user->role = \app\models\enums\Role::ADMIN;
-//        $user->lastLogin = time();
         $user->save();
         \app\models\Shortcut::defaultShortcuts();
     }
 
-    public function down() {
+    public function safeDown() {
         $this->dropForeignKey('fk_translation_word1_id', 'translation');
         $this->dropForeignKey('fk_translation_word2_id', 'translation');
         $this->dropForeignKey('fk_searchrequest_useragent_id', 'searchrequest');

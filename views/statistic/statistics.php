@@ -46,9 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title' => ['text' => Yii::t('app', 'Requests')],
                     'min' => 0,
                 ],
-                'series' => [
-                    ['name' => 'Requests', 'data' => $months],
-                ]
+                'series' => $series,
             ]
         ]);
         ?>

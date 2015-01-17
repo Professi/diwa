@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Normal search' => 'Normale Suche',
+    'Active' => 'Aktiv',
     'Access denied.' => 'Zugriff verweigert.',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
@@ -69,6 +69,7 @@ return [
     'Name' => 'Name',
     'No' => 'Nein',
     'Normal User' => 'Normaler Benutzer',
+    'Normal search' => 'Normale Suche',
     'Part of speech' => 'Wortart',
     'Password' => 'Passwort',
     'Please fill out the following fields to login:' => 'Bitte füllen Sie die folgenden Felder aus um sich einzuloggen.',

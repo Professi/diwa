@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>
             <?=
             Html::a(Yii::t('app', 'Create {modelClass}', [
-                        'modelClass' => Yii::t('app','Dictionary'),
+                        'modelClass' => Yii::t('app', 'Dictionary'),
                     ]), ['create'], ['class' => 'btn btn-success'])
             ?>
         </p>
@@ -26,6 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
                 ['attribute' => 'language1', 'value' => 'language1.name'],
                 ['attribute' => 'language2', 'value' => 'language2.name'],
+                ['attribute' => 'active', 'value' => function($data) {
+                        return $this->context->getYesOrNo()[$data->active];
+                    }],
                 ['class' => 'app\components\widgets\CustomActionColumn'],
             ],
         ]);

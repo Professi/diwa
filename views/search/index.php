@@ -32,10 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['attribute' => 'dictionary',
-                'value' => function ($data) {
-                    $dict = $data->getDictionary()->one();
-                    return $dict->getLanguage1()->one()->shortname . '<->' . $dict->getLanguage2()->one()->shortname;
-                }],
+                'value' => 'dictionary.shortname'
+            ],
             'request',
             ['attribute' => 'searchMethod',
                 'value' => function ($data) {

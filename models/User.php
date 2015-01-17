@@ -65,6 +65,7 @@ class User extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
+            [['username'],'trim'],
             [['username', 'password', 'role'], 'required'],
             [['username'], 'unique'],
             [['username', 'password'], 'string', 'max' => User::MAX_PW_LENGTH]

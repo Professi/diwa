@@ -25,7 +25,6 @@ use yii\filters\VerbFilter;
 use app\models\Dictionary;
 use app\components\Translator;
 use yii\filters\AccessControl;
-use app\components\CachedDbDependency;
 
 /**
  * SearchRequestController implements the CRUD actions for SearchRequest model.
@@ -87,19 +86,10 @@ class SearchController extends \app\components\Controller {
         ]);
     }
 
-    protected function cachedDictionaries() {
-        $dep = new CachedDbDependency(['sql' => 'SELECT COUNT(*) FROM ' . Dictionary::tableName()]);
-        $dicts = Yii::$app->db->cache(function ($db) {
-            $q = \app\models\Dictionary::find()->with('language1', 'language2');
-            return $q->asArray()->all();
-        }, 86400, $dep);
-        return $dicts;
-    }
-
     public function getDictionaries() {
         $r = [];
-        foreach ($this->cachedDictionaries() as $val) {
-            $r[$val['id']] = $val['language1']['shortname'] . "<->" . $val['language2']['shortname'];
+        foreach (Dictionary::cachedDictionaries() as $val) {
+            $r[$val->id] = $val->getLongname();
         }
         return $r;
     }

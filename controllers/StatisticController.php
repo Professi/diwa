@@ -21,6 +21,7 @@ namespace app\controllers;
 use yii\filters\AccessControl;
 use app\models\SearchRequest;
 use yii\db\Query;
+use Yii;
 
 /**
  * Description of StatisticController
@@ -48,7 +49,6 @@ class StatisticController extends \app\components\Controller {
     }
 
     private function statistics() {
-        $months = [];
         $monthLabels = [];
         $current = new \DateTime('now');
         $request = new \DateTime($this->getFirstMonth()->requestTime);
@@ -56,18 +56,44 @@ class StatisticController extends \app\components\Controller {
         $year = $request->format('Y');
         $request->setTime(0, 0, 0);
         $request->setDate($year, $month, 1);
-        $q = $this->monthCounterQuery();
+        $q = $this->monthCounterQuery(true);
+        $dicts = $this->getDictionaries();
+        $series = $this->seriesArray($dicts);
         while ($request < $current) {
             $endRequest = clone $request;
             $endRequest->add(new \DateInterval('P1M'));
-            $q->params([':start' => $request->format($this->getDbDateFormat()), ':end' => $endRequest->format($this->getDbDateFormat())]);
-            $months[] = (int) $q->one()['c'];
+            $count = 0;
+            $q->params([':start' => $request->format($this->getDbDateFormat()),
+                ':end' => $endRequest->format($this->getDbDateFormat())
+            ]);
+            for ($i = 0; $i < count($dicts); ++$i) {
+                $q->addParams([':dictId' => $dicts[$i]->id]);
+                $c = (int) $q->one()['c'];
+                $count += $c;
+                $series[$i]['data'][] = $c;
+            }
+            $series[count($dicts)]['data'][] = $count;
             $monthLabels[] = $request->format("M-Y");
             $request->add(new \DateInterval('P1M'));
         }
-        return ['totalRequests' => (int) SearchRequest::find()->count(),
-            'monthLabels' => $monthLabels, 'months' => $months,
+        return [
+            'totalRequests' => (int) SearchRequest::find()->count(),
+            'monthLabels' => $monthLabels,
+            'series' => $series,
             'mostCommon' => $this->getMostCommonTerms()];
+    }
+
+    protected function getDictionaries() {
+        return \app\models\Dictionary::find()->all();
+    }
+
+    protected function seriesArray($dicts) {
+        $series = [];
+        foreach ($dicts as $dict) {
+            $series[] = ['name' => $dict->getShortname(), 'data' => []];
+        }
+        $series[] = ['name' => Yii::t('app', 'Requests'), 'data' => []];
+        return $series;
     }
 
     private function getMostCommonTerms() {
@@ -84,11 +110,14 @@ class StatisticController extends \app\components\Controller {
         return SearchRequest::find()->orderBy(['id' => 'ASC'])->one();
     }
 
-    private function monthCounterQuery() {
+    private function monthCounterQuery($dict = false) {
         $q = new Query();
         $q->select('COUNT(*) AS c');
         $q->from(SearchRequest::tableName());
         $q->where('requestTime between DATE(:start) and (:end)');
+        if ($dict) {
+            $q->andWhere('dictionary_id = :dictId');
+        }
         return $q;
     }
 
