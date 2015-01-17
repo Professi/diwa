@@ -24,15 +24,8 @@
 
 namespace app\models\search;
 
-use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Translation;
-
-//            ['attribute' => 'language1', 'value' => 'dictionary.language1.shortname'],
-//            ['attribute' => 'word1', 'value' => 'word1.word'],
-//            ['attribute' => 'language2', 'value' => 'dictionary.language2.shortname'],
-//            ['attribute' => 'word2', 'value' => 'word2.word'],
 
 /**
  * TranslationSearch represents the model behind the search form about `app\models\Translation`.
@@ -50,25 +43,6 @@ class TranslationSearch extends Translation {
     public function rules() {
         return [
             [['language1', 'word1Term', 'language2', 'word2Term'], 'safe'],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function scenarios() {
-        // bypass scenarios() implementation in the parent class
-        return Translation::scenarios();
-    }
-
-    protected function sortArray($name) {
-        return [
-            'asc' => [
-                $name => SORT_ASC,
-            ],
-            'desc' => [
-                $name => SORT_DESC,
-            ]
         ];
     }
 
@@ -111,8 +85,8 @@ class TranslationSearch extends Translation {
                     $q->addParams([':word2' => $this->word2Term . '%']);
                 }
             }]);
-        return $dataProvider;
-    }
+                return $dataProvider;
+            }
 
-}
+        }
         

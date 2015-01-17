@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'searchRequest.request',
+            ['value'=>'searchRequest.dictionary.shortname','label'=>  Yii::t('app', 'Dictionary')],
             ['attribute' => 'searchRequest.searchMethod',
                 'value' => function ($data) {
                     return app\models\enums\SearchMethod::getMethodnames()[$data->getSearchRequest()->one()->searchMethod];

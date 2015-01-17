@@ -33,7 +33,7 @@ use yii\data\SqlDataProvider;
  * @property integer $word2_id
  * 
  */
-class Translation extends \yii\db\ActiveRecord {
+class Translation extends \app\components\CustomActiveRecord {
 
     public function rules() {
         return [
@@ -76,6 +76,14 @@ class Translation extends \yii\db\ActiveRecord {
 
     public function getWord2Term() {
         return empty($this->word2) ? '' : $this->word2->word;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
 }

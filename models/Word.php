@@ -27,7 +27,7 @@ use Yii;
  * @property integer language_id
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class Word extends \yii\db\ActiveRecord {
+class Word extends \app\components\CustomActiveRecord {
 
     public function rules() {
         return [
@@ -37,11 +37,12 @@ class Word extends \yii\db\ActiveRecord {
     }
 
     public function attributeLabels() {
+        $lang = Yii::t('app', 'Language');
         return array(
             'id' => Yii::t('app', 'ID'),
             'word' => Yii::t('app', 'Word'),
-            'language' => Yii::t('app', 'Language'),
-            'language_id' => Yii::t('app', 'Language'),
+            'language' => $lang,
+            'language_id' => $lang,
         );
     }
 
@@ -56,6 +57,14 @@ class Word extends \yii\db\ActiveRecord {
     public function setValues($word, $langId) {
         $this->word = $word;
         $this->language_id = $langId;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+    
+    public function setId($id) {
+        $this->id = $id;
     }
 
 }

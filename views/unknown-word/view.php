@@ -11,9 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Unknown words'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="unknown-word-view">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?=
         Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
@@ -25,20 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ])
         ?>
     </p>
-
     <?=
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['attribute' => 'searchRequest.dictionary.language1',
-                'value' => $model->getSearchRequest()->one()->getDictionary()->one()->getLanguage1()->one()->name,
-            ],
-            ['attribute' => 'searchRequest.dictionary.language2',
-                'value' => $model->getSearchRequest()->one()->getDictionary()->one()->getLanguage2()->one()->name,
-            ],
+            ['attribute' => 'searchRequest.dictionary', 'value' => $model->searchRequest->dictionary->getLongname()],
             'searchRequest.request',
             ['attribute' => 'searchRequest.searchMethod',
-                'value' => app\models\enums\SearchMethod::getMethodnames()[$model->getSearchRequest()->one()->searchMethod],
+                'value' => app\models\enums\SearchMethod::getMethodnames()[$model->searchRequest->searchMethod],
             ],
         ],
     ])

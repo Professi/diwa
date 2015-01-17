@@ -91,11 +91,10 @@ class WordController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Word::find(),
-        ]);
-
+        $filterModel = new \app\models\search\WordSearch();
+        $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+                    'filterModel' => $filterModel,
                     'dataProvider' => $dataProvider,
         ]);
     }

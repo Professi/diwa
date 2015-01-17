@@ -10,9 +10,7 @@ $this->title = Yii::t('app', 'Words');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="word-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?=
         Html::a(Yii::t('app', 'Create {modelClass}', [
@@ -20,15 +18,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
-
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $filterModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'word:ntext',
-            ['attribute' => 'language',
-                'value' => 'language.name'],
+            ['attribute' => 'language_id',
+                'value' => 'language.shortname',
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\Language::find()->all(), 'id', 'name')],
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);
