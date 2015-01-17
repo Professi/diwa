@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?=
         Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => Yii::t('app', 'Translation'),
+                    'modelClass' => app\models\Translation::getLabel(),
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $filterModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['attribute' => 'language1','filter'=>$langs, 'value' => 'dictionary.language1.shortname', 'label' => $attributeLabels['language1']],
+            ['attribute' => 'language1', 'filter' => $langs, 'value' => 'dictionary.language1.shortname', 'label' => $attributeLabels['language1']],
             ['attribute' => 'word1Term', 'value' => 'word1.word', 'label' => $attributeLabels['word1']],
-            ['attribute' => 'language2','filter'=>$langs, 'value' => 'dictionary.language2.shortname', 'label' => $attributeLabels['language2']],
+            ['attribute' => 'language2', 'filter' => $langs, 'value' => 'dictionary.language2.shortname', 'label' => $attributeLabels['language2']],
             ['attribute' => 'word2Term', 'label' => $attributeLabels['word2']],
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],

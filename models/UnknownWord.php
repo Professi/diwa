@@ -60,7 +60,7 @@ class UnknownWord extends \app\components\CustomActiveRecord {
     }
 
     public static function getLabel() {
-        return Yii::t('app', 'Unknown Word');
+        return Yii::t('app', 'Unknown word');
     }
 
 }

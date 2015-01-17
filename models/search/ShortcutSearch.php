@@ -18,27 +18,24 @@
 
 namespace app\models\search;
 
+use Yii;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\UnknownWord;
+use app\models\Shortcut;
 
 /**
- * UnknownWordSearch represents the model behind the search form about `app\models\UnknownWord`.
- *
+ * SearchRequestSearch represents the model behind the search form about `app\models\Shortcut`.
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class UnknownWordSearch extends UnknownWord {
-
-    public $searchMethod;
-    public $dictionary;
-    public $request;
+class ShortcutSearch extends Shortcut {
 
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-            [['id', 'searchRequest_id'], 'integer'],
-            [['searchMethod', 'dictionary', 'request'], 'safe']
+            [['id', 'kind'], 'integer'],
+            [['shortcut', 'name'], 'safe'],
         ];
     }
 
@@ -50,26 +47,26 @@ class UnknownWordSearch extends UnknownWord {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        $query = UnknownWord::find();
+        $query = Shortcut::find();
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'attributes' => [
-                    'searchMethod' => $this->sortArray('searchMethod'),
-                    'dictionary' => $this->sortArray('dictionary_id'),
-                    'request' => $this->sortArray('request'),
-                ],
-            ],
         ]);
+
         $this->load($params);
+
         if (!$this->validate()) {
             return $dataProvider;
         }
-        $query->joinWith(['searchRequest' => function ($q) {
-                $q->andFilterWhere(['searchMethod' => $this->searchMethod,
-                    'dictionary_id' => $this->dictionary]);
-                SearchRequestSearch::filterWord($q, $this->request);
-            }]);
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'kind' => $this->kind,
+        ]);
+
+        $query->andFilterWhere(['like', 'shortcut', $this->shortcut])
+                ->andFilterWhere(['like', 'name', $this->name]);
+
         return $dataProvider;
     }
 

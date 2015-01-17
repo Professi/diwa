@@ -16,17 +16,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?=
         Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => Yii::t('app', 'User'),
+                    'modelClass' => app\models\User::getLabel(),
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $filterModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'username',
             ['attribute' => 'role',
+                'filter' => app\models\enums\Role::getRoleNames(),
                 'value' => function ($data) {
                     return \app\models\enums\Role::getRoleNames()[$data->role];
                 }],

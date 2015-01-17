@@ -142,12 +142,4 @@ class TranslationController extends \app\components\Controller {
         }
     }
 
-    /**
-     * 
-     * Yii::t not detecting word "translation" correct in views
-     */
-    private function dummy() {
-        return Yii::t('app', 'Translation');
-    }
-
 }

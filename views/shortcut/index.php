@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?=
         Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => Yii::t('app', 'Shortcut'),
+                    'modelClass' => \app\models\Shortcut::getLabel(),
                 ]), ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
@@ -24,11 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $filterModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'shortcut',
             'name',
             ['attribute' => 'kind',
+                'filter' => app\models\enums\ShortcutCategory::getCategoryNames(),
                 'value' => function ($data) {
                     return is_numeric($data->kind) ? app\models\enums\ShortcutCategory::getCategoryNames()[$data->kind] : '';
                 }],

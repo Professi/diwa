@@ -40,11 +40,10 @@ class ShortcutController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Shortcut::find(),
-        ]);
-
+        $filterModel = new \app\models\search\ShortcutSearch();
+        $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+                    'filterModel' => $filterModel,
                     'dataProvider' => $dataProvider,
         ]);
     }

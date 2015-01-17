@@ -29,17 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $filterModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['attribute' => 'dictionary',
-                'value' => 'dictionary.shortname'
+            ['attribute' => 'dictionary_id',
+                'value' => 'dictionary.shortname',
+                'filter' => \app\models\Dictionary::getFilter(),
+                'label' => \app\models\Dictionary::getLabel(),
             ],
             'request',
             ['attribute' => 'searchMethod',
+                'filter' => app\models\enums\SearchMethod::getMethodnames(),
                 'value' => function ($data) {
                     return app\models\enums\SearchMethod::getMethodnames()[$data->searchMethod];
                 }],
-            'requestTime',
+            ['attribute' => 'requestTime'],
             ['class' => 'app\components\widgets\CustomActionColumn',
                 'template' => '{view}',
             ],

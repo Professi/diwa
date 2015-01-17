@@ -95,4 +95,8 @@ class Dictionary extends \app\components\CustomActiveRecord {
         return Yii::t('app', 'Dictionary');
     }
 
+    public static function getFilter() {
+        return \yii\helpers\ArrayHelper::map(self::find()->all(), 'id', 'shortname');
+    }
+
 }

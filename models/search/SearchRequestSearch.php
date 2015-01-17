@@ -18,27 +18,24 @@
 
 namespace app\models\search;
 
+use Yii;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\UnknownWord;
+use app\models\SearchRequest;
 
 /**
- * UnknownWordSearch represents the model behind the search form about `app\models\UnknownWord`.
- *
+ * SearchRequestSearch represents the model behind the search form about `app\models\SearchRequest`.
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class UnknownWordSearch extends UnknownWord {
-
-    public $searchMethod;
-    public $dictionary;
-    public $request;
+class SearchRequestSearch extends SearchRequest {
 
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-            [['id', 'searchRequest_id'], 'integer'],
-            [['searchMethod', 'dictionary', 'request'], 'safe']
+            [['id', 'dictionary_id', 'searchMethod', 'useragent_id'], 'integer'],
+            [['request', 'ipAddr', 'requestTime'], 'safe'],
         ];
     }
 
@@ -50,14 +47,16 @@ class UnknownWordSearch extends UnknownWord {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        $query = UnknownWord::find();
+        $query = SearchRequest::find();
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
                 'attributes' => [
                     'searchMethod' => $this->sortArray('searchMethod'),
-                    'dictionary' => $this->sortArray('dictionary_id'),
+                    'dictionary_id' => $this->sortArray('dictionary_id'),
                     'request' => $this->sortArray('request'),
+                    'requestTime' => $this->sortArray('requestTime'),
                 ],
             ],
         ]);
@@ -65,12 +64,25 @@ class UnknownWordSearch extends UnknownWord {
         if (!$this->validate()) {
             return $dataProvider;
         }
-        $query->joinWith(['searchRequest' => function ($q) {
-                $q->andFilterWhere(['searchMethod' => $this->searchMethod,
-                    'dictionary_id' => $this->dictionary]);
-                SearchRequestSearch::filterWord($q, $this->request);
-            }]);
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'searchMethod' => $this->searchMethod,
+            'dictionary_id' => $this->dictionary_id,
+            'useragent_id' => $this->useragent_id,
+            'requestTime' => $this->requestTime,
+        ]);
+        SearchRequestSearch::filterWord($query, $this->request);
+        $query->andFilterWhere(['like', 'ipAddr', $this->ipAddr]);
+
         return $dataProvider;
+    }
+
+    public static function filterWord(&$q, $value) {
+        if (!empty(trim($value))) {
+            $q->andWhere('request LIKE :word');
+            $q->addParams([':word' => trim($value . '%')]);
+        }
     }
 
 }

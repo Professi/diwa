@@ -55,11 +55,10 @@ class UserController extends \app\components\Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-        ]);
-
+        $filterModel = new \app\models\search\UserSearch();
+        $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+                    'filterModel' => $filterModel,
                     'dataProvider' => $dataProvider,
         ]);
     }

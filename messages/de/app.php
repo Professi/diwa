@@ -17,8 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Active' => 'Aktiv',
+    'Unknown word' => 'Unbekanntes Wort',
     'Access denied.' => 'Zugriff verweigert.',
+    'Active' => 'Aktiv',
     'Administrator' => 'Administrator',
     'American English' => 'Amerikanisches Englisch',
     'Are you sure you want to delete this item?' => 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?',
@@ -60,7 +61,6 @@ return [
     'Invalid request.' => 'Ihre Anfrage ist ungültig.',
     'Kind' => 'Art',
     'Language' => 'Sprache',
-    'Language {no}' => 'Sprache {no}',
     'Languages' => 'Sprachen',
     'Last login' => 'Letzer Login',
     'Link' => 'Link',
@@ -76,7 +76,6 @@ return [
     'Press <kbd>Esc</kbd> to toggle the navigation menu.' => 'Drücken Sie <kbd>Esc</kbd> um das Navigationsmenü ein- bzw. auszublenden.',
     'Print' => 'Drucken',
     'Remember Me' => 'Anmeldedaten merken',
-    'Request' => 'Anfrage',
     'Request time' => 'Anfragezeit',
     'Requests' => 'Anfragen',
     'Role' => 'Rolle',
@@ -109,6 +108,7 @@ return [
     'Update {modelClass}: ' => 'Aktualisiere {modelClass}',
     'Upload translation file' => 'Übersetzungsdatei hochladen',
     'Usage' => 'Verwendung',
+    'User' => 'Benutzer',
     'User Agents' => 'User Agents',
     'User agent' => 'User Agent',
     'Username' => 'Benutzername',

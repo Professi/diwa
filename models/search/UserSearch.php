@@ -18,27 +18,24 @@
 
 namespace app\models\search;
 
+use Yii;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\UnknownWord;
+use app\models\User;
 
 /**
- * UnknownWordSearch represents the model behind the search form about `app\models\UnknownWord`.
- *
+ * UserSearch represents the model behind the search form about `app\models\User`.
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class UnknownWordSearch extends UnknownWord {
-
-    public $searchMethod;
-    public $dictionary;
-    public $request;
+class UserSearch extends User {
 
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-            [['id', 'searchRequest_id'], 'integer'],
-            [['searchMethod', 'dictionary', 'request'], 'safe']
+            [['id', 'role'], 'integer'],
+            [['username', 'lastLogin'], 'safe'],
         ];
     }
 
@@ -50,26 +47,22 @@ class UnknownWordSearch extends UnknownWord {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        $query = UnknownWord::find();
+        $query = User::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'attributes' => [
-                    'searchMethod' => $this->sortArray('searchMethod'),
-                    'dictionary' => $this->sortArray('dictionary_id'),
-                    'request' => $this->sortArray('request'),
-                ],
-            ],
         ]);
         $this->load($params);
         if (!$this->validate()) {
             return $dataProvider;
         }
-        $query->joinWith(['searchRequest' => function ($q) {
-                $q->andFilterWhere(['searchMethod' => $this->searchMethod,
-                    'dictionary_id' => $this->dictionary]);
-                SearchRequestSearch::filterWord($q, $this->request);
-            }]);
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'role' => $this->role,
+            'lastLogin' => $this->lastLogin,
+        ]);
+
+        $query->andFilterWhere(['like', 'username', $this->username]);
+
         return $dataProvider;
     }
 

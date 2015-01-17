@@ -76,18 +76,18 @@ class TranslationSearch extends Translation {
                     'dictionary.language2_id' => $this->language2
                         ]);
             }, 'word1' => function ($q) {
-                if (!empty($this->word1Term)) {
-                    $q->andWhere('word1.word LIKE :word1');
-                    $q->addParams([':word1' => $this->word1Term . '%']);
-                }
+                $this->filterWord($this->word1Term, 'word1', $q);
             }, 'word2' => function ($q) {
-                if (!empty($this->word2Term)) {
-                    $q->andWhere('word2.word LIKE :word2');
-                    $q->addParams([':word2' => $this->word2Term . '%']);
-                }
+                $this->filterWord($this->word2Term, 'word2', $q);
             }]);
-                return $dataProvider;
-            }
+        return $dataProvider;
+    }
 
+    public function filterWord($value, $name, &$query) {
+        if (!empty($value)) {
+            $q->andWhere($name . '.word LIKE :' . $name);
+            $q->addParams([':' . $name => $value . '%']);
         }
-        
+    }
+
+}

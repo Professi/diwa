@@ -8,7 +8,6 @@ use yii\grid\GridView;
 
 $this->title = Yii::t('app', 'Unknown words');
 $this->params['breadcrumbs'][] = $this->title;
-$dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'shortname');
 ?>
 <div class="unknown-word-index">
 
@@ -26,7 +25,7 @@ $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'i
             [
                 'attribute' => 'dictionary',
                 'value' => 'searchRequest.dictionary.shortname',
-                'filter' => $dicts,
+                'filter' => \app\models\Dictionary::getFilter(),
                 'label' => \app\models\Dictionary::getLabel(),
             ],
             ['attribute' => 'searchMethod',

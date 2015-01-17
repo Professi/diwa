@@ -99,11 +99,10 @@ class SearchController extends \app\components\Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => SearchRequest::find(),
-        ]);
-
+        $filterModel = new \app\models\search\SearchRequestSearch();
+        $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+                    'filterModel' => $filterModel,
                     'dataProvider' => $dataProvider,
         ]);
     }
