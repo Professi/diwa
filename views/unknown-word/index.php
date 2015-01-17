@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => \app\models\Dictionary::getLabel(),
             ],
             ['attribute' => 'searchMethod',
+                'label' => Yii::t('app', 'Search method'),
                 'filter' => app\models\enums\SearchMethod::getMethodnames(),
                 'value' => function ($data) {
                     return app\models\enums\SearchMethod::getMethodnames()[$data->searchRequest->searchMethod];
