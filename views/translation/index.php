@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use app\models\Dictionary;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -23,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $attributeLabels = $filterModel->attributeLabels();
     $langs = \yii\helpers\ArrayHelper::map(\app\models\Language::find()->all(), 'id', 'name');
     yii\widgets\Pjax::begin();
-    echo GridView::widget([
+    echo app\components\widgets\CustomGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $filterModel,
         'columns' => [

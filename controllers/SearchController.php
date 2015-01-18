@@ -20,7 +20,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\SearchRequest;
-use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use app\models\Dictionary;
 use app\components\Translator;

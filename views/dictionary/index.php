@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -20,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
         </p>
         <?=
-        GridView::widget([
+        app\components\widgets\CustomGridView::widget([
             'dataProvider' => $dataProvider,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
