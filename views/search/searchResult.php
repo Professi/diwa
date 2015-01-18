@@ -28,15 +28,25 @@ echo GridView::widget([
         [
             'attribute' => 'word1.word',
             'label' => $lang1,
+            'format' => 'html',
             'value' => function ($data) {
-                return $data['word1']['word'];
+                $val = $data['word1']['word'];
+                if (isset(Yii::$app->request->get()['SearchForm']['searchWord'])) {
+                    return $this->context->highlightWord($val, Yii::$app->request->get()['SearchForm']['searchWord']);
+                }
+                return $val;
             }
         ],
         [
             'attribute' => 'word2.word',
             'label' => $lang2,
+            'format' => 'html',
             'value' => function ($data) {
-                return $data['word2']['word'];
+                $val = $data['word2']['word'];
+                if (isset(Yii::$app->request->get()['SearchForm']['searchWord'])) {
+                    return $this->context->highlightWord($val, Yii::$app->request->get()['SearchForm']['searchWord']);
+                }
+                return $val;
             }
         ],
     ],

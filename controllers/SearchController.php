@@ -74,7 +74,8 @@ class SearchController extends \app\components\Controller {
                 $dataProvider = $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary);
             }
             if (!empty($dataProvider)) {
-                $partial = $this->renderPartial('searchResult', ['dataProvider' => $dataProvider,
+                $partial = $this->renderPartial('searchResult', [
+                    'dataProvider' => $dataProvider,
                     'dict' => Dictionary::find()->where('id=:dictId')
                             ->params([':dictId' => $model->dictionary])->one()]
                 );
@@ -105,6 +106,13 @@ class SearchController extends \app\components\Controller {
                     'filterModel' => $filterModel,
                     'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function highlightWord($src, $word) {
+        $word = strtolower(trim($word));
+        $r = str_replace($word, '<b>' . $word . '</b>', $src);
+        $r = str_replace(ucfirst($word), '<b>' . ucfirst($word) . '</b>', $r);
+        return $r;
     }
 
     /**
