@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use app\components\widgets\CustomGridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
     <?=
-        CustomGridView::widget([
+        app\components\widgets\CustomGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $filterModel,
         'columns' => [

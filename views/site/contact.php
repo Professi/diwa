@@ -16,8 +16,8 @@
  */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
+use app\components\widgets\CustomActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -40,16 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endif; ?>
         </div>
     </div>
-    <div class="row">
-        <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
+    <div class="contact-form row">
+        <?php $form = CustomActiveForm::begin(); ?>
         <fieldset>
             <legend><?php echo Yii::t('app', 'Contact'); ?></legend>
             <?= $form->field($model, 'name') ?>
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'subject') ?>
             <?=
-            $form->field($model, 'body')->textArea(['rows' => 6, 'cols' => 50, 'placeholder' => Yii::t('app', 'Your message'),
-                'template' => '{input}',
+            $form->field($model, 'body', ['template' => $form->getTextAreaTemplate()])->textArea(['rows' => 6, 'cols' => 50, 'placeholder' => Yii::t('app', 'Your message'),
                     ]
             );
             ?>
@@ -60,6 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <?= Html::submitButton('Submit', ['class' => 'small button', 'name' => 'contact-button']) ?>
         </fieldset>
-        <?php ActiveForm::end(); ?>
+        <?php CustomActiveForm::end(); ?>
     </div>
 </div>

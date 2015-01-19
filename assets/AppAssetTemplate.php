@@ -27,17 +27,9 @@ use yii\widgets\ActiveForm;
 class AppAssetTemplate {
 
     private static $instance = null;
-    private $errorCssClass = 'error';
-    private $formTemplate = '<div class="row collapse"><div class="small-4 columns"><span class="prefix">{label}</div><div class="small-8 columns mobile-input">{input}<div>{error}</div></div></div>';
-    private $formClass = 'small-12 columns small-centered';
-    private $formTextAreaTemplate = '<div class="row collapse"><div class="small-12 columns" style="padding-left:.2em;">{input}{error}</div></div>';
 
     protected function __construct() {
         
-    }
-
-    protected function setFormClass($class) {
-        $this->formClass = $class;
     }
 
     public static function getInstance() {
@@ -58,43 +50,6 @@ class AppAssetTemplate {
             ['label' => \Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
             ['label' => \Yii::t('app', 'Statistics'), 'url' => ['/statistic/statistics'], 'visible' => \Yii::$app->user->isAdmin() || \Yii::$app->user->isTerminologist()]
         ];
-    }
-
-    public function getDefaultActiveForm($additional = array()) {
-        $options = [
-            'options' => ['class' => $this->getFormClass()],
-            'errorCssClass' => $this->getErrorCssClass(),
-            'fieldConfig' => [
-                'template' => $this->getFormTemplate(),
-        ]];
-        if (is_array($additional)) {
-            $options = array_merge($options, $additional);
-        }
-        return ActiveForm::begin($options);
-    }
-
-    protected function setErrorCssClass($class) {
-        $this->errorCssClass = $class;
-    }
-
-    public function getErrorCssClass() {
-        return $this->errorCssClass;
-    }
-
-    protected function setFormTemplate($template) {
-        $this->formTemplate = $template;
-    }
-
-    public function getFormTemplate() {
-        return $this->formTemplate;
-    }
-
-    protected function setFormTextAreaTemplate($template) {
-        $this->formTextAreaTemplate = $template;
-    }
-
-    public function getFormTextAreaTemplate() {
-        return $this->formTextAreaTemplate;
     }
 
 }

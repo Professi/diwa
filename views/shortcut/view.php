@@ -10,10 +10,8 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Shortcuts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="shortcut-view">
-
+<div class="shortcut-view row">
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=
@@ -26,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ])
         ?>
     </p>
-
     <?=
     DetailView::widget([
         'model' => $model,
@@ -37,5 +34,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 ]])
     ?>
-
 </div>

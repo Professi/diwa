@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Shortcut */
 
 $this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Shortcut',
+    'modelClass' => app\models\Shortcut::getLabel(),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Shortcuts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

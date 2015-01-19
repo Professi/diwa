@@ -15,26 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use yii\widgets\ActiveForm;
+use app\components\widgets\CustomActiveForm;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Upload translation file');
 $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'language2.name', 'language1.name');
 ?>
-
 <div class="row">
     <p class="panel">
         <?php echo Yii::t('app', 'If you upload something, grab a coffee and lean back. This could take a while.'); ?>
     </p>
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
-
-    <?= $form->field($model, 'dictionary')->dropDownList($dicts) ?>
-    <?= $form->field($model, 'delimiters')->textInput() ?>
-    <?= $form->field($model, 'file')->fileInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Import'), ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end() ?>
+    <?php $form = CustomActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+    <fieldset>
+        <?= $form->field($model, 'dictionary')->dropDownList($dicts) ?>
+        <?= $form->field($model, 'delimiters')->textInput() ?>
+        <?= $form->field($model, 'file',['template'=>$form->getFileInputTemplate()])->fileInput() ?>
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Import'), ['class' => 'btn btn-success']) ?>
+        </div>
+    </fieldset>
+    <?php CustomActiveForm::end() ?>
 </div>

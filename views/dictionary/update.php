@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Dictionary */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => Yii::t('app','Dictionary'),
+    'modelClass' => \app\models\Dictionary::getLabel(),
 ]) . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Dictionaries'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
