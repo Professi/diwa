@@ -65,10 +65,14 @@ class LanguageSwitcher extends Component {
     public function getMenuItems() {
         $items = [];
         foreach (Yii::$app->params['languages'] as $lang => $desc) {
+            $active = !(Yii::$app->session->get($this->key) == $lang);
             $items[] = ['label' => strtr($this->menuTemplate, [
                     '{lang}' => $lang,
                     '{desc}' => $desc,
-                ]), 'url' => Yii::$app->session->get($this->key) == $lang ? '#' : $this->url($lang)];
+                    'active' => $active,
+                ]),
+                'url' => $active ? $this->url($lang) : '#',
+            ];
         }
         return $items;
     }
