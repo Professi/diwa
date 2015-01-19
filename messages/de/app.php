@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Unknown word' => 'Unbekanntes Wort',
+    'Choose file' => 'Datei auswählen',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Administrator' => 'Administrator',
@@ -103,6 +103,7 @@ return [
     'Translate' => 'Übersetzen',
     'Translation' => 'Übersetzung',
     'Translations' => 'Übersetzungen',
+    'Unknown word' => 'Unbekanntes Wort',
     'Unknown words' => 'Unbekannte Wörter',
     'Update' => 'Aktualisieren',
     'Update {modelClass}: ' => 'Aktualisiere {modelClass}',
