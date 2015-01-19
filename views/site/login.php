@@ -16,6 +16,7 @@
  */
 
 use yii\helpers\Html;
+use app\components\widgets\CustomActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="row">
-        <?php $form = $this->context->getAssetTemplate()->getDefaultActiveForm(); ?>
+        <?php $form = CustomActiveForm::begin(); ?>
         <fieldset>
             <legend><?php echo Yii::t('app', 'Login'); ?></legend>
             <?= $form->field($model, 'username') ?>
@@ -45,6 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <?= Html::submitButton('Login', ['class' => 'small button', 'name' => 'login-button']) ?>
         </fieldset>
-        <?php yii\widgets\ActiveForm::end(); ?>
+        <?php CustomActiveForm::end(); ?>
     </div>
 </div>
