@@ -66,9 +66,12 @@ class User extends \app\components\CustomActiveRecord {
     public function rules() {
         return [
             [['username'], 'trim'],
+            [['role'], 'integer'],
+            [['lastLogin'], 'safe'],
             [['username', 'password', 'role'], 'required'],
             [['username'], 'unique'],
-            [['username', 'password'], 'string', 'max' => User::MAX_PW_LENGTH]
+            [['password'], 'string', 'max' => User::MAX_PW_LENGTH],
+            [['username', 'authKey'], 'string', 'max' => 255],
         ];
     }
 

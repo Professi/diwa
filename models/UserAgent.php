@@ -27,6 +27,8 @@ use Yii;
  * @property integer $id
  * @property string $agent
  * @property string $agentHash
+ * 
+ * @property Searchrequest[] $searchrequests
  */
 class UserAgent extends \app\components\CustomActiveRecord {
 
@@ -44,6 +46,7 @@ class UserAgent extends \app\components\CustomActiveRecord {
 
     public function rules() {
         return [
+            [['agent'], 'string'],
             [['agentHash'], 'unique'],
             [['agentHash'], 'string', 'max' => 255],
         ];
@@ -75,6 +78,13 @@ class UserAgent extends \app\components\CustomActiveRecord {
 
     public static function getLabel() {
         return Yii::t('app', 'User agent');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSearchRequests() {
+        return $this->hasMany(\app\models\SearchRequest::className(), ['useragent_id' => 'id']);
     }
 
 }

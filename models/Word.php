@@ -25,6 +25,10 @@ use Yii;
  * @property integer $id
  * @property string $word
  * @property integer language_id
+ * 
+ * @property Translation[] $translations
+ * @property Language $language
+ * 
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
 class Word extends \app\components\CustomActiveRecord {
@@ -68,6 +72,13 @@ class Word extends \app\components\CustomActiveRecord {
 
     public static function getLabel() {
         return Yii::t('app', 'Word');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTranslations() {
+        return $this->hasMany(Translation::className(), ['word2_id' => 'id']);
     }
 
 }

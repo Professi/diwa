@@ -27,6 +27,11 @@ use Yii;
  * @property integer $id
  * @property string $shortname
  * @property string $name
+ * 
+ * @property Dictionary[] $dictionaries
+ * @property Word[] $words
+ * 
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
 class Language extends \app\components\CustomActiveRecord {
 
@@ -40,6 +45,8 @@ class Language extends \app\components\CustomActiveRecord {
             [['shortname', 'name'], 'unique'],
             [['shortname',], 'string', 'max' => 5],
             [['name'], 'string', 'max' => 255],
+            [['shortname', 'name'], 'unique', 'targetAttribute' => ['shortname', 'name'],
+                'message' => Yii::t('app', 'The combination of Shortname and Name has already been taken.')]
         ];
     }
 
@@ -69,6 +76,20 @@ class Language extends \app\components\CustomActiveRecord {
 
     public static function getLabel() {
         return Yii::t('app', 'Language');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDictionaries() {
+        return $this->hasMany(Dictionary::className(), ['language2_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWords() {
+        return $this->hasMany(Word::className(), ['language_id' => 'id']);
     }
 
 }

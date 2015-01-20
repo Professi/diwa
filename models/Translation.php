@@ -37,8 +37,7 @@ class Translation extends \app\components\CustomActiveRecord {
 
     public function rules() {
         return [
-            [['dictionary_id'], 'integer'],
-            [['word1_id', 'word2_id'], 'integer'],
+            [['dictionary_id', 'word1_id', 'word2_id'], 'integer'],
             [['dictionary_id'], 'required'],
         ];
     }
@@ -88,6 +87,13 @@ class Translation extends \app\components\CustomActiveRecord {
 
     public static function getLabel() {
         return Yii::t('app', 'Translation');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSource() {
+        return $this->hasOne(Source::className(), ['id' => 'src_id']);
     }
 
 }

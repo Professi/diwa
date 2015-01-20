@@ -35,6 +35,11 @@ use app\models\Dictionary;
  * @property string $request
  * @property integer $useragent_id
  * @property datetime $timestamp
+ * 
+ * @property Dictionary $dictionary
+ * @property Useragent $useragent
+ * @property Unknownword[] $unknownwords
+ * 
  */
 class SearchRequest extends \app\components\CustomActiveRecord {
 
@@ -69,6 +74,9 @@ class SearchRequest extends \app\components\CustomActiveRecord {
     public function rules() {
         return [
             [['request'], 'required'],
+            [['dictionary_id', 'searchMethod', 'useragent_id'], 'integer'],
+            [['requestTime'], 'safe'],
+            [['request', 'ipAddr'], 'string', 'max' => 255]
         ];
     }
 
@@ -113,6 +121,13 @@ class SearchRequest extends \app\components\CustomActiveRecord {
 
     public static function getLabel() {
         return Yii::t('app', 'Search request');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnknownwords() {
+        return $this->hasMany(Unknownword::className(), ['searchRequest_id' => 'id']);
     }
 
 }

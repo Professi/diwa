@@ -19,37 +19,46 @@
 namespace app\models;
 
 use Yii;
+use app\components\CustomActiveRecord;
 
 /**
- * Description of UnknownWord
+ * This is the model class for table "src".
  *
- * @author cehringfeld
  * @property integer $id
- * @property integer $searchRequest_id
+ * @property string $name
+ * @property string $link
+ *
+ * @property Translation[] $translations
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class UnknownWord extends \app\components\CustomActiveRecord {
+class Source extends \app\components\CustomActiveRecord {
 
-    public static function tableName() {
-        return 'unknownword';
-    }
-
+    /**
+     * @inheritdoc
+     */
     public function rules() {
         return [
-            [['searchRequest_id'], 'required'],
-            [['searchRequest_id'], 'integer'],
-            [['searchRequest_id'], 'unique']
+            [['name', 'link'], 'string', 'max' => 255],
+            [['name'], 'unique']
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels() {
-        return array(
-            'id' => self::getIdLabel(),
-            'searchRequest' => SearchRequest::getLabel(),
-        );
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'link' => Yii::t('app', 'Link'),
+        ];
     }
 
-    public function getSearchRequest() {
-        return $this->hasOne(\app\models\SearchRequest::className(), array('id' => 'searchRequest_id'));
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTranslations() {
+        return $this->hasMany(Translation::className(), ['src_id' => 'id']);
     }
 
     public function getId() {
@@ -61,7 +70,11 @@ class UnknownWord extends \app\components\CustomActiveRecord {
     }
 
     public static function getLabel() {
-        return Yii::t('app', 'Unknown word');
+        return Yii::t('app', 'Source');
+    }
+
+    public static function tableName() {
+        return 'src';
     }
 
 }

@@ -39,6 +39,8 @@ class Shortcut extends \app\components\CustomActiveRecord {
             [['shortcut'], 'required'],
             [['shortcut'], 'unique'],
             [['shortcut', 'name', 'kind'], 'safe'],
+            [['kind'], 'integer'],
+            [['shortcut', 'name'], 'string', 'max' => 255],
         ];
     }
 

@@ -29,6 +29,12 @@ use app\components\CachedDbDependency;
  * @property integer $language1_id
  * @property integer $language2_id
  * @property boolean $active
+ * 
+ * @property Language $language1
+ * @property Language $language2
+ * @property Searchrequest[] $searchrequests
+ * @property Translation[] $translations
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de> 
  */
 class Dictionary extends \app\components\CustomActiveRecord {
 
@@ -97,6 +103,20 @@ class Dictionary extends \app\components\CustomActiveRecord {
 
     public static function getFilter() {
         return \yii\helpers\ArrayHelper::map(self::find()->all(), 'id', 'shortname');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSearchRequests() {
+        return $this->hasMany(Searchrequest::className(), ['dictionary_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTranslations() {
+        return $this->hasMany(Translation::className(), ['dictionary_id' => 'id']);
     }
 
 }
