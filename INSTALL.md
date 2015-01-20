@@ -2,6 +2,8 @@
 
 First download the application as a registered user (http://synlos.net/redmine/projects/diwa/repository) or download it from github(https://github.com/Professi/diwa).
 Unpack it and move it to the web-path of your webserver.
+Now you should navigate to the folder and use composer.phar with "composer update" to get the required dependencies.
+
 After that you should copy the following files and remove the ".example" suffix:
 src/config/db.php.example
 src/config/mailer.php.example
@@ -28,7 +30,7 @@ Next you should navigate to "Dictionaries" and Create a Dictionary. Now you can 
 After the creation of a dictionary you should see the created dictionary in the overview. Then you can click on "Import translation file". Choose the dictionary, the delimiters and the file. If you use the translation/text file provided by Frank Richter(de-en.txt) you mustn't change the Delimiters. Choose a file and click Import. Depending on your machine this can take really long(you shouldn't do this on a raspberry).
 After the upload of the "de-en.txt" should ~1.3 million data sets exist in your database with a size of ~140 MB.
 
-Now you can use the search of DiWA.
+Now you can DiWA.
 
 
 
