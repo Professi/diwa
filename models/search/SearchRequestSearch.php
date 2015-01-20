@@ -52,6 +52,7 @@ class SearchRequestSearch extends SearchRequest {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
+                'defaultOrder' => ['requestTime'=>SORT_DESC],
                 'attributes' => [
                     'searchMethod' => $this->sortArray('searchMethod'),
                     'dictionary_id' => $this->sortArray('dictionary_id'),
