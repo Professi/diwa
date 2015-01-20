@@ -18,10 +18,8 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\UserAgent;
 use yii\data\ActiveDataProvider;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 

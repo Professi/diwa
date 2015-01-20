@@ -20,11 +20,19 @@ namespace app\components;
 
 use app\models\Word;
 use app\models\Dictionary;
-use app\models\Shortcut;
 use Yii;
 
 /**
- * Description of TranslationFileProcessor
+ * File layout:
+ * Lines beginning with # are comments
+ * Word1SRC | Word2SRC SEPERATOR Word1Dest | Word2Dest
+ * | is used for seperating relevances, e.g. to seperate a word in his single form with his plural form like 
+ * process | processes
+ * ; is used for words with the same sense like
+ * masking paper; backing paper; release paper
+ * In every line you must have the same occurences of | on source and dest but
+ * you can have different occurences of ; on source and dest for example:
+ * Abschlusskappe {f}; Endkappe {f} | Abschlusskappen {pl}; Endkappen {pl} :: end cap | end caps
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
@@ -38,6 +46,7 @@ class TranslationFileProcessor {
     private $translations = array();
     private $generalSeparatorsSize;
     private $errorArray = array();
+    private $wordFindQuery = null;
 
     public function __construct($filepoint, $dictionaryId, $generalSeparators = '::', $wordSeparator = ';', $relevanceSeparator = '|') {
         $this->filepoint = $filepoint;
@@ -48,12 +57,17 @@ class TranslationFileProcessor {
         $this->relevanceSeparator = $relevanceSeparator;
     }
 
+    protected function getWordFindQuery() {
+        return Word::find()->select(['id'])->where('word = :word AND language_id =: langID')->limit(1);
+    }
+
     /**
      * @todo no debug output...
      */
     public function processFile() {
         set_time_limit(0);
         if ($this->filepoint) {
+            $this->wordFindQuery = $this->getWordFindQuery();
             while (($line = fgets($this->filepoint)) !== false) {
                 $this->separateTranslations($line);
             }
@@ -96,14 +110,14 @@ class TranslationFileProcessor {
 
     protected function isCommentLine($line) {
         $comment = strpos($line, '#');
-        if (!$comment && $comment !== 0) {
-            return false;
+        if ($comment && $comment == 0) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     protected function createOrFindWord($word, $langId) {
-        $wordObj = Word::findOne(['word' => $word, 'language_id' => $langId]);
+        $wordObj = $this->wordFindQuery()->params([':word' => $word, ':langID' => $langId])->one();
         if ($wordObj == null) {
             $wordObj = new Word();
             $wordObj->setValues($word, $langId);
@@ -115,14 +129,13 @@ class TranslationFileProcessor {
     protected function separateStrings($word, $needle) {
         $r = array();
         $wordRelCount = substr_count($word, $needle);
-        $needleSize = count($needle);
         if ($wordRelCount) {
             for ($i = 0; $i <= $wordRelCount; $i++) {
                 $tempWord = '';
                 $rel = strpos($word, $needle);
                 if ($rel) {
                     $tempWord = trim(substr($word, 0, $rel));
-                    $word = trim(substr($word, $rel + $needleSize));
+                    $word = trim(substr($word, $rel + count($needle)));
                 } else {
                     $tempWord = trim($word);
                 }
@@ -144,15 +157,17 @@ class TranslationFileProcessor {
      */
     protected function persistWords($arrWords, $langId) {
         $pks = array();
-        foreach ($arrWords as $value) {
-            $word1Obj = $this->createOrFindWord($value, $langId);
-            $pks[] = $word1Obj->getPrimaryKey();
+        $count = count($arrWords);
+        for ($i = 0; $i < $count; ++$i) {
+            $word1Obj = $this->createOrFindWord($arrWords[$i], $langId);
+            $pks[] = $word1Obj->getId();
         }
         return $pks;
     }
 
     /**
      * @TODO extend it for shortcuts
+     * bottleneck, to much SQL selects
      * @param type $word1
      * @param type $word2
      */
@@ -161,7 +176,7 @@ class TranslationFileProcessor {
         $arrRels1 = $this->separateStrings($word1, $this->relevanceSeparator);
         $arrRels2 = $this->separateStrings($word2, $this->relevanceSeparator);
         $relcount = count($arrRels1);
-        if ($relcount == count($arrRels2)) {
+        if ($relcount === count($arrRels2)) {
             for ($i = 0; $i < $relcount; $i++) {
                 $pks1 = $this->persistWords($this->separateStrings($arrRels1[$i], $this->wordSeparator), $this->dictionary->language1_id);
                 $pks2 = $this->persistWords($this->separateStrings($arrRels2[$i], $this->wordSeparator), $this->dictionary->language2_id);
@@ -175,7 +190,7 @@ class TranslationFileProcessor {
             $flash .= $word1 . ' ' . $this->generalSeparators . ' ' . $word2 . '<br/>';
             $word1Obj = $this->createOrFindWord($word1, $this->dictionary->language1_id);
             $word2Obj = $this->createOrFindWord($word2, $this->dictionary->language2_id);
-            $this->translations[] = array($word1Obj->getPrimaryKey(), $word2Obj->getPrimaryKey(), $this->dictionary->id);
+            $this->translations[] = array($word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id);
         }
         if (!empty($flash)) {
             Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br/>' . $flash);

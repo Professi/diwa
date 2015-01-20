@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Shortcut;
-use yii\data\ActiveDataProvider;
 use app\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

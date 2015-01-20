@@ -20,7 +20,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Word;
-use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\components\Controller;
