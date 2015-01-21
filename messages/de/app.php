@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,7 +18,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Choose file' => 'Datei auswählen',
+    'Source' => 'Quelle',
+    'Sources' => 'Quellen',
+    'The combination of Shortname and Name has already been taken.' => 'Die Kombination aus Kurzname und Name ist bereits vergeben.',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Administrator' => 'Administrator',
@@ -31,6 +34,7 @@ return [
     'Body' => 'Nachricht',
     'Branch' => 'Branche',
     'British English' => 'Britisches Englisch',
+    'Choose file' => 'Datei auswählen',
     'Clear input' => 'Eingabe löschen',
     'Comfort search' => 'Komfortsuche',
     'Contact' => 'Kontakt',
@@ -119,7 +123,6 @@ return [
     'Website' => 'Webseite',
     'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre dieses Projekt nicht realisierbar! Vielen Dank!',
     'Word' => 'Wort',
-    'Word {no}' => 'Wort {no}',
     'Words' => 'Wörter',
     'Yes' => 'Ja',
     'Your file is corrupted.' => 'Ihre Datei ist fehlerhaft.',
