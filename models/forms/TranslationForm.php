@@ -35,6 +35,7 @@ class TranslationForm extends \yii\base\Model {
     public $word2;
     private $wordObj1;
     private $wordObj2;
+    public $src_id = null;
     private $dictObj;
     private $translationId = null;
 
@@ -44,16 +45,18 @@ class TranslationForm extends \yii\base\Model {
     public function rules() {
         return [
             [['dictionary_id', 'word1', 'word2'], 'required'],
-            [['dictionary_id'], 'integer'],
+            [['dictionary_id', 'src_id'], 'integer'],
             [['word1', 'word2'], 'string', 'max' => 255]
         ];
     }
 
     public function attributeLabels() {
         return array(
-            'dictionary' => Yii::t('app', 'Dictionary'),
-            'word1' => Yii::t('app', 'Word {no}', ['no' => 1]),
-            'word2' => Yii::t('app', 'Word {no}', ['no' => 2]),
+            'dictionary' => Dictionary::getLabel(),
+            'dictionary_id' => Dictionary::getLabel(),
+            'word1' => Word::getLabel() . ' 1',
+            'word2' => Word::getLabel() . ' 2',
+            'src_id' => \app\models\Source::getLabel(),
         );
     }
 
@@ -87,6 +90,7 @@ class TranslationForm extends \yii\base\Model {
         $translation->word1_id = $this->getWordId($this->wordObj1, $this->word1, $this->dictObj->language1_id);
         $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
         $translation->dictionary_id = $this->dictObj->getPrimaryKey();
+        $translation->src_id = $this->src_id;
         if (!(Translation::find()->where(['word1_id' => $translation->word1_id, 'word2_id' => $translation->word2_id, 'dictionary_id' => $translation->dictionary_id])->one())) {
             $rc = $translation->save();
             $this->translationId = $translation->getPrimaryKey();

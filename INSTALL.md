@@ -22,6 +22,8 @@ After that you should also edit the web.php file.
 You can check out the requirements with http://path/to/your/site/diwa/requirements.php
 You can invoke the site with http://path/to/your/site/diwa/web/index.php or make alternatively a soft link to src/web/index.php and invoke it without /web/ in url path.
 
+Please deactivate the Yii2 Dev Mode. For this you must comment out "defined('YII_ENV') or define('YII_ENV', 'dev');" in src/web/index.php. If you won't do this, the Yii2 Debug Toolbar throws an ErrorException(bytes exhausted).
+
 ### Use the provided dictionaries
 
 Open your web browser and navigate to the URL to which you uploaded DiWA. Then open the menu and navigate to "Login" form. The initial credential is "admin":"admin".

@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     $attributeLabels = $filterModel->attributeLabels();
     $langs = \yii\helpers\ArrayHelper::map(\app\models\Language::find()->all(), 'id', 'name');
+    $sources = \yii\helpers\ArrayHelper::map(\app\models\Source::find()->all(), 'id', 'name');
     yii\widgets\Pjax::begin();
     echo app\components\widgets\CustomGridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'word1Term', 'value' => 'word1.word', 'label' => $attributeLabels['word1']],
             ['attribute' => 'language2', 'filter' => $langs, 'value' => 'dictionary.language2.shortname', 'label' => $attributeLabels['language2']],
             ['attribute' => 'word2Term', 'label' => $attributeLabels['word2']],
+            ['attribute' => 'source', 'value' => 'src_id', 'filter' => $sources],
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);

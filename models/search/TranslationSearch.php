@@ -36,13 +36,14 @@ class TranslationSearch extends Translation {
     public $word1Term = '';
     public $language2 = '';
     public $word2Term = '';
+    public $source = '';
 
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-            [['language1', 'word1Term', 'language2', 'word2Term'], 'safe'],
+            [['language1', 'word1Term', 'language2', 'word2Term', 'source'], 'safe'],
         ];
     }
 
@@ -63,6 +64,7 @@ class TranslationSearch extends Translation {
                     'word2Term' => $this->sortArray('word2.word'),
                     'language1' => $this->sortArray('dictionary.language1_id'),
                     'language2' => $this->sortArray('dictionary.language2_id'),
+                    'source' => $this->sortArray('src_id'),
                 ],
             ],
         ]);
@@ -73,21 +75,23 @@ class TranslationSearch extends Translation {
         }
         $query->joinWith(['dictionary' => function ($q) {
                 $q->andFilterWhere(['dictionary.language1_id' => $this->language1,
-                    'dictionary.language2_id' => $this->language2
-                        ]);
+                    'dictionary.language2_id' => $this->language2,
+                    'src_id' => $this->source,
+                ]);
             }, 'word1' => function ($q) {
                 $this->filterWord($this->word1Term, 'word1', $q);
             }, 'word2' => function ($q) {
                 $this->filterWord($this->word2Term, 'word2', $q);
             }]);
-        return $dataProvider;
-    }
+                return $dataProvider;
+            }
 
-    public function filterWord($value, $name, &$query) {
-        if (!empty($value)) {
-            $q->andWhere($name . '.word LIKE :' . $name);
-            $q->addParams([':' . $name => $value . '%']);
+            public function filterWord($value, $name, &$query) {
+                if (!empty($value)) {
+                    $q->andWhere($name . '.word LIKE :' . $name);
+                    $q->addParams([':' . $name => $value . '%']);
+                }
+            }
+
         }
-    }
-
-}
+        

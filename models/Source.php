@@ -39,7 +39,9 @@ class Source extends \app\components\CustomActiveRecord {
     public function rules() {
         return [
             [['name', 'link'], 'string', 'max' => 255],
-            [['name'], 'unique']
+            [['name'], 'unique'],
+            [['name'], 'required'],
+            [['link'], 'url']
         ];
     }
 

@@ -47,10 +47,14 @@ class TranslationFileProcessor {
     private $generalSeparatorsSize;
     private $errorArray = array();
     private $wordFindQuery = null;
+    private $source = null;
 
-    public function __construct($filepoint, $dictionaryId, $generalSeparators = '::', $wordSeparator = ';', $relevanceSeparator = '|') {
+    public function __construct($filepoint, $dictionaryId, $source, $generalSeparators = '::', $wordSeparator = ';', $relevanceSeparator = '|') {
         $this->filepoint = $filepoint;
         $this->dictionary = Dictionary::findOne($dictionaryId);
+        if (isset($source) && is_numeric($source)) {
+            $this->source = $source;
+        }
         $this->generalSeparators = $generalSeparators;
         $this->generalSeparatorsSize = strlen($this->generalSeparators);
         $this->wordSeparator = $wordSeparator;
@@ -58,12 +62,9 @@ class TranslationFileProcessor {
     }
 
     protected function getWordFindQuery() {
-        return Word::find()->select(['id'])->where('word = :word AND language_id =: langID')->limit(1);
+        return Word::find()->select(['id'])->where('word = :word AND language_id = :langID')->limit(1);
     }
 
-    /**
-     * @todo no debug output...
-     */
     public function processFile() {
         set_time_limit(0);
         if ($this->filepoint) {
@@ -80,7 +81,7 @@ class TranslationFileProcessor {
     }
 
     protected function insertTranslation($con, $trans) {
-        $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1_id', 'word2_id', 'dictionary_id'], $trans)->execute();
+        $con->createCommand()->batchInsert(\app\models\Translation::tableName(), ['word1_id', 'word2_id', 'dictionary_id', 'src_id'], $trans)->execute();
     }
 
     protected function insertAllTranslations() {
@@ -95,7 +96,9 @@ class TranslationFileProcessor {
                 $trans2 = array();
             }
         }
-        $this->insertTranslation($con, $trans2);
+        if (isset($trans2) && !empty($trans2)) {
+            $this->insertTranslation($con, $trans2);
+        }
     }
 
     protected function separateTranslations($line) {
@@ -110,20 +113,23 @@ class TranslationFileProcessor {
 
     protected function isCommentLine($line) {
         $comment = strpos($line, '#');
-        if ($comment && $comment == 0) {
+        if ($comment === 0) {
             return true;
         }
         return false;
     }
 
-    protected function createOrFindWord($word, $langId) {
-        $wordObj = $this->wordFindQuery()->params([':word' => $word, ':langID' => $langId])->one();
+    protected function createWord($word, $langId, &$wordObj) {
         if ($wordObj == null) {
             $wordObj = new Word();
             $wordObj->setValues($word, $langId);
             $wordObj->save();
         }
         return $wordObj;
+    }
+
+    protected function findWord($word, $langId) {
+        return $this->getWordFindQuery()->params([':word' => $word, ':langID' => $langId])->one();
     }
 
     protected function separateStrings($word, $needle) {
@@ -159,7 +165,8 @@ class TranslationFileProcessor {
         $pks = array();
         $count = count($arrWords);
         for ($i = 0; $i < $count; ++$i) {
-            $word1Obj = $this->createOrFindWord($arrWords[$i], $langId);
+            $word1Obj = $this->findWord($arrWords[$i], $langId);
+            $this->createWord($arrWords[$i], $langId, $word1Obj);
             $pks[] = $word1Obj->getId();
         }
         return $pks;
@@ -188,9 +195,11 @@ class TranslationFileProcessor {
             }
         } else {
             $flash .= $word1 . ' ' . $this->generalSeparators . ' ' . $word2 . '<br/>';
-            $word1Obj = $this->createOrFindWord($word1, $this->dictionary->language1_id);
-            $word2Obj = $this->createOrFindWord($word2, $this->dictionary->language2_id);
-            $this->translations[] = array($word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id);
+            $word1Obj = $this->findWord($word1, $this->dictionary->language1_id);
+            $word2Obj = $this->findWord($word2, $this->dictionary->language2_id);
+            $this->createWord($word1, $this->dictionary->language1_id, $word1Obj);
+            $this->createWord($word2, $this->dictionary->language2_id, $word2Obj);
+            $this->translations[] = array($word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id, $this->source);
         }
         if (!empty($flash)) {
             Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br/>' . $flash);

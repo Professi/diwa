@@ -50,6 +50,8 @@ class Translation extends \app\components\CustomActiveRecord {
             'word2' => Word::getLabel() . ' 2',
             'language1' => Language::getLabel() . ' 1',
             'language2' => Language::getLabel() . ' 2',
+            'src_id' => Source::getLabel(),
+            'source' => Source::getLabel(),
         );
     }
 

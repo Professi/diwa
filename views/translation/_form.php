@@ -7,6 +7,7 @@ use app\components\widgets\CustomActiveForm;
 /* @var $model app\models\Translation */
 /* @var $form yii\widgets\ActiveForm */
 $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'language2.name', 'language1.name');
+$sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id', 'name');
 ?>
 <div class="translation-form row">
     <?php $form = CustomActiveForm::begin(); ?>
@@ -14,6 +15,7 @@ $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'i
         <?= $form->field($model, 'dictionary_id')->dropDownList($dicts); ?>
         <?= $form->field($model->word1, 'word')->textInput(['name' => 'Word1[word]']); ?>
         <?= $form->field($model->word2, 'word')->textInput(['name' => 'Word2[word]']); ?>
+        <?= $form->field($model, 'src_id')->dropDownList($sources); ?>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>

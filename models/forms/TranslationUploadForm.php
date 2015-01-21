@@ -26,6 +26,7 @@ class TranslationUploadForm extends \yii\base\Model {
     public $dictionary;
     public $file;
     public $delimiters = '::';
+    public $source = null;
 
     /**
      * @return array the validation rules.
@@ -33,16 +34,17 @@ class TranslationUploadForm extends \yii\base\Model {
     public function rules() {
         return [
             [['dictionary', 'file', 'delimiters'], 'required'],
-            [['dictionary'], 'integer'],
+            [['dictionary', 'source'], 'integer'],
             [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'txt', 'maxFiles' => 1, 'maxSize' => $this->getSizeLimit()],
         ];
     }
 
     public function attributeLabels() {
         return array(
-            'dictionary' => Yii::t('app', 'Dictionary'),
+            'dictionary' => \app\models\Dictionary::getLabel(),
             'file' => Yii::t('app', 'File'),
             'delimiters' => Yii::t('app', 'Delimiters'),
+            'source' => \app\models\Source::getLabel(),
         );
     }
 
@@ -88,7 +90,7 @@ class TranslationUploadForm extends \yii\base\Model {
      */
     public function processFile() {
         $fp = fopen($this->file->tempName, 'r');
-        $translator = new \app\components\TranslationFileProcessor($fp, $this->dictionary, $this->delimiters);
+        $translator = new \app\components\TranslationFileProcessor($fp, $this->dictionary, $this->source, $this->delimiters);
         $error = $translator->processFile();
         foreach ($error as $key => $value) {
             $this->addError($key, $value);

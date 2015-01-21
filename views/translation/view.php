@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'word1.word',
             'word2.word',
+            ['attribute' => 'source.name', 'label' => app\models\Source::getLabel()],
         ],
     ])
     ?>

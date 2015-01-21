@@ -68,6 +68,10 @@ class WebUser extends \yii\web\User {
         return $this->checkRole(\app\models\enums\Role::TERMINOLOGIST);
     }
 
+    public function isAdvancedUser() {
+        return ($this->isAdmin() || $this->isTerminologist());
+    }
+
     public function isNormalUser() {
         return $this->checkRole(\app\models\enums\Role::NORMAL);
     }

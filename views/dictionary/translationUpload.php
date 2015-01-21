@@ -20,6 +20,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Upload translation file');
 $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'language2.name', 'language1.name');
+$sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id', 'name');
 ?>
 <div class="row">
     <p class="panel">
@@ -29,7 +30,8 @@ $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'i
     <fieldset>
         <?= $form->field($model, 'dictionary')->dropDownList($dicts) ?>
         <?= $form->field($model, 'delimiters')->textInput() ?>
-        <?= $form->field($model, 'file',['template'=>$form->getFileInputTemplate()])->fileInput() ?>
+        <?= $form->field($model, 'file', ['template' => $form->getFileInputTemplate()])->fileInput() ?>
+        <?= $form->field($model, 'source')->dropDownList($sources) ?>
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Import'), ['class' => 'btn btn-success']) ?>
         </div>
