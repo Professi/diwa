@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Message translations.
  *
@@ -18,9 +17,13 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Source' => 'Quelle',
-    'Sources' => 'Quellen',
-    'The combination of Shortname and Name has already been taken.' => 'Die Kombination aus Kurzname und Name ist bereits vergeben.',
+    'Additional information' => 'Zusätzliche Information',
+    'Category' => 'Kategorie',
+    'Category of additional informations' => 'Kategorie von zusätzlichen Informationen',
+    'Importance' => 'Wichtigkeit',
+    'Information' => 'Information',
+    'about a translation' => 'zu einer Übersetzung',
+    'about a word' => 'zu einem Wort',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Administrator' => 'Administrator',
@@ -47,8 +50,8 @@ return [
     'Dictionaries' => 'Wörterbücher',
     'Dictionary' => 'Wörterbuch',
     'Email' => 'E-Mail',
-    'Fast search' => 'Schnellsuche',
     'File' => 'Datei',
+    'Full text search' => 'Volltextsuche',
     'Fuzzy search' => 'Unscharfe Suche',
     'German-English dictionary from Frank Richter, Creator of Ding' => 'Deutsch-Englisch Wörterbuch von Frank Richter, Erschaffer von Ding',
     'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others' => 'Deutsch-Spanisch Wörterbuch von Zeno Gantner, Matthias Buchmeier und anderen',
@@ -93,6 +96,8 @@ return [
     'Shortcut' => 'Abkürzung',
     'Shortcuts' => 'Abkürzungen',
     'Shortname' => 'Kurzname',
+    'Source' => 'Quelle',
+    'Sources' => 'Quellen',
     'Southern German' => 'Süddeutsch',
     'Statistics' => 'Statistik',
     'Subject' => 'Betreff',
@@ -100,6 +105,7 @@ return [
     'Terminologist' => 'Terminologe',
     'Thank you for contacting us. We will respond to you as soon as possible.' => 'Vielen Dank, dass Sie uns kontaktieren. Wir werden Ihnen so schnell wie möglich antworten.',
     'The authors are: {p1} and {p2}(Design).' => 'Die Autoren sind: {p1} und {p2}(Design).',
+    'The combination of Shortname and Name has already been taken.' => 'Die Kombination aus Kurzname und Name ist bereits vergeben.',
     'The most common search terms' => 'Die häufigsten Suchbegriffe',
     'The requested page does not exist.' => 'Die angeforderte Seite existiert nicht.',
     'This application is licensed with the GNU General Public License Version 3' => 'Diese Anwendung wurde mit der GNU General Public License Version 3 lizensiert.',

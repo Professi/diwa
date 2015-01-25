@@ -32,7 +32,7 @@ use app\models\enums\SearchMethod;
  */
 class SearchForm extends \yii\base\Model {
 
-    public $searchMethod = 2;
+    public $searchMethod = 3;
     public $dictionary = 1;
     public $searchWord;
 
