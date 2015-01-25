@@ -56,7 +56,6 @@ class UserAgentController extends \app\components\Controller {
         $dataProvider = new ActiveDataProvider([
             'query' => UserAgent::find(),
         ]);
-
         return $this->render('index', [
                     'dataProvider' => $dataProvider,
         ]);

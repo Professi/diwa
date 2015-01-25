@@ -30,8 +30,6 @@ use yii\filters\AccessControl;
  */
 class SearchController extends \app\components\Controller {
 
-    public $dataProvider = null;
-
     public function behaviors() {
         return [
             'access' => [

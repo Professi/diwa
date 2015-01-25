@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2014  Christian Ehringfeld
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace app\controllers;
 
 use Yii;
@@ -55,7 +57,6 @@ class LanguageController extends \app\components\Controller {
         $dataProvider = new ActiveDataProvider([
             'query' => Language::find(),
         ]);
-
         return $this->render('index', [
                     'dataProvider' => $dataProvider,
         ]);
@@ -79,7 +80,6 @@ class LanguageController extends \app\components\Controller {
      */
     public function actionCreate() {
         $model = new Language();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -97,7 +97,6 @@ class LanguageController extends \app\components\Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -115,7 +114,6 @@ class LanguageController extends \app\components\Controller {
      */
     public function actionDelete($id) {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

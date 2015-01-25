@@ -57,7 +57,6 @@ class DictionaryController extends \app\components\Controller {
         $dataProvider = new ActiveDataProvider([
             'query' => Dictionary::find(),
         ]);
-
         return $this->render('index', [
                     'dataProvider' => $dataProvider,
         ]);
@@ -98,7 +97,6 @@ class DictionaryController extends \app\components\Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -116,7 +114,6 @@ class DictionaryController extends \app\components\Controller {
      */
     public function actionDelete($id) {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -133,10 +130,6 @@ class DictionaryController extends \app\components\Controller {
         } else {
             $this->throwPageNotFound();
         }
-    }
-
-    public function actionTest() {
-        
     }
 
     public function actionTranslations() {

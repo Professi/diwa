@@ -6,35 +6,35 @@ use yii\db\Schema;
 class m141201_200912_schema extends Migration {
 
     public function safeUp() {
-        $this->createTable(\app\models\User::tableName(), array(
+        $this->createTable(\app\models\User::tableName(), [
             'id' => Schema::TYPE_PK,
             'username' => Schema::TYPE_STRING,
             'password' => Schema::TYPE_STRING,
             'authKey' => Schema::TYPE_STRING,
             'role' => Schema::TYPE_SMALLINT,
             'lastLogin' => Schema::TYPE_TIMESTAMP,
-        ));
-        $this->createTable(\app\models\Language::tableName(), array(
+        ]);
+        $this->createTable(\app\models\Language::tableName(), [
             'id' => Schema::TYPE_PK,
             'shortname' => Schema::TYPE_STRING,
             'name' => Schema::TYPE_STRING,
-        ));
-        $this->createTable(\app\models\UnknownWord::tableName(), array(
+        ]);
+        $this->createTable(\app\models\UnknownWord::tableName(), [
             'id' => Schema::TYPE_PK,
             'searchRequest_id' => Schema::TYPE_BIGINT,
-        ));
-        $this->createTable(\app\models\Dictionary::tableName(), array(
+        ]);
+        $this->createTable(\app\models\Dictionary::tableName(), [
             'id' => Schema::TYPE_PK,
             'language1_id' => Schema::TYPE_INTEGER,
             'language2_id' => Schema::TYPE_INTEGER,
-        ));
-        $this->createTable(\app\models\Translation::tableName(), array(
+        ]);
+        $this->createTable(\app\models\Translation::tableName(), [
             'id' => Schema::TYPE_BIGPK,
             'dictionary_id' => Schema::TYPE_INTEGER,
             'word1_id' => Schema::TYPE_BIGINT,
             'word2_id' => Schema::TYPE_BIGINT,
-        ));
-        $this->createTable(\app\models\SearchRequest::tableName(), array(
+        ]);
+        $this->createTable(\app\models\SearchRequest::tableName(), [
             'id' => Schema::TYPE_BIGPK,
             'dictionary_id' => Schema::TYPE_INTEGER,
             'searchMethod' => Schema::TYPE_INTEGER,
@@ -42,29 +42,29 @@ class m141201_200912_schema extends Migration {
             'ipAddr' => Schema::TYPE_STRING,
             'useragent_id' => Schema::TYPE_INTEGER,
             'requestTime' => Schema::TYPE_TIMESTAMP,
-        ));
-        $this->createTable(app\models\UserAgent::tableName(), array(
+        ]);
+        $this->createTable(app\models\UserAgent::tableName(), [
             'id' => Schema::TYPE_PK,
             'agent' => Schema::TYPE_TEXT,
             'agentHash' => Schema::TYPE_STRING
-        ));
-        $this->createTable(\app\models\Word::tableName(), array(
+        ]);
+        $this->createTable(\app\models\Word::tableName(), [
             'id' => Schema::TYPE_BIGPK,
             'language_id' => Schema::TYPE_INTEGER,
             'word' => Schema::TYPE_TEXT,
-        ));
-        $this->createTable('session', array(
+        ]);
+        $this->createTable('session', [
             'id' => 'CHAR(40) NOT NULL PRIMARY KEY',
             'expire' => Schema::TYPE_INTEGER,
             'data' => \yii\db\Schema::TYPE_BINARY,
-        ));
+        ]);
 
-        $this->createTable(app\models\Shortcut::tableName(), array(
+        $this->createTable(app\models\Shortcut::tableName(), [
             'id' => Schema::TYPE_PK,
             'shortcut' => Schema::TYPE_STRING,
             'name' => Schema::TYPE_STRING,
             'kind' => Schema::TYPE_SMALLINT,
-        ));
+        ]);
         if (\Yii::$app->db->getDriverName() == 'pgsql') {
             $this->execute('CREATE INDEX "ft_idx_word_simple" ON "word" USING gin(to_tsvector(\'simple\',"word"));');
         } else if (\Yii::$app->db->getDriverName() == 'mysql') {
