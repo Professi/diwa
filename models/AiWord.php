@@ -47,7 +47,7 @@ class AiWord extends \app\components\CustomActiveRecord {
     public function rules() {
         return [
             [['ai_id', 'word_id'], 'integer'],
-            [['ai_id', 'word_id'], 'unique', 'targetAttribute' => ['ai_id', 'word_id'], 'message' => 'The combination of Ai ID and Word ID has already been taken.']
+            [['ai_id', 'word_id'], 'unique', 'targetAttribute' => ['ai_id', 'word_id'], 'message' => Yii::t('app', 'The combination of additional information and word has already been taken.')],
         ];
     }
 

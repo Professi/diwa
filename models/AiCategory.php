@@ -45,9 +45,10 @@ class AiCategory extends \app\components\CustomActiveRecord {
      */
     public function rules() {
         return [
+            [['name', 'importance'], 'required'],
             [['importance'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['name'], 'unique']
+            [['name'], 'unique'],
         ];
     }
 
@@ -65,7 +66,7 @@ class AiCategory extends \app\components\CustomActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAdditionalinformations() {
+    public function getAdditionalInformations() {
         return $this->hasMany(Additionalinformation::className(), ['category_id' => 'id']);
     }
 
@@ -78,7 +79,7 @@ class AiCategory extends \app\components\CustomActiveRecord {
     }
 
     public static function getLabel() {
-        return Yii::t('app', 'Category of additional informations');
+        return Yii::t('app', 'Category');
     }
 
 }

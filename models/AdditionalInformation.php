@@ -79,7 +79,7 @@ class Additionalinformation extends \app\components\CustomActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getSource() {
-        return $this->hasOne(Src::className(), ['id' => 'source_id']);
+        return $this->hasOne(Source::className(), ['id' => 'source_id']);
     }
 
     /**

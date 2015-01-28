@@ -24,7 +24,7 @@ use yii\helpers\Html;
 /**
  * Description of Menu
  *
- * @author cehringfeld
+ * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
 class Menu {
 
@@ -32,21 +32,23 @@ class Menu {
     private $menu;
 
     private function __construct() {
-        $this->menu = array(//icon,label,url,visible(bool)
-            array('fi-list', \Yii::t('app', 'Search'), ['/search/search'], true),
-            array('fi-power', \Yii::t('app', 'Login'), array('site/login'), Yii::$app->user->isGuest()),
-            array('fi-flag', \Yii::t('app', 'Languages'), array('language/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-book', \Yii::t('app', 'Dictionaries'), array('dictionary/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-refresh', \Yii::t('app', 'Search requests'), array('search/index'), Yii::$app->user->isAdmin()),
-            array('fi-comments', \Yii::t('app', 'Translations'), array('translation/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-comment-minus', \Yii::t('app', 'Words'), array('word/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-comment-minus', \Yii::t('app', 'Unknown words'), array('unknown-word/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-monitor', \Yii::t('app', 'User Agents'), array('user-agent/index'), Yii::$app->user->isAdmin()),
-            array('fi-comment-minus', \Yii::t('app', 'Shortcuts'), array('shortcut/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-comment-minus', \Yii::t('app', 'Sources'), array('source/index'), Yii::$app->user->isAdvancedUser()),
-            array('fi-torsos', \Yii::t('app', 'Users'), array('user/index'), Yii::$app->user->isAdmin()),
-            array('fi-power', \Yii::t('app', 'Logout'), array('site/logout'), !Yii::$app->user->isGuest()),
-        );
+        $this->menu = [//icon,label,url,visible(bool)
+            ['fi-list', \Yii::t('app', 'Search'), ['/search/search'], true],
+            ['fi-power', \Yii::t('app', 'Login'), ['site/login'], Yii::$app->user->isGuest()],
+            ['fi-flag', \Yii::t('app', 'Languages'), ['language/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-book', \Yii::t('app', 'Dictionaries'), ['dictionary/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-refresh', \Yii::t('app', 'Search requests'), ['search/index'], Yii::$app->user->isAdmin()],
+            ['fi-comments', \Yii::t('app', 'Translations'), ['translation/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-list-bullet', \Yii::t('app', 'Words'), ['word/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-filter', \Yii::t('app', 'Unknown words'), ['unknown-word/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-monitor', \Yii::t('app', 'User Agents'), ['user-agent/index'], Yii::$app->user->isAdmin()],
+            ['fi-comment-minus', \Yii::t('app', 'Shortcuts'), ['shortcut/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-quote', \Yii::t('app', 'Sources'), ['source/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-comment', \Yii::t('app', 'Additional informations'), ['additional-information/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-comment', \Yii::t('app', 'Categories'), ['ai-category/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-torsos', \Yii::t('app', 'Users'), ['user/index'], Yii::$app->user->isAdmin()],
+            ['fi-power', \Yii::t('app', 'Logout'), ['site/logout'], !Yii::$app->user->isGuest()],
+        ];
     }
 
     public static function getInstance() {

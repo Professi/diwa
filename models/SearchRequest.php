@@ -94,11 +94,7 @@ class SearchRequest extends \app\components\CustomActiveRecord {
         $request->searchMethod = $method;
         $request->dictionary_id = $dictionary;
         $request->ipAddr = \Yii::$app->request->getUserIP();
-        if (strpos($request->ipAddr, '.')) {
-            $request->ipAddr = preg_replace('/[0-9]+\z/', '0', $request->ipAddr);
-        } else {
-            $request->ipAddr = hash('sha256', $request->ipAddr); //should be enough for the first
-        }
+        $request->ipAddr = hash('sha256', $request->ipAddr); //'anonymize' ppl
         $userAgent = \Yii::$app->request->getUserAgent();
         if ($userAgent != null) {
             $hashedUseragent = UserAgent::createHash($userAgent);

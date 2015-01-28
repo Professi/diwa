@@ -4,7 +4,7 @@ It's similar to dict.cc and dict.leo.org without community aspects. The main dif
 Actually only the import for "simple" text files works. (word1:word2 | word1a,word1b:word2 | word1a,word1b:word2a,word2b)
 It's planned to implement import(maybe export) for TMX, dict, XDXF and TEI files.
 
-This application is only tested with mysql and postgresql as DBMS. Other DBMS supported by Yii2 can also work, but I won't support them.
+This application is only tested with mysql and postgresql as DBMS. Other DBMS supported by Yii2 can also work, but I won't explicity support them.
 For caching you can use every by yii2 supported cache method(MemCache, FileCache, etc.).
 
 See for more informations:
