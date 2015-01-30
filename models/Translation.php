@@ -37,7 +37,7 @@ class Translation extends \app\components\CustomActiveRecord {
 
     public function rules() {
         return [
-            [['dictionary_id', 'word1_id', 'word2_id'], 'integer'],
+            [['dictionary_id', 'word1_id', 'word2_id', 'src_id'], 'integer'],
             [['dictionary_id'], 'required'],
         ];
     }

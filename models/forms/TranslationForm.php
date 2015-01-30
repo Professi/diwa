@@ -37,7 +37,8 @@ class TranslationForm extends \yii\base\Model {
     private $wordObj2;
     public $src_id = null;
     private $dictObj;
-    private $translationId = null;
+    public $create = true;
+    public $translationId = null;
 
     /**
      * @return array the validation rules.
@@ -66,8 +67,12 @@ class TranslationForm extends \yii\base\Model {
             $this->dictObj = Dictionary::findOne($this->dictionary_id);
             $this->wordObj1 = $this->findWord($this->word1, $this->dictObj->language1_id);
             $this->wordObj2 = $this->findWord($this->word2, $this->dictObj->language2_id);
-            if ($this->findTranslation($this->wordObj1, $this->wordObj2)) {
+            $trans = $this->findTranslation($this->wordObj1, $this->wordObj2);
+            if ($trans && $this->create) {
+                Yii::$app->user->setFlash('failMsg', Yii::t('app', 'Dataset already exists.'));
                 $rc = false;
+            } else {
+                $this->translationId = $trans->getId();
             }
         }
         return $rc;
@@ -86,14 +91,18 @@ class TranslationForm extends \yii\base\Model {
 
     protected function createTranslation() {
         $rc = false;
-        $translation = new Translation();
-        $translation->word1_id = $this->getWordId($this->wordObj1, $this->word1, $this->dictObj->language1_id);
-        $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
-        $translation->dictionary_id = $this->dictObj->getPrimaryKey();
-        $translation->src_id = $this->src_id;
-        if (!(Translation::find()->where(['word1_id' => $translation->word1_id, 'word2_id' => $translation->word2_id, 'dictionary_id' => $translation->dictionary_id])->one())) {
-            $rc = $translation->save();
-            $this->translationId = $translation->getPrimaryKey();
+        if (!$this->translationId) {
+            $translation = new Translation();
+            $translation->word1_id = $this->getWordId($this->wordObj1, $this->word1, $this->dictObj->language1_id);
+            $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
+            $translation->dictionary_id = $this->dictObj->getPrimaryKey();
+            $translation->src_id = $this->src_id;
+            if (!(Translation::find()->where(['word1_id' => $translation->word1_id, 'word2_id' => $translation->word2_id, 'dictionary_id' => $translation->dictionary_id])->one())) {
+                $rc = $translation->save();
+                $this->translationId = $translation->getPrimaryKey();
+            }
+        } else {
+            $rc = true;
         }
         return $rc;
     }
@@ -112,7 +121,7 @@ class TranslationForm extends \yii\base\Model {
         if (empty($word1) || empty($word2)) {
             return null;
         } else {
-            return \app\models\Translation::find()->where(['word1_id' => $word1->getPrimaryKey(), 'word2_id' => $word2->getPrimaryKey(), 'dictionary_id' => $this->dictionary])->one();
+            return \app\models\Translation::find()->where(['word1_id' => $word1->getPrimaryKey(), 'word2_id' => $word2->getPrimaryKey(), 'dictionary_id' => $this->dictionary_id])->one();
         }
     }
 

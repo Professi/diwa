@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,7 +18,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Categories' => 'Kategorien',
+    'Dataset already exists.' => 'Datensatz existiert bereits.',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -33,6 +34,7 @@ return [
     'Body' => 'Nachricht',
     'Branch' => 'Branche',
     'British English' => 'Britisches Englisch',
+    'Categories' => 'Kategorien',
     'Category' => 'Kategorie',
     'Choose file' => 'Datei auswählen',
     'Clear input' => 'Eingabe löschen',

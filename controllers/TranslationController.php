@@ -97,18 +97,22 @@ class TranslationController extends \app\components\Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = Translation::find()->where(['id'=>$id])->with(['word1','word2'])->one();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $word1 = $model->getWord1()->one();
-            $word2 = $model->getWord2()->one();
-            $word1->word = Yii::$app->request->post()['Word1']['word'];
-            $word2->word = Yii::$app->request->post()['Word2']['word'];
-            $word1->update();
-            $word2->update();
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        $modelObj = Translation::find()->where(['id' => $id])->with(['word1', 'word2'])->one();
+        $model = new \app\models\forms\TranslationForm();
+        $model->word1 = $modelObj->word1->word;
+        $model->word2 = $modelObj->word2->word;
+        $model->dictionary_id = $modelObj->dictionary->getId();
+        $model->translationId = $modelObj->getId();
+        $model->src_id = $modelObj->src_id;
+        $model->create = false;
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->create()) {
+                return $this->redirect(['view', 'id' => $model->getTranslationId()]);
+            }
+        }else {
             return $this->render('update', [
                         'model' => $model,
+                        'create' => false,
             ]);
         }
     }
