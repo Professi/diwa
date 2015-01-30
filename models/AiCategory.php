@@ -81,5 +81,9 @@ class AiCategory extends \app\components\CustomActiveRecord {
     public static function getLabel() {
         return Yii::t('app', 'Category');
     }
+    
+    public static function getFilter() {
+        return \yii\helpers\ArrayHelper::map(\app\models\AiCategory::find()->all(), 'id', 'name');
+    }
 
 }

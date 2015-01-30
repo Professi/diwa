@@ -97,7 +97,7 @@ class TranslationController extends \app\components\Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        $model = Translation::find()->where(['id'=>$id])->with(['word1','word2'])->one();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $word1 = $model->getWord1()->one();
             $word2 = $model->getWord2()->one();

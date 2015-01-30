@@ -78,5 +78,8 @@ class Source extends \app\components\CustomActiveRecord {
     public static function tableName() {
         return 'src';
     }
-
+    
+    public static function getFilter() {
+        return \yii\helpers\ArrayHelper::map(\app\models\Source::find()->all(), 'id', 'name');
+    }
 }

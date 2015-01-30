@@ -11,26 +11,25 @@ $this->title = Yii::t('app', 'Additional informations');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="additional-information-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => app\models\Additionalinformation::getLabel(),
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?=
+        Html::a(Yii::t('app', 'Create {modelClass}', [
+                    'modelClass' => app\models\Additionalinformation::getLabel(),
+                ]), ['create'], ['class' => 'btn btn-success'])
+        ?>
     </p>
-
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['attribute'=>'category.name','label'=>  app\models\AiCategory::getLabel()],
+            ['attribute' => 'category_id', 'value' => 'category.name', 'label' => app\models\AiCategory::getLabel(), 'filter' => \app\models\AiCategory::getFilter()],
             'information:ntext',
-            ['attribute'=>'source.name','label'=>  app\models\Source::getLabel()],
+            ['attribute' => 'source_id', 'value' => 'source.name', 'label' => app\models\Source::getLabel(), 'filter' => \app\models\Source::getFilter()],
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
-    ]); ?>
-
+    ]);
+    ?>
 </div>

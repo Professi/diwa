@@ -70,7 +70,7 @@ class WordController extends Controller {
         }
     }
 
-    public function actionGetWords($term, $dict) {
+    public function actionGetWords($term, $dict, $regex = true) {
         \Yii::$app->response->format = 'json';
         $wordArr = [];
         if (is_string($term) && is_numeric($dict)) {
@@ -78,8 +78,14 @@ class WordController extends Controller {
             $words = Word::find()->where('(language_id=:lang1Id OR language_id=:lang2Id) AND word LIKE :word')
                             ->params([':word' => $term . '%', ':lang1Id' => $dictObj->language1_id, ':lang2Id' => $dictObj->language2_id,])
                             ->select(['word'])->limit(10)->asArray()->all();
-            foreach ($words as $wordObj) {
-                $wordArr[] = trim(preg_replace(["&{.*}&is", "&\[.*\]&is"], '', $wordObj['word']));
+            if ($regex) {
+                foreach ($words as $wordObj) {
+                    $wordArr[] = trim(preg_replace(["&{.*}&is", "&\[.*\]&is"], '', $wordObj['word']));
+                }
+            } else {
+                               foreach ($words as $wordObj) {
+                    $wordArr[] = trim($wordObj['word']);
+                }
             }
         }
         return array_unique($wordArr);
