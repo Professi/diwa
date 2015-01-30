@@ -7,18 +7,16 @@ use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Translation */
-/* @var $words array app\models\Word */
 /* @var $form yii\widgets\ActiveForm */
 $dicts = \yii\helpers\ArrayHelper::map(\app\models\Dictionary::find()->all(), 'id', 'shortname');
 $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id', 'name');
-$dictRequest = $model->create ? 'translationform' : 'translation';
 ?>
 <div class="translation-form row">
     <?php $form = CustomActiveForm::begin(); ?>
     <fieldset>
         <?= $form->field($model, 'dictionary_id', ['labelOptions' => ['label' => \app\models\Dictionary::getLabel()]])->dropDownList($dicts); ?>
         <?=
-        $form->field($model, 'word1' , ['labelOptions' => ['label' => Yii::t('app', 'Word'). ' 1']])->widget(AutoComplete::className(), [
+        $form->field($model, 'word1', ['labelOptions' => ['label' => Yii::t('app', 'Word') . ' 1']])->widget(AutoComplete::className(), [
             'name' => 'Word1[word]',
             'clientOptions' => [
                 'source' => new JsExpression("
@@ -41,11 +39,8 @@ $dictRequest = $model->create ? 'translationform' : 'translation';
             ],
         ]);
         ?>
-
-
-
         <?=
-        $form->field($model, 'word2' , ['labelOptions' => ['label' => Yii::t('app', 'Word'). ' 2']])->widget(AutoComplete::className(), [
+        $form->field($model, 'word2', ['labelOptions' => ['label' => Yii::t('app', 'Word') . ' 2']])->widget(AutoComplete::className(), [
             'name' => 'Word2[word]',
             'clientOptions' => [
                 'source' => new JsExpression("

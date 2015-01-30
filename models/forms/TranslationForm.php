@@ -95,11 +95,11 @@ class TranslationForm extends \yii\base\Model {
             $translation = new Translation();
             $translation->word1_id = $this->getWordId($this->wordObj1, $this->word1, $this->dictObj->language1_id);
             $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
-            $translation->dictionary_id = $this->dictObj->getPrimaryKey();
+            $translation->dictionary_id = $this->dictObj->getId();
             $translation->src_id = $this->src_id;
             if (!(Translation::find()->where(['word1_id' => $translation->word1_id, 'word2_id' => $translation->word2_id, 'dictionary_id' => $translation->dictionary_id])->one())) {
                 $rc = $translation->save();
-                $this->translationId = $translation->getPrimaryKey();
+                $this->translationId = $translation->getId();
             }
         } else {
             $rc = true;
@@ -109,12 +109,12 @@ class TranslationForm extends \yii\base\Model {
 
     protected function getWordId($word, $str, $languageId) {
         if ($word instanceof Word) {
-            return $word->getPrimaryKey();
+            return $word->getId();
         }
         $wordObj = new Word();
         $wordObj->setValues($str, $languageId);
         $wordObj->insert();
-        return $wordObj->getPrimaryKey();
+        return $wordObj->getId();
     }
 
     public function findTranslation($word1, $word2) {

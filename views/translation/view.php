@@ -28,11 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['attribute' => 'language1',
-                'value' => $model->dictionary->language1->shortname
-            ],
-            ['attribute' => 'language2',
-                'value' => $model->dictionary->language2->shortname
+            ['attribute' => 'dictionary',
+                'value' => $model->dictionary->shortname
             ],
             'word1.word',
             'word2.word',
