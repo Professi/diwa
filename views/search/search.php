@@ -38,8 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
                 ?>
                 <?php
-                echo $form->field($model, 'searchWord', ['template' => '{label}']);
-                echo AutoComplete::widget([
+                echo $form->field($model, 'searchWord')->widget(AutoComplete::class, [
                     'model' => $model,
                     'attribute' => 'searchWord',
                     'clientOptions' => [
@@ -61,7 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'minLength' => '2',
                     ],
                 ]);
-                echo $form->field($model, 'searchWord', ['template' => '{error}'])
                 ?>
                 <div id="dict">
                     <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>

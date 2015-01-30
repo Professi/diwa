@@ -37,7 +37,7 @@ abstract class SearchMethod {
     }
 
     public static function getMethodnames() {
-        return array(SearchMethod::FAST => Yii::t('app', 'Full text search'), SearchMethod::FUZZY => Yii::t('app', 'Fuzzy search'), SearchMethod::COMFORT => Yii::t('app', 'Comfort search'), SearchMethod::NORMAL => Yii::t('app', 'Normal search'));
+        return array(SearchMethod::NORMAL => Yii::t('app', 'Normal search'), SearchMethod::FAST => Yii::t('app', 'Full text search'), SearchMethod::FUZZY => Yii::t('app', 'Fuzzy search'), SearchMethod::COMFORT => Yii::t('app', 'Comfort search'));
     }
 
 }

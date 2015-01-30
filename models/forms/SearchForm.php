@@ -34,7 +34,7 @@ class SearchForm extends \yii\base\Model {
 
     public $searchMethod = 3;
     public $dictionary = 1;
-    public $searchWord;
+    public $searchWord = '';
 
     /**
      * @return array the validation rules.
