@@ -174,6 +174,7 @@ class Translator extends \yii\base\Object {
                         ->where('language_id=:lang AND ' . $where)
                         ->limit($this->getTranslationLimitPerResult())
                         ->params($params)
+                        ->orderBy('word ASC')
                         ->asArray()->all();
         $result = array();
         foreach ($words as $word) {
