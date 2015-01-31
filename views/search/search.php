@@ -22,7 +22,6 @@ use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = Yii::t('app', 'Translate');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -39,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
                 <?php
                 echo $form->field($model, 'searchWord')->widget(AutoComplete::class, [
-                    'model' => $model,
-                    'attribute' => 'searchWord',
                     'clientOptions' => [
                         'source' => new JsExpression("
                             function( request, response ) {
@@ -49,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     dataType: \"json\",
                                     data:{
                                         term: request.term,
-                                        dict: $('#dict').find(':checked').val()
+                                        dict: $('#dict').find(':checked').val(),
                                     },
                                     success: function(data) {
                                         response(data);

@@ -77,13 +77,13 @@ class WordController extends Controller {
             $dictObj = \app\models\Dictionary::find()->where('id=:dictId')->params([':dictId' => $dict])->one();
             $words = Word::find()->where('(language_id=:lang1Id OR language_id=:lang2Id) AND word LIKE :word')
                             ->params([':word' => $term . '%', ':lang1Id' => $dictObj->language1_id, ':lang2Id' => $dictObj->language2_id,])
-                            ->select(['word'])->limit(10)->asArray()->all();
+                            ->orderBy('word ASC')->select(['word'])->limit(10)->asArray()->all();
             if ($regex) {
                 foreach ($words as $wordObj) {
                     $wordArr[] = trim(preg_replace(["&{.*}&is", "&\[.*\]&is"], '', $wordObj['word']));
                 }
             } else {
-                               foreach ($words as $wordObj) {
+                foreach ($words as $wordObj) {
                     $wordArr[] = trim($wordObj['word']);
                 }
             }
