@@ -63,10 +63,9 @@ class Translator extends \yii\base\Object {
     public function translateData($searchMethod, $searchWord, $dictionary = null) {
         $this->additionalParams = null;
         $data = [];
-        if (is_numeric($dictionary)) {
-            $this->dictionaryObj = \app\models\Dictionary::find()->where('id=:id')->params([':id' => $dictionary])->one();
-        }
-        if ($this->dictionaryObj != null && is_string($searchWord) && is_numeric($searchMethod)) {
+        if (is_numeric($dictionary) && is_string($searchWord) && is_numeric($searchMethod) &&
+                ($this->dictionaryObj = \app\models\Dictionary::find()->where('id=:id')->params([':id' => $dictionary])->one()) &&
+                $this->dictionaryObj != null) {
             $this->searchWord = $searchWord;
             $cacheKey = $this->generateCacheKey($this->searchWord, $searchMethod, $this->dictionaryObj->getPrimaryKey());
             $data = $this->getCacheData($cacheKey);
@@ -230,7 +229,7 @@ class Translator extends \yii\base\Object {
 
     protected function getDuration($size) {
         if ($size < 100) {
-            return 0;
+            return 1209600; //14 days
         } else if ($size < 300) {
             return 86400; //one day
         } else if ($size < 750) {

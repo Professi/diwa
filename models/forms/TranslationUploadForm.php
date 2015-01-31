@@ -19,7 +19,6 @@
 namespace app\models\forms;
 
 use Yii;
-use app\models\Word;
 
 class TranslationUploadForm extends \yii\base\Model {
 
