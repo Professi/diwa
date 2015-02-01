@@ -39,6 +39,7 @@ class TranslationForm extends \yii\base\Model {
     private $dictObj;
     public $create = true;
     public $translationId = null;
+    public $additionalInformations = [];
 
     /**
      * @return array the validation rules.
@@ -58,6 +59,7 @@ class TranslationForm extends \yii\base\Model {
             'word1' => Word::getLabel() . ' 1',
             'word2' => Word::getLabel() . ' 2',
             'src_id' => \app\models\Source::getLabel(),
+            'additionalInformations' => Yii::t('app', 'Additional informations'),
         );
     }
 

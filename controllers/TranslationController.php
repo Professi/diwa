@@ -109,12 +109,31 @@ class TranslationController extends \app\components\Controller {
             if ($model->create()) {
                 return $this->redirect(['view', 'id' => $model->getTranslationId()]);
             }
-        }else {
+        } else {
             return $this->render('update', [
                         'model' => $model,
                         'create' => false,
             ]);
         }
+    }
+
+    public function actionGetInformations($term) {
+        \Yii::$app->response->format = 'json';
+        $return = [];
+        $objects = [];
+        if (!empty($term)) {
+            if (is_numeric($term)) {
+                $objects = \app\models\Additionalinformation::find()->where(['id' => $term])->asArray()->all();
+            } else {
+                $objects = \app\models\Additionalinformation::find()->where('text LIKE :text')->params([':text' => $term . '%'])->asArray()->all();
+            }
+            if (is_array($objects)) {
+                foreach ($objects as $o) {
+                    $return[] = ['id' => $o->getId(), 'text' => $o->getText()];
+                }
+            }
+        }
+        return $return;
     }
 
     /**

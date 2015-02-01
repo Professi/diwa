@@ -43,9 +43,9 @@ class TranslationFileProcessor {
     private $dictionary;
     private $wordSeparator;
     private $relevanceSeparator;
-    private $translations = array();
+    private $translations = [];
     private $generalSeparatorsSize;
-    private $errorArray = array();
+    private $errorArray = [];
     private $wordFindQuery = null;
     private $source = null;
 
@@ -73,7 +73,7 @@ class TranslationFileProcessor {
                 $this->separateTranslations($line);
             }
             $this->insertAllTranslations();
-            $this->translations = array(); //to be save that they will be deleted
+            $this->translations = []; //to be save that they will be deleted
         } else {
             $this->errorArray['file'] = Yii::t('app', 'Your file is corrupted.');
         }
@@ -189,7 +189,7 @@ class TranslationFileProcessor {
                 $pks2 = $this->persistWords($this->separateStrings($arrRels2[$i], $this->wordSeparator), $this->dictionary->language2_id);
                 foreach ($pks1 as $val) {
                     foreach ($pks2 as $val2) {
-                        $this->translations[] = array($val, $val2, $this->dictionary->id);
+                        $this->translations[] = [$val, $val2, $this->dictionary->id];
                     }
                 }
             }
@@ -199,7 +199,7 @@ class TranslationFileProcessor {
             $word2Obj = $this->findWord($word2, $this->dictionary->language2_id);
             $this->createWord($word1, $this->dictionary->language1_id, $word1Obj);
             $this->createWord($word2, $this->dictionary->language2_id, $word2Obj);
-            $this->translations[] = array($word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id, $this->source);
+            $this->translations[] = [$word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id, $this->source];
         }
         if (!empty($flash)) {
             Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br/>' . $flash);

@@ -63,6 +63,34 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
             ],
         ]);
         ?>
+        <?php 
+//        echo  $form->field($model, 'additionalInformations')->widget(kartik\select2\Select2::className(), [
+//            'options' => [
+//                'multiple' => true,
+//                'placeholder' => Yii::t('app', 'Enter any id of a information or enter text to search for informations'),
+//                'width' => '100%',
+//            ],
+//            'pluginOptions' => [
+//                'ajax' => true,
+//                'url' => \yii\helpers\Url::to(['additional-information/get-informations']),
+//                'dataType' => 'json',
+//                'data' => new JsExpression('function (params) {'
+//                        . 'return {'
+//                        . 'q: params.term,'
+//                        . 'page: params.page'
+//                        . '};'
+//                        . '}'),
+////                'processResults' => new \yii\web\JsExpression('function (data,page) {'
+////                        . 'return {'
+////                        . 'results: data.items'
+////                        . '};'
+////                        . '}'),
+//                'cache' => true,
+//                'minimumInputLength' => 1,
+//            ]
+//        ]);
+        ?>
+        <br>
 
         <?= $form->field($model, 'src_id')->dropDownList($sources); ?>
         <div class="form-group">
