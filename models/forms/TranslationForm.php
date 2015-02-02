@@ -39,7 +39,7 @@ class TranslationForm extends \yii\base\Model {
     private $dictObj;
     public $create = true;
     public $translationId = null;
-    public $additionalInformations = [];
+    public $additionalInformations;
 
     /**
      * @return array the validation rules.

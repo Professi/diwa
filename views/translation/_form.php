@@ -64,14 +64,14 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
         ]);
         ?>
         <?php 
-//        echo  $form->field($model, 'additionalInformations')->widget(kartik\select2\Select2::className(), [
+//        echo  $form->field($model, 'additionalInformations')->widget(vova07\select2\Widget::className(), [
 //            'options' => [
-//                'multiple' => true,
+////                'multiple' => true,
 //                'placeholder' => Yii::t('app', 'Enter any id of a information or enter text to search for informations'),
-//                'width' => '100%',
+////                'width' => '100%',
 //            ],
-//            'pluginOptions' => [
-//                'ajax' => true,
+//            'settings' => [
+//                'ajax' => [
 //                'url' => \yii\helpers\Url::to(['additional-information/get-informations']),
 //                'dataType' => 'json',
 //                'data' => new JsExpression('function (params) {'
@@ -85,6 +85,7 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
 ////                        . 'results: data.items'
 ////                        . '};'
 ////                        . '}'),
+//                    ],
 //                'cache' => true,
 //                'minimumInputLength' => 1,
 //            ]
