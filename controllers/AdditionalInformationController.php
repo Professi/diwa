@@ -119,6 +119,23 @@ class AdditionalInformationController extends Controller {
         return $this->redirect(['index']);
     }
 
+    public function actionGetInformations($q, $page_limit) {
+        \Yii::$app->response->format = 'json';
+        $result = [];
+        $return = [];
+        if (!empty($q)) {
+            if (is_numeric($q)) {
+                $result = AdditionalInformation::find()->limit(1)->where('id = :id')->params([':id' => $q])->one();
+            } else {
+                $result = AdditionalInformation::find()->limit($page_limit)->where('information LIKE :info')->params([':info' => $q . '%'])->all();
+            }
+            foreach ($result as $entry) {
+                $return[] = ['id' => $entry->getPrimaryKey(), 'text' => $entry->information];
+            }
+        }
+        return $return;
+    }
+
     /**
      * Finds the AdditionalInformation model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

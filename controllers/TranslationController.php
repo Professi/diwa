@@ -105,8 +105,10 @@ class TranslationController extends \app\components\Controller {
         $model->translationId = $modelObj->getId();
         $model->src_id = $modelObj->src_id;
         $model->create = false;
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->create()) {
+        //shit @TODO
+        if ($model->load(Yii::$app->request->post())) {
+            $model->additionalInformations = explode(',', Yii::$app->request->post()['TranslationForm']['additionalInformations']);
+            if ($model->validate() && $model->create()) {
                 return $this->redirect(['view', 'id' => $model->getTranslationId()]);
             }
         } else {
@@ -115,25 +117,6 @@ class TranslationController extends \app\components\Controller {
                         'create' => false,
             ]);
         }
-    }
-
-    public function actionGetInformations($term) {
-        \Yii::$app->response->format = 'json';
-        $return = [];
-        $objects = [];
-        if (!empty($term)) {
-            if (is_numeric($term)) {
-                $objects = \app\models\Additionalinformation::find()->where(['id' => $term])->asArray()->all();
-            } else {
-                $objects = \app\models\Additionalinformation::find()->where('text LIKE :text')->params([':text' => $term . '%'])->asArray()->all();
-            }
-            if (is_array($objects)) {
-                foreach ($objects as $o) {
-                    $return[] = ['id' => $o->getId(), 'text' => $o->getText()];
-                }
-            }
-        }
-        return $return;
     }
 
     /**

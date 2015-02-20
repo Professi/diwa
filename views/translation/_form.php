@@ -63,35 +63,38 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
             ],
         ]);
         ?>
-        <?php 
-//        echo  $form->field($model, 'additionalInformations')->widget(vova07\select2\Widget::className(), [
-//            'options' => [
-////                'multiple' => true,
-//                'placeholder' => Yii::t('app', 'Enter any id of a information or enter text to search for informations'),
-////                'width' => '100%',
-//            ],
-//            'settings' => [
-//                'ajax' => [
-//                'url' => \yii\helpers\Url::to(['additional-information/get-informations']),
-//                'dataType' => 'json',
-//                'data' => new JsExpression('function (params) {'
-//                        . 'return {'
-//                        . 'q: params.term,'
-//                        . 'page: params.page'
-//                        . '};'
-//                        . '}'),
-////                'processResults' => new \yii\web\JsExpression('function (data,page) {'
-////                        . 'return {'
-////                        . 'results: data.items'
-////                        . '};'
-////                        . '}'),
-//                    ],
-//                'cache' => true,
-//                'minimumInputLength' => 1,
-//            ]
-//        ]);
+        <?php
+        echo $form->field($model, 'additionalInformations')->widget(\app\components\widgets\Selectize::className(), [
+            'clientOptions' => [
+                'placeholder' => Yii::t('app', 'Enter any id of a information or enter text to search for informations'),
+                'delimiter' => ',',
+                'valueField' => 'id',
+                'labelField' => 'text',
+                'plugins' => ['remove_button'],
+                'create' => false,
+                'load' => new JsExpression(
+                        'function(query, callback) {
+                            if (!query.length) return callback();
+        $.ajax({
+            url: "' . \yii\helpers\Url::to(['additional-information/get-informations']) . '",
+            type: "GET",
+            dataType: "json",
+            data: {
+                q: query,
+                page_limit: 10,
+            },
+                        error: function() {
+                callback();
+            },
+            success: function(res) {
+                callback(res);
+            }
+        });
+    }'
+                ),
+            ],
+        ]);
         ?>
-        <br>
 
         <?= $form->field($model, 'src_id')->dropDownList($sources); ?>
         <div class="form-group">

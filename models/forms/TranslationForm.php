@@ -73,7 +73,8 @@ class TranslationForm extends \yii\base\Model {
             if ($trans && $this->create) {
                 Yii::$app->user->setFlash('failMsg', Yii::t('app', 'Dataset already exists.'));
                 $rc = false;
-            } else {
+                //more shit @TODO
+            } else if ($trans != null) {
                 $this->translationId = $trans->getId();
             }
         }
