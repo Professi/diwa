@@ -52,6 +52,7 @@ class Translation extends \app\components\CustomActiveRecord {
             'language2' => Language::getLabel() . ' 2',
             'src_id' => Source::getLabel(),
             'source' => Source::getLabel(),
+            'aiTranslations' => AiTranslation::getLabel(),
         );
     }
 
@@ -69,6 +70,23 @@ class Translation extends \app\components\CustomActiveRecord {
 
     public function getWord2() {
         return $this->hasOne(Word::className(), ['id' => 'word2_id'])->from(Word::tableName() . ' word2');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAiTranslations() {
+        return $this->hasMany(AiTranslation::className(), ['translation_id' => 'id']);
+    }
+
+    public function getAdditionalInformations() {
+        $arr = $this->getAiTranslations()->all();
+        $output = '';
+        foreach ($arr as $ai) {
+            $additionalInfo = $ai->getAdditionalInformation()->one();
+            $output .= $additionalInfo->getCategory()->one()->name . ' - ' . $additionalInfo->information . '<br>';
+        }
+        return $output;
     }
 
     public function getWord1Term() {

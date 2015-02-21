@@ -19,6 +19,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\AdditionalInformation;
+use app\models\Translation;
 
 /**
  * This is the model class for table "ai_translation".
@@ -57,7 +59,7 @@ class AiTranslation extends \app\components\CustomActiveRecord {
     public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
-            'additionalInformation' => Additionalinformation::getLabel(),
+            'additionalInformation' => AdditionalInformation::getLabel(),
             'translation' => Translation::getLabel(),
         ];
     }
@@ -73,7 +75,7 @@ class AiTranslation extends \app\components\CustomActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getAdditionalInformation() {
-        return $this->hasOne(Additionalinformation::className(), ['id' => 'ai_id']);
+        return $this->hasOne(AdditionalInformation::className(), ['id' => 'ai_id']);
     }
 
     public function getId() {
@@ -85,7 +87,7 @@ class AiTranslation extends \app\components\CustomActiveRecord {
     }
 
     public static function getLabel() {
-        return Additionalinformation::getLabel() . ' ' . Yii::t('app', 'about a translation');
+        return AdditionalInformation::getLabel() . ' ' . Yii::t('app', 'about a translation');
     }
 
 }

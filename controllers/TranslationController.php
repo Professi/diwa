@@ -28,6 +28,8 @@ use yii\filters\AccessControl;
  */
 class TranslationController extends \app\components\Controller {
 
+    const DELIMITER = ',';
+
     public function behaviors() {
         return [
             'access' => [
@@ -80,14 +82,15 @@ class TranslationController extends \app\components\Controller {
     public function actionCreate() {
         $model = new \app\models\forms\TranslationForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->create()) {
-                return $this->redirect(['view', 'id' => $model->getTranslationId()]);
+            $model->additionalInformations = $this->explodeInformations();
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->translation->getId()]);
             }
-        } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
         }
+        $model->additionalInformations = $this->selectAi($model);
+        return $this->render('create', [
+                    'model' => $model,
+        ]);
     }
 
     /**
@@ -104,19 +107,39 @@ class TranslationController extends \app\components\Controller {
         $model->dictionary_id = $modelObj->dictionary->getId();
         $model->translationId = $modelObj->getId();
         $model->src_id = $modelObj->src_id;
-        $model->create = false;
-        //shit @TODO
-        if ($model->load(Yii::$app->request->post())) {
-            $model->additionalInformations = explode(',', Yii::$app->request->post()['TranslationForm']['additionalInformations']);
-            if ($model->validate() && $model->create()) {
-                return $this->redirect(['view', 'id' => $model->getTranslationId()]);
+        $model->translation = $modelObj;
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->additionalInformations = $this->explodeInformations();
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->translation->getId()]);
             }
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-                        'create' => false,
-            ]);
         }
+        $model->additionalInformations = $this->selectAi($model);
+        return $this->render('update', [
+                    'model' => $model,
+                    'create' => false,
+        ]);
+    }
+
+    protected function selectAi(&$model) {
+        $arr = [];
+        if ($model->translation) {
+            foreach ($model->translation->getAiTranslations()->all() as $ai) {
+                $arr[] = AdditionalInformationController::formatAiForJson($ai->getAdditionalInformation()->one());
+            }
+        }
+        return \yii\helpers\Json::encode($arr);
+    }
+
+    protected function explodeInformations() {
+        return explode(self::DELIMITER, Yii::$app->request->post()['TranslationForm']['additionalInformations']);
+    }
+
+    protected function implodeInformations($ai) {
+        if (is_array($ai)) {
+            return implode(self::DELIMITER, $ai);
+        }
+        return '';
     }
 
     /**
@@ -127,7 +150,6 @@ class TranslationController extends \app\components\Controller {
      */
     public function actionDelete($id) {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

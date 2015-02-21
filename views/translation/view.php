@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Translation */
 
-$this->title = empty($model->word1) ? '' : substr($model->word1->word, 0, 20) . ' - ' . empty($model->word2) ? '' : substr($model->word2->word, 0, 20);
+$this->title = (empty($model->word1) ? '' : substr($model->word1->word, 0, 15)) . ' - ' . (empty($model->word2) ? '' : substr($model->word2->word, 0, 15));
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Translations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'dictionary',
                 'value' => $model->dictionary->shortname
             ],
-            'word1.word',
-            'word2.word',
+            ['attribute' => 'word1.word', 'label' => $model->dictionary->language1->name],
+            ['attribute' => 'word2.word', 'label' => $model->dictionary->language2->name],
             ['attribute' => 'source.name', 'label' => app\models\Source::getLabel()],
+            ['attribute' => 'aiTranslations', 'value' => $model->getAdditionalInformations(), 'format' => 'html'],
         ],
     ])
     ?>

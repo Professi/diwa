@@ -27,7 +27,9 @@ use Yii;
  */
 abstract class CustomActiveRecord extends \yii\db\ActiveRecord {
 
-    abstract public static function getLabel();
+    public static function getLabel() {
+        return static::className();
+    }
 
     public static function getIdLabel() {
         return Yii::t('app', 'ID');

@@ -18,7 +18,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Dataset already exists.' => 'Datensatz existiert bereits.',
+    'Enter any id of a information or enter text to search for informations' => 'Geben Sie die ID einer Information oder einen Text zum Suchen von Informationen ein',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -43,6 +43,7 @@ return [
     'Copyright' => 'Copyright',
     'Create' => 'Erstellen',
     'Create {modelClass}' => 'Erstelle {modelClass}',
+    'Dataset already exists.' => 'Datensatz existiert bereits.',
     'Delete' => 'Löschen',
     'Delimiters' => 'Separator',
     'DiWA' => 'DiWA',

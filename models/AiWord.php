@@ -19,6 +19,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\AdditionalInformation;
 
 /**
  * This is the model class for table "ai_word".
@@ -57,7 +58,7 @@ class AiWord extends \app\components\CustomActiveRecord {
     public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
-            'additionalInformation' => Additionalinformation::getLabel(),
+            'additionalInformation' => AdditionalInformation::getLabel(),
             'word' => Word::getLabel(),
         ];
     }
@@ -73,7 +74,7 @@ class AiWord extends \app\components\CustomActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getAdditionalInformation() {
-        return $this->hasOne(Additionalinformation::className(), ['id' => 'ai_id']);
+        return $this->hasOne(AdditionalInformation::className(), ['id' => 'ai_id']);
     }
 
     public function getId() {
@@ -85,7 +86,7 @@ class AiWord extends \app\components\CustomActiveRecord {
     }
 
     public static function getLabel() {
-        return Additionalinformation::getLabel() . ' ' . Yii::t('app', 'about a word');
+        return AdditionalInformation::getLabel() . ' ' . Yii::t('app', 'about a word');
     }
 
 }

@@ -19,7 +19,7 @@
 namespace app\models;
 
 use Yii;
-
+use app\models\AdditionalInformation;
 /**
  * This is the model class for table "ai_category".
  *
@@ -67,7 +67,7 @@ class AiCategory extends \app\components\CustomActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getAdditionalInformations() {
-        return $this->hasMany(Additionalinformation::className(), ['category_id' => 'id']);
+        return $this->hasMany(AdditionalInformation::className(), ['category_id' => 'id']);
     }
 
     public function getId() {

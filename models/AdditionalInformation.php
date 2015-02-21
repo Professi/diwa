@@ -35,7 +35,7 @@ use Yii;
  * 
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>
  */
-class Additionalinformation extends \app\components\CustomActiveRecord {
+class AdditionalInformation extends \app\components\CustomActiveRecord {
 
     /**
      * @inheritdoc

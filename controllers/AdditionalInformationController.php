@@ -130,10 +130,14 @@ class AdditionalInformationController extends Controller {
                 $result = AdditionalInformation::find()->limit($page_limit)->where('information LIKE :info')->params([':info' => $q . '%'])->all();
             }
             foreach ($result as $entry) {
-                $return[] = ['id' => $entry->getPrimaryKey(), 'text' => $entry->information];
+                $return[] = static::formatAiForJson($entry);
             }
         }
         return $return;
+    }
+
+    public static function formatAiForJson($ai) {
+        return ['id' => $ai->getId(), 'text' => $ai->getCategory()->one()->name . ' - ' . $ai->information];
     }
 
     /**
