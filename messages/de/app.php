@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Message translations.
  *
@@ -18,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Enter any id of a information or enter text to search for informations' => 'Geben Sie die ID einer Information oder einen Text zum Suchen von Informationen ein',
+    'Version' => 'Version',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -50,6 +49,7 @@ return [
     'Dictionaries' => 'Wörterbücher',
     'Dictionary' => 'Wörterbuch',
     'Email' => 'E-Mail',
+    'Enter any id of a information or enter text to search for informations' => 'Geben Sie die ID einer Information oder einen Text zum Suchen von Informationen ein',
     'File' => 'Datei',
     'Full text search' => 'Volltextsuche',
     'Fuzzy search' => 'Unscharfe Suche',
@@ -131,7 +131,6 @@ return [
     'Verification Code' => 'Sicherheitscode',
     'View' => 'Ansicht',
     'Website' => 'Webseite',
-    'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!' => 'Ohne die folgende Quelle wäre dieses Projekt nicht realisierbar! Vielen Dank!',
     'Word' => 'Wort',
     'Words' => 'Wörter',
     'Yes' => 'Ja',

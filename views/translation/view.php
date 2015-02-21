@@ -6,24 +6,26 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Translation */
 
-$this->title = (empty($model->word1) ? '' : substr($model->word1->word, 0, 15)) . ' - ' . (empty($model->word2) ? '' : substr($model->word2->word, 0, 15));
+$this->title = (empty($model->word1) ? '' : substr($model->word1->word, 0, 40)) . ' - ' . (empty($model->word2) ? '' : substr($model->word2->word, 0, 40));
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Translations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="translation-view">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?=
-        Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ])
-        ?>
-    </p>
+    <?php if (Yii::$app->user->isAdvancedUser()) { ?>
+        <p>
+            <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?=
+            Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                    'method' => 'post',
+                ],
+            ])
+            ?>
+        </p>
+    <?php } ?>
     <?=
     DetailView::widget([
         'model' => $model,

@@ -33,11 +33,11 @@ class Menu {
 
     private function __construct() {
         $this->menu = [//icon,label,url,visible(bool)
-            ['fi-list', \Yii::t('app', 'Search'), ['/search/search'], true],
+            ['fi-list', \Yii::t('app', 'Search'), ['translation/search'], true],
             ['fi-power', \Yii::t('app', 'Login'), ['site/login'], Yii::$app->user->isGuest()],
             ['fi-flag', \Yii::t('app', 'Languages'), ['language/index'], Yii::$app->user->isAdvancedUser()],
             ['fi-book', \Yii::t('app', 'Dictionaries'), ['dictionary/index'], Yii::$app->user->isAdvancedUser()],
-            ['fi-refresh', \Yii::t('app', 'Search requests'), ['search/index'], Yii::$app->user->isAdmin()],
+            ['fi-refresh', \Yii::t('app', 'Search requests'), ['search-request/index'], Yii::$app->user->isAdmin()],
             ['fi-comments', \Yii::t('app', 'Translations'), ['translation/index'], Yii::$app->user->isAdvancedUser()],
             ['fi-list-bullet', \Yii::t('app', 'Words'), ['word/index'], Yii::$app->user->isAdvancedUser()],
             ['fi-filter', \Yii::t('app', 'Unknown words'), ['unknown-word/index'], Yii::$app->user->isAdvancedUser()],

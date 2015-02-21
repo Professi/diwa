@@ -17,6 +17,7 @@
  */
 
 use yii\grid\GridView;
+use app\controllers\TranslationController;
 
 $lang1 = Yii::t('app', $dict['language1']['name']);
 $lang2 = Yii::t('app', $dict['language2']['name']);
@@ -48,6 +49,9 @@ echo GridView::widget([
                 }
                 return $val;
             }
+        ],
+        ['class' => 'app\components\widgets\CustomActionColumn',
+            'template' => '{view}',
         ],
     ],
 ]);

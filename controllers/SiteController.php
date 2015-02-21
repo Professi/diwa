@@ -66,7 +66,7 @@ class SiteController extends \app\components\Controller {
     }
 
     public function actionIndex() {
-        $this->redirect(['search/search']);
+        $this->redirect(['translation/search']);
     }
 
     public function actionLogin() {

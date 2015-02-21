@@ -90,7 +90,6 @@ class TranslationForm extends \yii\base\Model {
     }
 
     protected function saveTranslation() {
-        $rc = false;
         $translation = $this->translation;
         if (!$translation) {
             $translation = new Translation();
@@ -99,15 +98,11 @@ class TranslationForm extends \yii\base\Model {
         $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
         $translation->dictionary_id = $this->dictObj->getId();
         $translation->src_id = $this->src_id;
-
-
-//        if (!(Translation::find()->where(['word1_id' => $translation->word1_id, 'word2_id' => $translation->word2_id, 'dictionary_id' => $translation->dictionary_id])->one())) {
         $rc = $translation->save();
         if ($rc) {
             $this->processAdditionalInformations($translation);
         }
         $this->translation = $translation;
-//        }
         return $rc;
     }
 

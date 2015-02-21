@@ -32,16 +32,26 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <p><?= Yii::t('app', 'This application is licensed with the GNU General Public License Version 3') . '&nbsp;&nbsp;<a href="http://www.gnu.de/documents/gpl-3.0.en.html" ><i class="fi-page-export"></i>&nbsp;' . Yii::t('app', 'Link') . '</a>.'; ?>
             <br><?= Yii::t('app', 'The authors are: {p1} and {p2}(Design).', ['p1' => 'Christian Ehringfeld', 'p2' => 'David Mock']); ?></p>
+        <p><?=
+            Yii::t('app', 'Version') . ': ' .
+            Yii::$app->version
+            ?>
         <p><?= Yii::t('app', 'Website'); ?>&nbsp;&nbsp;<a href="http://www.http://synlos.net/redmine/projects/diwa/"><i class="fi-page-export"></i>&nbsp;Link</a></p>
         <p><?= Yii::t('app', 'This site has been created with the following tools and ressources:'); ?><br>
             PHP&nbsp;&nbsp;<a href="http://www.php.net"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
-            Yii2 Framework&nbsp;&nbsp;<a href="http://www.yiiframework.com" ><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Yii2 Framework and some dependencies&nbsp;&nbsp;<a href="http://www.yiiframework.com" ><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             ZURB Foundation Framework&nbsp;&nbsp;<a href="http://foundation.zurb.com"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             IcoMoon Icon Fonts&nbsp;&nbsp;<a href="http://icomoon.io"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             Google Web Fonts&nbsp;&nbsp;<a href="http://www.google.com/webfonts"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             Subtle Patterns&nbsp;&nbsp;<a href="http://www.subtlepatterns.com"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Selectize.js&nbsp;&nbsp;<a href="http://brianreavis.github.io/selectize.js/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Yii2-Selectize&nbsp;&nbsp;<a href="https://github.com/yiidoc/yii2-selectize/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            jQuery&nbsp;&nbsp;<a href="http://jquery.com/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            jQueryUi&nbsp;&nbsp;<a href="http://jqueryui.com/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Highcharts&nbsp;&nbsp;<a href="http://www.highcharts.com/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            Yii2-Highcharts-Widget&nbsp;&nbsp;<a href="http://www.yiiframework.com/extension/yii2-highcharts-widget/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            <br>
             <?= Yii::t('app', 'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others'); ?>&nbsp;&nbsp;<a href="http://savannah.nongnu.org/projects/ding-es-de"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            <?= Yii::t('app', 'Without the following resource it wouldn\'t be possible to realize this project! Many thanks!'); ?><br>
             <?= Yii::t('app', 'German-English dictionary from Frank Richter, Creator of Ding'); ?>&nbsp;&nbsp;<a href="https://www-user.tu-chemnitz.de/~fri/ding/"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
         </p>
         <p class="text-center"><?= Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']); ?> </p>
