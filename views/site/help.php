@@ -23,9 +23,16 @@ $categories = app\models\enums\ShortcutCategory::getCategoryNames();
 ?>
 <div class="site-contact">
     <div class="row">
-        <h2 class='subheader'><?php echo Html::encode(Yii::t('app', 'Help')); ?></h2>
+        <h1 class='subheader'><?= Html::encode(Yii::t('app', 'Help')); ?></h1>
+        <h2><?= Yii::t('app', 'Search methods'); ?></h2>
+        <? foreach (app\models\enums\SearchMethod::getMethodnames() as $key => $value) { ?>
+            <h3><?= Html::encode($value) ?></h3>
+            <p><?= app\models\enums\SearchMethod::getDescription($key) ?></p>
+        <? }
+        ?>
+            <br>
         <?php foreach ($categories as $key => $value) {
-            ?><h3><?php echo $value; ?></h3>
+            ?><h3><?= $value; ?></h3>
             <table class="table-bordered table-striped">
                 <thead>
                     <tr>

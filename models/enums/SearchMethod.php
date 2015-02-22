@@ -40,4 +40,39 @@ abstract class SearchMethod {
         return array(SearchMethod::NORMAL => Yii::t('app', 'Normal search'), SearchMethod::FAST => Yii::t('app', 'Full text search'), SearchMethod::FUZZY => Yii::t('app', 'Fuzzy search'), SearchMethod::COMFORT => Yii::t('app', 'Comfort search'));
     }
 
+    public static function getDescription($method) {
+        $r = '';
+        switch ($method) {
+            case self::FUZZY:
+                $r = self::getFuzzyDesc();
+                break;
+            case self::COMFORT:
+                $r = self::getComfortDesc();
+                break;
+            case self::FAST:
+                $r = self::getFastDesc();
+                break;
+            case self::NORMAL:
+                $r = self::getNormalDesc();
+                break;
+        }
+        return $r;
+    }
+
+    public static function getFuzzyDesc() {
+        return '';
+    }
+
+    public static function getComfortDesc() {
+        return '';
+    }
+
+    public static function getFastDesc() {
+        return '';
+    }
+
+    public static function getNormalDesc() {
+        return '';
+    }
+
 }

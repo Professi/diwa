@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,7 +18,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Version' => 'Version',
+    'Search methods' => 'Suchmethoden',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -129,6 +130,7 @@ return [
     'Username' => 'Benutzername',
     'Users' => 'Benutzer',
     'Verification Code' => 'Sicherheitscode',
+    'Version' => 'Version',
     'View' => 'Ansicht',
     'Website' => 'Webseite',
     'Word' => 'Wort',
