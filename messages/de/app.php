@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Message translations.
  *
@@ -18,7 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Search methods' => 'Suchmethoden',
+    'If you enter "Berlin Paris" it will show you every hit which contains "Berlin" or "Paris".' => 'Wenn Sie "Berlin Paris" eingeben, wird Ihnen jeder Treffer angezeigt, welcher "Berlin" oder "Paris" beinhaltet.',
+    'It shows every hit which begins with the searched word.' => 'Es wird jeder Treffer angezeigt, welcher mit dem Suchwort beginnt.',
+    'It shows every hit which contains the searched word.' => 'Es wird jeder Treffer angezeigt, welcher das Suchwort beinhaltet.',
+    'The Levenshtein algorithmus is used for fuzzy search. Depending on the word length, it can be really slow. If you enter "Tier", it\'s will also show you hits for "Toer" or "Tor".' => 'Der Levenshtein Algorithmus wird für die Unscharfe Suche benutzt. Abhängig von der Wortlänge, kann die Suche sehr langsam sein. Falls Sie "Tier" eingeben, werden daneben auch Treffer für die Wörter "Toer" oder "Tor" angezeigt.',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -93,6 +95,7 @@ return [
     'Scottish English' => 'Schottisches Englisch',
     'Search' => 'Suchen',
     'Search method' => 'Suchmethode',
+    'Search methods' => 'Suchmethoden',
     'Search request' => 'Suchanfrage',
     'Search requests' => 'Suchanfragen',
     'Search requests per month' => 'Suchanfragen pro Monat',

@@ -64,15 +64,15 @@ abstract class SearchMethod {
     }
 
     public static function getComfortDesc() {
-        return Yii::t('app', 'It will show you every hit which contains the searched word.');
+        return Yii::t('app', 'It shows every hit which contains the searched word.');
     }
 
     public static function getFastDesc() {
-        return Yii::t('app', 'If you enter "Berlin Paris" it will show you every hit which contains "Berlin" or" Paris".');
+        return Yii::t('app', 'If you enter "Berlin Paris" it will show you every hit which contains "Berlin" or "Paris".');
     }
 
     public static function getNormalDesc() {
-        return Yii::t('app', 'It will show you every hit which begins with the searched word.');
+        return Yii::t('app', 'It shows every hit which begins with the searched word.');
     }
 
 }
