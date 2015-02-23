@@ -126,11 +126,12 @@ class AdditionalInformationController extends Controller {
         if (!empty($q)) {
             if (is_numeric($q)) {
                 $result = AdditionalInformation::find()->limit(1)->where('id = :id')->params([':id' => $q])->one();
+                $return[] = static::formatAiForJson($result);
             } else {
                 $result = AdditionalInformation::find()->limit($page_limit)->where('information LIKE :info')->params([':info' => $q . '%'])->all();
-            }
-            foreach ($result as $entry) {
-                $return[] = static::formatAiForJson($entry);
+                foreach ($result as $entry) {
+                    $return[] = static::formatAiForJson($entry);
+                }
             }
         }
         return $return;

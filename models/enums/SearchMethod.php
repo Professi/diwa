@@ -60,19 +60,19 @@ abstract class SearchMethod {
     }
 
     public static function getFuzzyDesc() {
-        return '';
+        return Yii::t('app', 'The Levenshtein algorithmus is used for fuzzy search. Depending on the word length, it can be really slow. If you enter "Tier", it\'s will also show you hits for "Toer" or "Tor".');
     }
 
     public static function getComfortDesc() {
-        return '';
+        return Yii::t('app', 'It will show you every hit which contains the searched word.');
     }
 
     public static function getFastDesc() {
-        return '';
+        return Yii::t('app', 'If you enter "Berlin Paris" it will show you every hit which contains "Berlin" or" Paris".');
     }
 
     public static function getNormalDesc() {
-        return '';
+        return Yii::t('app', 'It will show you every hit which begins with the searched word.');
     }
 
 }

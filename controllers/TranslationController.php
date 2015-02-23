@@ -38,13 +38,11 @@ class TranslationController extends \app\components\Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                                        [
-                        'actions' => ['search','view'],
+                    [
+                        'actions' => ['search', 'view'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
-                    
-                    
                     [
                         'allow' => true,
                         'roles' => $this->getAdvancedUserRoles(),
@@ -175,7 +173,7 @@ class TranslationController extends \app\components\Controller {
         ]);
     }
 
-    protected function selectAi(&$model) {
+    public function selectAi(&$model) {
         $arr = [];
         if ($model->translation) {
             foreach ($model->translation->getAiTranslations()->all() as $ai) {
