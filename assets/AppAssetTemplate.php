@@ -18,8 +18,6 @@
 
 namespace app\assets;
 
-use yii\widgets\ActiveForm;
-
 /**
  *
  * @author Christian Ehringfeld <c.ehringfeld[at]t-online.de>

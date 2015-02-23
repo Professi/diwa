@@ -18,7 +18,6 @@
 
 namespace app\components;
 
-use Yii;
 use yii\di\Instance;
 use yii\base\InvalidConfigException;
 use yii\db\Connection;

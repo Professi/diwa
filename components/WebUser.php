@@ -18,8 +18,6 @@
 
 namespace app\components;
 
-use app\models\User;
-
 /**
  * Description of WebUser
  *
