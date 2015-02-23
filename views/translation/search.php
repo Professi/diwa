@@ -33,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div clasourceUrlss="search-request-index">
                 <?php
                 $form = ActiveForm::begin([
+                            'id' => 'search-form',
                             'method' => 'get',
+                            'action' => ['translation/search'],
                 ]);
                 ?>
                 <?php
