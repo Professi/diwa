@@ -63,11 +63,11 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
             ],
         ]);
         ?>
-        <?= $form->field($model, 'additionalInformations')->widget(\app\components\widgets\Selectize::className(), [
+        <?=
+        $form->field($model, 'additionalInformations')->widget(\app\components\widgets\Selectize::className(), [
             'clientOptions' => [
                 'placeholder' => Yii::t('app', 'Enter any id of a information or enter text to search for informations'),
                 'dataAttr' => 'value',
-//                'dataAttr' => $this->context->selectAi($model),
                 'delimiter' => \app\controllers\TranslationController::DELIMITER,
                 'valueField' => 'id',
                 'labelField' => 'text',

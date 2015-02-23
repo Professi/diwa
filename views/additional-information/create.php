@@ -9,7 +9,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Create {modelClass}', [
     'modelClass' => app\models\AdditionalInformation::getLabel(),
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Additional informations'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \app\models\AdditionalInformation::getLabel(true), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="additional-information-create">

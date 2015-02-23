@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AdditionalInformationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Additional informations');
+$this->title = \app\models\AdditionalInformation::getLabel(true);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="additional-information-index">

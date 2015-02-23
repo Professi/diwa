@@ -59,7 +59,7 @@ class TranslationForm extends \yii\base\Model {
             'word1' => Word::getLabel() . ' 1',
             'word2' => Word::getLabel() . ' 2',
             'src_id' => \app\models\Source::getLabel(),
-            'additionalInformations' => Yii::t('app', 'Additional informations'),
+            'additionalInformations' => \app\models\AdditionalInformation::getLabel(true),
         );
     }
 

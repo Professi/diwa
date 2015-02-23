@@ -44,7 +44,7 @@ class Menu {
             ['fi-monitor', \Yii::t('app', 'User Agents'), ['user-agent/index'], Yii::$app->user->isAdmin()],
             ['fi-comment-minus', \Yii::t('app', 'Shortcuts'), ['shortcut/index'], Yii::$app->user->isAdvancedUser()],
             ['fi-quote', \Yii::t('app', 'Sources'), ['source/index'], Yii::$app->user->isAdvancedUser()],
-            ['fi-comment', \Yii::t('app', 'Additional informations'), ['additional-information/index'], Yii::$app->user->isAdvancedUser()],
+            ['fi-comment', \Yii::t('app', \app\models\AdditionalInformation::getLabel(true)), ['additional-information/index'], Yii::$app->user->isAdvancedUser()],
             ['fi-comment', \Yii::t('app', 'Categories'), ['ai-category/index'], Yii::$app->user->isAdvancedUser()],
             ['fi-torsos', \Yii::t('app', 'Users'), ['user/index'], Yii::$app->user->isAdmin()],
             ['fi-power', \Yii::t('app', 'Logout'), ['site/logout'], !Yii::$app->user->isGuest()],

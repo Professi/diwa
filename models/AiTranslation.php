@@ -86,8 +86,12 @@ class AiTranslation extends \app\components\CustomActiveRecord {
         $this->id = $id;
     }
 
-    public static function getLabel() {
-        return AdditionalInformation::getLabel() . ' ' . Yii::t('app', 'about a translation');
+    private static function aboutTrans() {
+        return Yii::t('app', 'about a translation');
+    }
+
+    public static function getLabel($plural = false) {
+        return AdditionalInformation::getLabel($plural) . ' ' . static::aboutTrans();
     }
 
 }

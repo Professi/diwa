@@ -52,7 +52,7 @@ class Translation extends \app\components\CustomActiveRecord {
             'language2' => Language::getLabel() . ' 2',
             'src_id' => Source::getLabel(),
             'source' => Source::getLabel(),
-            'aiTranslations' => AiTranslation::getLabel(),
+            'aiTranslations' => AiTranslation::getLabel(true),
         );
     }
 
@@ -84,7 +84,7 @@ class Translation extends \app\components\CustomActiveRecord {
         $output = '';
         foreach ($arr as $ai) {
             $additionalInfo = $ai->getAdditionalInformation()->one();
-            $output .= $additionalInfo->getCategory()->one()->name . ' - ' . $additionalInfo->information . '<br>';
+            $output .= $additionalInfo->toString() . '<br>';
         }
         return $output;
     }

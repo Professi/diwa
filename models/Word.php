@@ -46,6 +46,7 @@ class Word extends \app\components\CustomActiveRecord {
             'word' => self::getLabel(),
             'language' => Language::getLabel(),
             'language_id' => Language::getLabel(),
+            'aiWords' => AiWord::getLabel(true),
         );
     }
 
@@ -64,6 +65,23 @@ class Word extends \app\components\CustomActiveRecord {
 
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAiWords() {
+        return $this->hasMany(AiWord::className(), ['word_id' => 'id']);
+    }
+
+    public function getAdditionalInformations() {
+        $arr = $this->getAiWords()->all();
+        $output = '';
+        foreach ($arr as $ai) {
+            $additionalInfo = $ai->getAdditionalInformation()->one();
+            $output .= $additionalInfo->toString() . '<br>';
+        }
+        return $output;
     }
 
     public function setId($id) {

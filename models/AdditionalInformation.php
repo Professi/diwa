@@ -104,8 +104,12 @@ class AdditionalInformation extends \app\components\CustomActiveRecord {
         $this->id = $id;
     }
 
-    public static function getLabel() {
-        return Yii::t('app', 'Additional information');
+    public function toString() {
+        return $this->getCategory()->one()->name . ' - ' . $this->information;
+    }
+
+    public static function getLabel($plural = false) {
+        return !$plural ? Yii::t('app', 'Additional information') : Yii::t('app', 'Additional informations');
     }
 
 }

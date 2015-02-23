@@ -85,8 +85,8 @@ class AiWord extends \app\components\CustomActiveRecord {
         $this->id = $id;
     }
 
-    public static function getLabel() {
-        return AdditionalInformation::getLabel() . ' ' . Yii::t('app', 'about a word');
+    public static function getLabel($plural = false) {
+        return AdditionalInformation::getLabel($plural) . ' ' . Yii::t('app', 'about a word');
     }
 
 }
