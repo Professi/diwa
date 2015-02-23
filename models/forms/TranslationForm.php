@@ -93,6 +93,8 @@ class TranslationForm extends \yii\base\Model {
         $translation = $this->translation;
         if (!$translation) {
             $translation = new Translation();
+        } else {
+            \app\models\AiTranslation::deleteAll('translation_id = :trans_id', [':trans_id' => $translation->getId()]);
         }
         $translation->word1_id = $this->getWordId($this->wordObj1, $this->word1, $this->dictObj->language1_id);
         $translation->word2_id = $this->getWordId($this->wordObj2, $this->word2, $this->dictObj->language2_id);
