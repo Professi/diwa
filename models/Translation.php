@@ -19,9 +19,6 @@
 namespace app\models;
 
 use Yii;
-use app\models\enums\SearchMethod;
-use yii\db\Query;
-use yii\data\SqlDataProvider;
 
 /**
  * Description of Translation

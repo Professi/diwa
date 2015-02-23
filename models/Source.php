@@ -19,7 +19,6 @@
 namespace app\models;
 
 use Yii;
-use app\components\CustomActiveRecord;
 
 /**
  * This is the model class for table "src".

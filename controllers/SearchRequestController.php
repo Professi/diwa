@@ -21,8 +21,6 @@ namespace app\controllers;
 use Yii;
 use app\models\SearchRequest;
 use yii\filters\VerbFilter;
-use app\models\Dictionary;
-use app\components\Translator;
 use yii\filters\AccessControl;
 
 /**
