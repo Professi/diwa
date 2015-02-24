@@ -25,7 +25,6 @@ use yii\web\JsExpression;
 $this->title = Yii::t('app', 'Translate');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="row">
     <div class="small-9 columns small-centered">
         <fieldset>

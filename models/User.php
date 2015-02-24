@@ -21,6 +21,7 @@ namespace app\models;
 use Yii;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * Description of Translation
@@ -46,6 +47,9 @@ class User extends \app\components\CustomActiveRecord {
         return [
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'lastLogin',
+                ],
                 'value' => new Expression('NOW()'),
             ],
         ];
