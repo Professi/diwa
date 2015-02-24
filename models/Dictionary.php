@@ -20,6 +20,8 @@ namespace app\models;
 
 use Yii;
 use app\components\CachedDbDependency;
+use app\models\SearchRequest;
+use app\models\Translation;
 
 /**
  * Description of Dictionary
@@ -109,7 +111,7 @@ class Dictionary extends \app\components\CustomActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getSearchRequests() {
-        return $this->hasMany(Searchrequest::className(), ['dictionary_id' => 'id']);
+        return $this->hasMany(SearchRequest::className(), ['dictionary_id' => 'id']);
     }
 
     /**

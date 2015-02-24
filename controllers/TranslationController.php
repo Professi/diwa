@@ -31,8 +31,6 @@ use app\components\Translator;
  */
 class TranslationController extends \app\components\Controller {
 
-    const DELIMITER = ',';
-
     public function behaviors() {
         return [
             'access' => [
@@ -162,7 +160,7 @@ class TranslationController extends \app\components\Controller {
         $model->translation = $modelObj;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->additionalInformations = $this->explodeInformations();
-            if ($model->save()) {
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->translation->getId()]);
             }
         }
@@ -180,18 +178,7 @@ class TranslationController extends \app\components\Controller {
                 $arr[] = AdditionalInformationController::formatAiForJson($ai->getAdditionalInformation()->one());
             }
         }
-        return \yii\helpers\Json::encode($arr);
-    }
-
-    protected function explodeInformations() {
-        return explode(self::DELIMITER, Yii::$app->request->post()['TranslationForm']['additionalInformations']);
-    }
-
-    protected function implodeInformations($ai) {
-        if (is_array($ai)) {
-            return implode(self::DELIMITER, $ai);
-        }
-        return '';
+        return empty($arr) ? '' : \yii\helpers\Json::encode($arr);
     }
 
     /**
@@ -218,6 +205,10 @@ class TranslationController extends \app\components\Controller {
         } else {
             $this->throwPageNotFound();
         }
+    }
+
+    protected function explodeInformations() {
+        return explode(AdditionalInformationController::DELIMITER, Yii::$app->request->post()['TranslationForm']['additionalInformations']);
     }
 
 }

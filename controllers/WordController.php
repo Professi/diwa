@@ -22,6 +22,7 @@ use Yii;
 use app\models\Word;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\controllers\AdditionalInformationController;
 use app\components\Controller;
 
 /**
@@ -61,13 +62,16 @@ class WordController extends Controller {
      */
     public function actionCreate() {
         $model = new Word();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
+        $model->additionalInformations = $this->explodeInformations();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        $model->additionalInformations = $this->selectAi($model);
+        return $this->render('create', [
+                    'model' => $model,
+        ]);
     }
 
     public function actionGetWords($term, $dict, $regex = true) {
@@ -149,13 +153,28 @@ class WordController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->additionalInformations = $this->explodeInformations();
+            if ($model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        $model->additionalInformations = $this->selectAi($model);
+        return $this->render('update', [
+                    'model' => $model,
+        ]);
+    }
+
+    public function selectAi(&$model) {
+        $arr = [];
+        foreach ($model->getAiWords()->all() as $ai) {
+            $arr[] = AdditionalInformationController::formatAiForJson($ai->getAdditionalInformation()->one());
+        }
+        return empty($arr) ? '' : \yii\helpers\Json::encode($arr);
+    }
+
+    protected function explodeInformations() {
+        return explode(AdditionalInformationController::DELIMITER, Yii::$app->request->post()['Word']['additionalInformations']);
     }
 
 }

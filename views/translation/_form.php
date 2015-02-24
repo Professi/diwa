@@ -66,9 +66,9 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
         <?=
         $form->field($model, 'additionalInformations')->widget(\app\components\widgets\Selectize::className(), [
             'clientOptions' => [
-                'placeholder' => Yii::t('app', 'Enter any id of a information or enter text to search for informations'),
+                'placeholder' => \app\controllers\AdditionalInformationController::getPlaceholder(),
                 'dataAttr' => 'value',
-                'delimiter' => \app\controllers\TranslationController::DELIMITER,
+                'delimiter' => \app\controllers\AdditionalInformationController::DELIMITER,
                 'valueField' => 'id',
                 'labelField' => 'text',
                 'plugins' => ['remove_button'],

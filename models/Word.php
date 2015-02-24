@@ -24,7 +24,8 @@ use Yii;
  * Description of Word
  * @property integer $id
  * @property string $word
- * @property integer language_id
+ * @property integer $language_id
+ * @property array $additionalInformations temporal
  * 
  * @property Translation[] $translations
  * @property Language $language
@@ -33,10 +34,12 @@ use Yii;
  */
 class Word extends \app\components\CustomActiveRecord {
 
+    public $additionalInformations;
+
     public function rules() {
         return [
-            [['word'], 'string'],
-            [['language_id'], 'integer']
+            [['language_id'], 'integer'],
+            [['word', 'language_id'], 'unique', 'targetAttribute' => ['word', 'language_id'], 'message' => Yii::t('app', 'The combination of Language ID and Word has already been taken.')]
         ];
     }
 
@@ -47,6 +50,7 @@ class Word extends \app\components\CustomActiveRecord {
             'language' => Language::getLabel(),
             'language_id' => Language::getLabel(),
             'aiWords' => AiWord::getLabel(true),
+            'additionalInformations' => \app\models\AdditionalInformation::getLabel(true),
         );
     }
 
@@ -97,6 +101,40 @@ class Word extends \app\components\CustomActiveRecord {
      */
     public function getTranslations() {
         return $this->hasMany(Translation::className(), ['word2_id' => 'id']);
+    }
+
+    public function save($runValidation = true, $attributeNames = null) {
+        if (parent::save($runValidation, $attributeNames)) {
+            if (!$this->isNewRecord) {
+                $this->deleteAllAiWords();
+            }
+            $this->processAdditionalInformations();
+        }
+        return true;
+    }
+
+    public function deleteAllAiWords() {
+        foreach ($this->getAiWords()->select('id')->all() as $ai) {
+            $ai->delete();
+        }
+    }
+
+    public function beforeDelete() {
+        $this->deleteAllAiWords();
+        return parent::beforeDelete();
+    }
+
+    protected function processAdditionalInformations() {
+        if ($this->additionalInformations != null && is_array($this->additionalInformations)) {
+            foreach ($this->additionalInformations as $i) {
+                $ai = new \app\models\AiWord();
+                $ai->word_id = $this->getId();
+                $ai->ai_id = $i;
+                if (\app\models\AiWord::find()->where('ai_id = :aiId AND word_id = :wId')->params([':aiId' => $ai->ai_id, ':wId' => $ai->word_id])->count() >= 0) {
+                    $ai->save();
+                }
+            }
+        }
     }
 
 }

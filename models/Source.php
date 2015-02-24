@@ -19,6 +19,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\Translation;
+use app\models\AdditionalInformation;
 
 /**
  * This is the model class for table "src".
@@ -62,6 +64,13 @@ class Source extends \app\components\CustomActiveRecord {
         return $this->hasMany(Translation::className(), ['src_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAdditionalInformations() {
+        return $this->hasMany(AdditionalInformation::className(), ['source_id' => 'id']);
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -77,8 +86,9 @@ class Source extends \app\components\CustomActiveRecord {
     public static function tableName() {
         return 'src';
     }
-    
+
     public static function getFilter() {
         return \yii\helpers\ArrayHelper::map(\app\models\Source::find()->all(), 'id', 'name');
     }
+
 }

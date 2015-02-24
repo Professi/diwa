@@ -42,7 +42,6 @@ class Language extends \app\components\CustomActiveRecord {
     public function rules() {
         return [
             [['shortname', 'name'], 'required'],
-            [['shortname', 'name'], 'unique'],
             [['shortname',], 'string', 'max' => 5],
             [['name'], 'string', 'max' => 255],
             [['shortname', 'name'], 'unique', 'targetAttribute' => ['shortname', 'name'],

@@ -23,6 +23,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use app\models\Dictionary;
+use app\models\UnknownWord;
+use app\models\UserAgent;
 
 /**
  * Description of SearchRequest
@@ -122,8 +124,8 @@ class SearchRequest extends \app\components\CustomActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUnknownwords() {
-        return $this->hasMany(Unknownword::className(), ['searchRequest_id' => 'id']);
+    public function getUnknownWords() {
+        return $this->hasMany(UnknownWord::className(), ['searchRequest_id' => 'id']);
     }
 
 }

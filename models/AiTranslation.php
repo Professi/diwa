@@ -48,6 +48,7 @@ class AiTranslation extends \app\components\CustomActiveRecord {
      */
     public function rules() {
         return [
+            [['ai_id', 'translation_id'], 'required'],
             [['ai_id', 'translation_id'], 'integer'],
             [['ai_id', 'translation_id'], 'unique', 'targetAttribute' => ['ai_id', 'translation_id'], 'message' => 'The combination of Ai ID and Translation ID has already been taken.']
         ];

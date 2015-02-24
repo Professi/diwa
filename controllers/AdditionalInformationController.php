@@ -31,6 +31,8 @@ use yii\filters\AccessControl;
  */
 class AdditionalInformationController extends Controller {
 
+    const DELIMITER = ',';
+
     public function behaviors() {
         return [
             'access' => [
@@ -138,7 +140,11 @@ class AdditionalInformationController extends Controller {
     }
 
     public static function formatAiForJson($ai) {
-        return ['id' => $ai->getId(), 'text' => $ai->getCategory()->one()->name . ' - ' . $ai->information];
+        if ($ai) {
+            return ['id' => $ai->getId(), 'text' => $ai->getCategory()->one()->name . ' - ' . $ai->information];
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -154,6 +160,10 @@ class AdditionalInformationController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public static function getPlaceholder() {
+        return Yii::t('app', 'Enter any id of a information or enter text to search for informations');
     }
 
 }

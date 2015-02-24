@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'word:ntext',
-            ['attribute' => 'language', 'value' => $model->getLanguage()->one()->name]
+            ['attribute' => 'language', 'value' => $model->getLanguage()->one()->name],
+            ['attribute' => 'aiWords', 'value' => $model->getAdditionalInformations(), 'format' => 'html'],
         ],
     ])
     ?>
