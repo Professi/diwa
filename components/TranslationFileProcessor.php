@@ -123,7 +123,7 @@ class TranslationFileProcessor {
         if ($wordObj == null) {
             $wordObj = new Word();
             $wordObj->setValues($word, $langId);
-            $wordObj->save();
+            $wordObj->insert(false);
         }
         return $wordObj;
     }
@@ -194,16 +194,20 @@ class TranslationFileProcessor {
                 }
             }
         } else {
-            $flash .= $word1 . ' ' . $this->generalSeparators . ' ' . $word2 . '<br/>';
-            $word1Obj = $this->findWord($word1, $this->dictionary->language1_id);
-            $word2Obj = $this->findWord($word2, $this->dictionary->language2_id);
-            $this->createWord($word1, $this->dictionary->language1_id, $word1Obj);
-            $this->createWord($word2, $this->dictionary->language2_id, $word2Obj);
-            $this->translations[] = [$word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id, $this->source];
+            $this->badDataset($word1, $word2, $flash);
         }
         if (!empty($flash)) {
             Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br/>' . $flash);
         }
+    }
+
+    protected function badDataset($word1, $word2, &$flash) {
+        $flash .= $word1 . ' ' . $this->generalSeparators . ' ' . $word2 . '<br>';
+        $word1Obj = $this->findWord($word1, $this->dictionary->language1_id);
+        $word2Obj = $this->findWord($word2, $this->dictionary->language2_id);
+        $this->createWord($word1, $this->dictionary->language1_id, $word1Obj);
+        $this->createWord($word2, $this->dictionary->language2_id, $word2Obj);
+        $this->translations[] = [$word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id, $this->source];
     }
 
     public function getErrors() {
