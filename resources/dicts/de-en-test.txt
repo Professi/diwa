@@ -1,0 +1,26 @@
+# Version :: 1.8 2014-08-18
+# Copyright (c) :: Frank Richter <frank.richter.tu-chemnitz.de>,
+# 1995 - 2014
+
+# License :: GPL Version 2 or later; GNU General Public License
+# URL :: http://dict.tu-chemnitz.de/
+Aalbutt {m} :: plaice
+Aalspieß {m} | Aalspieße {pl} :: eel spear | eel spears
+Aalfang {m} :: eel fishing
+Aalfischerei {f} :: eel fishing
+Aalhaut {f} :: eelskin
+Aalleiter {f}; Aaltreppe {f}; Aalpass {m} (Wasserbau) | Aalleitern {pl}; Aaltreppen {pl}; Aalpässe {pl} :: eel ladder (water engineering) | eel ladders
+Aalmolch {m} [zool.] :: conger eel
+Aalmuttern {pl}; Gebärfische {pl} (Zoarcidae) (zoologische Familie) [zool.] :: eelpouts (zoological family)
+Aalräucherei {f} | Aalräuchereien {pl} :: eel smokery; eel-smoking business <eelsmoking business> <eel smoking business> | eel smokeries; eel-smoking businesses
+Aalreuse {f} | Aalreusen {pl} :: eel trap | eel traps
+Aalstrich {m} [zool.] (dunkler Rückenstreifen) :: dorsal stripe
+Aalsuppe {f} [cook.] | Aalsuppen {pl} :: eel soup | eel soups
+Aalterrine {f} [cook.] :: terrine of eel
+Aapamoor {n} :: aapa mire; string bog
+Aas {n}; Aasfleisch {n} [zool.] :: carrion
+Aas {n} (Lederzurichtung) :: flesh; scrapings (leather dressing)
+Aas fressen {vi} [zool.] :: to scavenge
+Aaronsstab {m} (Zierleiste) [arch.] :: Aaron's rod
+Aasfliege {f} [zool.] | Aasfliegen {pl} :: carrion fly; fleshfly; flesh fly | carrion flies; fleshflies; flesh flies
+Aasfresser {m} [zool.] | Aasfresser {pl} :: scavenger; carrion eater; carrion feeder; scavenging animal | scavengers; carrion eaters; carrion feeders; scavenging animals

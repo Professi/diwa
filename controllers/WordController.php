@@ -62,8 +62,8 @@ class WordController extends Controller {
      */
     public function actionCreate() {
         $model = new Word();
-        $model->additionalInformations = $this->explodeInformations();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->additionalInformations = $this->explodeInformations();
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -174,7 +174,11 @@ class WordController extends Controller {
     }
 
     protected function explodeInformations() {
-        return explode(AdditionalInformationController::DELIMITER, Yii::$app->request->post()['Word']['additionalInformations']);
+        $request = Yii::$app->request->post();
+        if (isset($request['Word']) && isset($request['additionalInformations'])) {
+            return explode(AdditionalInformationController::DELIMITER, $request['Word']['additionalInformations']);
+        }
+        return '';
     }
 
 }

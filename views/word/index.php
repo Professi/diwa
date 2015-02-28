@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,13 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="word-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>
-        <?=
-        Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => Yii::t('app', 'Word'),
-                ]), ['create'], ['class' => 'btn btn-success'])
-        ?>
-    </p>
     <?=
     app\components\widgets\CustomGridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,4 +25,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
+    <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', app\models\Word::class, 'create')]); ?>
 </div>

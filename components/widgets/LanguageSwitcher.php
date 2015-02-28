@@ -16,13 +16,6 @@ use yii\helpers\Url;
 class LanguageSwitcher extends Component {
 
     /**
-     * @var string template for menu label.
-     * lang - language code
-     * desc - language description
-     */
-    public $menuTemplate = '{desc}';
-
-    /**
      * @var string query param name 
      */
     public $queryParam = 'lang';
@@ -59,19 +52,16 @@ class LanguageSwitcher extends Component {
         $route = "/" . $resolve[0];
         $params = $resolve[1];
         $params['lang'] = $lang;
-        return Url::toRoute(array_merge([$route], $params));
+        return array_merge([$route], $params);
     }
 
     public function getMenuItems() {
         $items = [];
         foreach (Yii::$app->params['languages'] as $lang => $desc) {
-            $active = !(Yii::$app->session->get($this->key) == $lang);
-            $items[] = ['label' => strtr($this->menuTemplate, [
-                    '{lang}' => $lang,
-                    '{desc}' => $desc,
-                    'active' => $active,
-                ]),
-                'url' => $active ? $this->url($lang) : '#',
+            $items[] = [
+                'label' => $desc,
+                'url' => $this->url($lang),
+                'active' => !(Yii::$app->session->get($this->key) == $lang),
             ];
         }
         return $items;

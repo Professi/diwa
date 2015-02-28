@@ -24,6 +24,8 @@ class TranslationUploadForm extends \yii\base\Model {
 
     public $dictionary;
     public $file;
+    public $wordDelimiter = ';';
+    public $relevanceDelimiter = '|';
     public $delimiters = '::';
     public $source = null;
 
@@ -32,7 +34,7 @@ class TranslationUploadForm extends \yii\base\Model {
      */
     public function rules() {
         return [
-            [['dictionary', 'file', 'delimiters'], 'required'],
+            [['dictionary', 'file', 'delimiters', 'wordDelimiter', 'relevanceDelimiter'], 'required'],
             [['dictionary', 'source'], 'integer'],
             [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'txt', 'maxFiles' => 1, 'maxSize' => $this->getSizeLimit()],
         ];
@@ -43,6 +45,8 @@ class TranslationUploadForm extends \yii\base\Model {
             'dictionary' => \app\models\Dictionary::getLabel(),
             'file' => Yii::t('app', 'File'),
             'delimiters' => Yii::t('app', 'Delimiters'),
+            'wordDelimiter' => Yii::t('app', 'Wort delimiter'),
+            'relevanceDelimiter' => Yii::t('app', 'Relevance delimiter'),
             'source' => \app\models\Source::getLabel(),
         );
     }
@@ -89,7 +93,7 @@ class TranslationUploadForm extends \yii\base\Model {
      */
     public function processFile() {
         $fp = fopen($this->file->tempName, 'r');
-        $translator = new \app\components\TranslationFileProcessor($fp, $this->dictionary, $this->source, $this->delimiters);
+        $translator = new \app\components\TranslationFileProcessor($fp, $this->dictionary, $this->source, $this->delimiters, $this->wordDelimiter, $this->relevanceDelimiter);
         $error = $translator->processFile();
         foreach ($error as $key => $value) {
             $this->addError($key, $value);

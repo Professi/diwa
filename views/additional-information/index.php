@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AdditionalInformationSearch */
@@ -12,13 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="additional-information-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>
-        <?=
-        Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => app\models\AdditionalInformation::getLabel(),
-                ]), ['create'], ['class' => 'btn btn-success'])
-        ?>
-    </p>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -32,4 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
+    <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', \app\models\AdditionalInformation::class, 'create')]); ?>
+
 </div>

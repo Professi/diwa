@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,13 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="dictionary-index">
     <div class="row">
         <h1><?= Html::encode($this->title) ?></h1>
-        <p>
-            <?=
-            Html::a(Yii::t('app', 'Create {modelClass}', [
-                        'modelClass' => \app\models\Dictionary::getLabel(),
-                    ]), ['create'], ['class' => 'btn btn-success'])
-            ?>
-        </p>
         <?=
         app\components\widgets\CustomGridView::widget([
             'dataProvider' => $dataProvider,
@@ -32,12 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]);
         ?>
-        <p>
-            <?=
-            Html::a(Yii::t('app', 'Import translation file', [
-                    ]), ['translations'], ['class' => 'btn btn-success'])
-            ?>
-        </p>
-
+        <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', app\models\Dictionary::class, 'create'), app\components\CustomHtml::link(Yii::t('app', 'Import translation file'), 'translations')]); ?>
     </div>
 </div>

@@ -64,7 +64,7 @@ class TranslationSearch extends Translation {
                     'word2Term' => $this->sortArray('word2.word'),
                     'language1' => $this->sortArray('dictionary.language1_id'),
                     'language2' => $this->sortArray('dictionary.language2_id'),
-                    'source' => $this->sortArray('src_id'),
+                    'source' => $this->sortArray('src.id'),
                 ],
             ],
         ]);
@@ -76,22 +76,25 @@ class TranslationSearch extends Translation {
         $query->joinWith(['dictionary' => function ($q) {
                 $q->andFilterWhere(['dictionary.language1_id' => $this->language1,
                     'dictionary.language2_id' => $this->language2,
-                    'src_id' => $this->source,
                 ]);
-            }, 'word1' => function ($q) {
+            },
+            'source' => function ($q) {
+                $q->andFilterWhere(['src.id' => $this->source,
+                ]);
+            }
+            , 'word1' => function ($q) {
                 $this->filterWord($this->word1Term, 'word1', $q);
             }, 'word2' => function ($q) {
                 $this->filterWord($this->word2Term, 'word2', $q);
             }]);
                 return $dataProvider;
-            }
+    }
 
-            public function filterWord($value, $name, &$query) {
-                if (!empty($value)) {
-                    $q->andWhere($name . '.word LIKE :' . $name);
-                    $q->addParams([':' . $name => $value . '%']);
-                }
-            }
-
+    public function filterWord($value, $name, &$query) {
+        if (!empty($value)) {
+            $query->andWhere($name . '.word LIKE :' . $name);
+            $query->addParams([':' . $name => $value . '%']);
         }
-        
+    }
+
+}

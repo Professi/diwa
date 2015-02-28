@@ -208,7 +208,11 @@ class TranslationController extends \app\components\Controller {
     }
 
     protected function explodeInformations() {
-        return explode(AdditionalInformationController::DELIMITER, Yii::$app->request->post()['TranslationForm']['additionalInformations']);
+        $request = Yii::$app->request->post();
+        if (isset($request['TranslationForm']) && isset($request['additionalInformations'])) {
+            return explode(AdditionalInformationController::DELIMITER, $request['TranslationForm']['additionalInformations']);
+        }
+        return '';
     }
 
 }

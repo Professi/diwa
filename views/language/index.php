@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -12,13 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="language-index">
     <div class="row">
         <h1><?= Html::encode($this->title) ?></h1>
-        <p>
-            <?=
-            Html::a(Yii::t('app', 'Create {modelClass}', [
-                        'modelClass' => \app\models\Language::getLabel(),
-                    ]), ['create'], ['class' => 'btn btn-success'])
-            ?>
-        </p>
         <?=
         ListView::widget([
             'dataProvider' => $dataProvider,
@@ -29,4 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ])
         ?>
     </div>
+    <br>
+    <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', app\models\Language::class, 'create')]); ?>
 </div>

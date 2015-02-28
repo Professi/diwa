@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,15 +11,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="shortcut-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>
-        <?=
-        Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => \app\models\Shortcut::getLabel(),
-                ]), ['create'], ['class' => 'btn btn-success'])
-        ?>
-    </p>
     <?=
-        app\components\widgets\CustomGridView::widget([
+    app\components\widgets\CustomGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $filterModel,
         'columns' => [
@@ -34,5 +28,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
-
+    <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', app\models\Shortcut::class, 'create')]); ?>
 </div>

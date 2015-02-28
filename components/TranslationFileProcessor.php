@@ -62,7 +62,7 @@ class TranslationFileProcessor {
     }
 
     protected function getWordFindQuery() {
-        return Word::find()->select(['id'])->where('word = :word AND language_id = :langID')->limit(1);
+        return Word::find()->select(['id'])->where('word = :word AND language_id = :langID')->limit(1)->asArray();
     }
 
     public function processFile() {
@@ -87,17 +87,17 @@ class TranslationFileProcessor {
     protected function insertAllTranslations() {
         $con = Yii::$app->db;
         $i = 1;
-        $trans2 = array();
+        $trans = array();
         foreach ($this->translations as $val) {
-            $trans2[] = $val;
+            $trans[] = $val;
             $i++;
             if (($i % 5000) == 0) {
-                $this->insertTranslation($con, $trans2);
-                $trans2 = array();
+                $this->insertTranslation($con, $trans);
+                $trans = array();
             }
         }
-        if (isset($trans2) && !empty($trans2)) {
-            $this->insertTranslation($con, $trans2);
+        if (isset($trans) && !empty($trans)) {
+            $this->insertTranslation($con, $trans);
         }
     }
 
@@ -119,13 +119,14 @@ class TranslationFileProcessor {
         return false;
     }
 
-    protected function createWord($word, $langId, &$wordObj) {
+    protected function createWord($word, $langId, $wordObj) {
         if ($wordObj == null) {
             $wordObj = new Word();
             $wordObj->setValues($word, $langId);
             $wordObj->insert(false);
+            $wordObj = \yii\helpers\ArrayHelper::toArray($wordObj);
         }
-        return $wordObj;
+        return $wordObj['id'];
     }
 
     protected function findWord($word, $langId) {
@@ -165,9 +166,8 @@ class TranslationFileProcessor {
         $pks = array();
         $count = count($arrWords);
         for ($i = 0; $i < $count; ++$i) {
-            $word1Obj = $this->findWord($arrWords[$i], $langId);
-            $this->createWord($arrWords[$i], $langId, $word1Obj);
-            $pks[] = $word1Obj->getId();
+            $word = $this->findWord($arrWords[$i], $langId);
+            $pks[] = $this->createWord($arrWords[$i], $langId, $word);
         }
         return $pks;
     }
@@ -189,7 +189,7 @@ class TranslationFileProcessor {
                 $pks2 = $this->persistWords($this->separateStrings($arrRels2[$i], $this->wordSeparator), $this->dictionary->language2_id);
                 foreach ($pks1 as $val) {
                     foreach ($pks2 as $val2) {
-                        $this->translations[] = [$val, $val2, $this->dictionary->id];
+                        $this->translations[] = [$val, $val2, $this->dictionary->id, $this->source];
                     }
                 }
             }
@@ -197,17 +197,18 @@ class TranslationFileProcessor {
             $this->badDataset($word1, $word2, $flash);
         }
         if (!empty($flash)) {
-            Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br/>' . $flash);
+            Yii::$app->user->setFlash('success', Yii::t('app', 'Bad datasets:') . '<br>' . $flash);
         }
     }
 
     protected function badDataset($word1, $word2, &$flash) {
         $flash .= $word1 . ' ' . $this->generalSeparators . ' ' . $word2 . '<br>';
-        $word1Obj = $this->findWord($word1, $this->dictionary->language1_id);
-        $word2Obj = $this->findWord($word2, $this->dictionary->language2_id);
-        $this->createWord($word1, $this->dictionary->language1_id, $word1Obj);
-        $this->createWord($word2, $this->dictionary->language2_id, $word2Obj);
-        $this->translations[] = [$word1Obj->getId(), $word2Obj->getId(), $this->dictionary->id, $this->source];
+        $word1Arr = $this->findWord($word1, $this->dictionary->language1_id);
+        $word2Arr = $this->findWord($word2, $this->dictionary->language2_id);
+        $this->translations[] = [
+            $this->createWord($word1, $this->dictionary->language1_id, $word1Arr),
+            $this->createWord($word2, $this->dictionary->language2_id, $word2Arr),
+            $this->dictionary->id, $this->source];
     }
 
     public function getErrors() {

@@ -30,6 +30,8 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
     <fieldset>
         <?= $form->field($model, 'dictionary')->dropDownList($dicts) ?>
         <?= $form->field($model, 'delimiters')->textInput() ?>
+        <?= $form->field($model, 'relevanceDelimiter')->textInput() ?>
+        <?= $form->field($model, 'wordDelimiter')->textInput() ?>
         <?= $form->field($model, 'file', ['template' => $form->getFileInputTemplate()])->fileInput() ?>
         <?= $form->field($model, 'source')->dropDownList($sources) ?>
         <div class="form-group">

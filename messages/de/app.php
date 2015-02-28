@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,10 +18,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'If you enter "Berlin Paris" it will show you every hit which contains "Berlin" or "Paris".' => 'Wenn Sie "Berlin Paris" eingeben, wird Ihnen jeder Treffer angezeigt, welcher "Berlin" oder "Paris" beinhaltet.',
-    'It shows every hit which begins with the searched word.' => 'Es wird jeder Treffer angezeigt, welcher mit dem Suchwort beginnt.',
-    'It shows every hit which contains the searched word.' => 'Es wird jeder Treffer angezeigt, welcher das Suchwort beinhaltet.',
-    'The Levenshtein algorithmus is used for fuzzy search. Depending on the word length, it can be really slow. If you enter "Tier", it\'s will also show you hits for "Toer" or "Tor".' => 'Der Levenshtein Algorithmus wird für die Unscharfe Suche benutzt. Abhängig von der Wortlänge, kann die Suche sehr langsam sein. Falls Sie "Tier" eingeben, werden daneben auch Treffer für die Wörter "Toer" oder "Tor" angezeigt.',
+    'Relevance delimiter' => 'Relevanz Separator',
+    'Wort delimiter' => 'Wort Seperator',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -62,6 +61,7 @@ return [
     'Help' => 'Hilfe',
     'ID' => 'ID',
     'IP address' => 'IP Adresse',
+    'If you enter "Berlin Paris" it will show you every hit which contains "Berlin" or "Paris".' => 'Wenn Sie "Berlin Paris" eingeben, wird Ihnen jeder Treffer angezeigt, welcher "Berlin" oder "Paris" beinhaltet.',
     'If you have questions, please fill out the following form to contact us. Thank you.' => 'Falls Sie Fragen haben, können Sie uns mit dem nachfolgenden Kontaktformular kontaktieren. Vielen Dank.',
     'If you upload something, grab a coffee and lean back. This could take a while.' => 'Falls Sie etwas hochladen, nehmen Sie sich einen Kaffee und lehnen Sie sich zurück. Das könnte eine Weile dauern.',
     'Import' => 'Importieren',
@@ -71,6 +71,8 @@ return [
     'Incorrect username or password.' => 'Falscher Benutzername oder falsches Passwort',
     'Information' => 'Information',
     'Invalid request.' => 'Ihre Anfrage ist ungültig.',
+    'It shows every hit which begins with the searched word.' => 'Es wird jeder Treffer angezeigt, welcher mit dem Suchwort beginnt.',
+    'It shows every hit which contains the searched word.' => 'Es wird jeder Treffer angezeigt, welcher das Suchwort beinhaltet.',
     'Kind' => 'Art',
     'Language' => 'Sprache',
     'Languages' => 'Sprachen',
@@ -111,9 +113,11 @@ return [
     'Swiss German' => 'Schweizerisch',
     'Terminologist' => 'Terminologe',
     'Thank you for contacting us. We will respond to you as soon as possible.' => 'Vielen Dank, dass Sie uns kontaktieren. Wir werden Ihnen so schnell wie möglich antworten.',
+    'The Levenshtein algorithmus is used for fuzzy search. Depending on the word length, it can be really slow. If you enter "Tier", it\'s will also show you hits for "Toer" or "Tor".' => 'Der Levenshtein Algorithmus wird für die Unscharfe Suche benutzt. Abhängig von der Wortlänge, kann die Suche sehr langsam sein. Falls Sie "Tier" eingeben, werden daneben auch Treffer für die Wörter "Toer" oder "Tor" angezeigt.',
     'The authors are: {p1} and {p2}(Design).' => 'Die Autoren sind: {p1} und {p2}(Design).',
+    'The combination of Language ID and Word has already been taken.' => 'Es existiert bereits ein Eintrag mit dieser Sprache und diesem Wort.',
     'The combination of Shortname and Name has already been taken.' => 'Die Kombination aus Kurzname und Name ist bereits vergeben.',
-    'The combination of additional information and word has already been taken.' => 'Die Kombination mit der zusätzlichen Information und diesem Wort wurde bereits angelegt.',
+    'The combination of additional information and word has already been taken.' => 'Die Kombination aus dieser zusätzlichen Information und diesem Wort wurde bereits angelegt.',
     'The most common search terms' => 'Die häufigsten Suchbegriffe',
     'The requested page does not exist.' => 'Die angeforderte Seite existiert nicht.',
     'This application is licensed with the GNU General Public License Version 3' => 'Diese Anwendung wurde mit der GNU General Public License Version 3 lizensiert.',

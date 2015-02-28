@@ -42,7 +42,7 @@ class Language extends \app\components\CustomActiveRecord {
     public function rules() {
         return [
             [['shortname', 'name'], 'required'],
-            [['shortname',], 'string', 'max' => 5],
+            [['shortname',], 'string', 'max' => 10],
             [['name'], 'string', 'max' => 255],
             [['shortname', 'name'], 'unique', 'targetAttribute' => ['shortname', 'name'],
                 'message' => Yii::t('app', 'The combination of Shortname and Name has already been taken.')]

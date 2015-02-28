@@ -25,10 +25,16 @@ class CustomGridView extends \yii\grid\GridView {
 
     public function init() {
         $this->pager = [
-            'firstPageLabel' => '&laquo;&laquo;',
-            'lastPageLabel' => '&raquo;&raquo;',
-            'nextPageLabel' => '&raquo;',
-            'prevPageLabel' => '&laquo;',
+            'firstPageLabel' => '&laquo;',
+            'lastPageLabel' => '&raquo;',
+            'nextPageLabel' => '&rsaquo;',
+            'prevPageLabel' => '&lsaquo;',
+            'firstPageCssClass' => 'arrow',
+            'lastPageCssClass' => 'arrow',
+            'disabledPageCssClass' => 'unavailable',
+            'activePageCssClass' => 'current',
+            'hideOnSinglePage' => true,
+            'options' => ['class' => 'pagination'],
         ];
         parent::init();
     }

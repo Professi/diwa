@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,13 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>
-        <?=
-        Html::a(Yii::t('app', 'Create {modelClass}', [
-                    'modelClass' => app\models\User::getLabel(),
-                ]), ['create'], ['class' => 'btn btn-success'])
-        ?>
-    </p>
     <?=
     app\components\widgets\CustomGridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,5 +28,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
-
+    <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', app\models\User::class, 'create')]); ?>
 </div>
