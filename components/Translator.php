@@ -48,14 +48,12 @@ class Translator extends \yii\base\Object {
     }
 
     protected function createUnknownWord($searchRequest) {
-        $u = \app\models\UnknownWord::find()->leftJoin('searchrequest sr', 'searchRequest_id=sr.id')
-                ->where('sr.searchMethod=:sm AND LCASE(sr.request)=:word')
-                ->params([':sm' => $searchRequest->searchMethod,
-                    ':word' => strtolower($searchRequest->request)])
+        $u = \app\models\UnknownWord::find()->leftJoin(\app\models\SearchRequest::tableName(), \app\models\UnknownWord::tableName() . '.searchrequest_id = ' . \app\models\SearchRequest::tableName() . '.id')
+                ->where(['searchrequest.searchMethod' => $searchRequest->searchMethod, 'LOWER(searchrequest.request)' => strtolower($searchRequest->request)])
                 ->one();
         if (empty($u)) {
             $unknown = new \app\models\UnknownWord();
-            $unknown->searchRequest_id = $searchRequest->getPrimaryKey();
+            $unknown->searchrequest_id = $searchRequest->getPrimaryKey();
             $unknown->save();
         }
     }

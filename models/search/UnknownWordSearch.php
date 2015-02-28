@@ -37,7 +37,7 @@ class UnknownWordSearch extends UnknownWord {
      */
     public function rules() {
         return [
-            [['id', 'searchRequest_id'], 'integer'],
+            [['id', 'searchrequest_id'], 'integer'],
             [['searchMethod', 'dictionary', 'request'], 'safe']
         ];
     }

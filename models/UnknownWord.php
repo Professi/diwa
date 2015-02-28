@@ -35,9 +35,9 @@ class UnknownWord extends \app\components\CustomActiveRecord {
 
     public function rules() {
         return [
-            [['searchRequest_id'], 'required'],
-            [['searchRequest_id'], 'integer'],
-            [['searchRequest_id'], 'unique']
+            [['searchrequest_id'], 'required'],
+            [['searchrequest_id'], 'integer'],
+            [['searchrequest_id'], 'unique']
         ];
     }
 
@@ -49,7 +49,7 @@ class UnknownWord extends \app\components\CustomActiveRecord {
     }
 
     public function getSearchRequest() {
-        return $this->hasOne(\app\models\SearchRequest::className(), array('id' => 'searchRequest_id'));
+        return $this->hasOne(\app\models\SearchRequest::className(), array('id' => 'searchrequest_id'));
     }
 
     public function getId() {
