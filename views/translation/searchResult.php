@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use yii\grid\GridView;
+use app\components\widgets\CustomGridView;
 use app\controllers\TranslationController;
+
 $lang1 = Yii::t('app', $dict['language1']['name']);
 $lang2 = Yii::t('app', $dict['language2']['name']);
 ?>
 <?php
+
 yii\widgets\Pjax::begin(['id' => 'list_data']);
-echo GridView::widget([
+echo CustomGridView::widget([
     'id' => 'gridview',
     'dataProvider' => $dataProvider,
     'columns' => [
