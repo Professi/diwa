@@ -37,10 +37,10 @@ $categories = app\models\enums\ShortcutCategory::getCategoryNames();
                 <thead>
                     <tr>
                         <th>
-                            <?php echo Yii::t('app', 'Shortcut'); ?>
+                            <?= Yii::t('app', 'Shortcut'); ?>
                         </th>
                         <th>
-                            <?php echo Yii::t('app', 'Name'); ?>
+                            <?= Yii::t('app', 'Name'); ?>
                         </th>
                     </tr>
                 </thead>

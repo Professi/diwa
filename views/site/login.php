@@ -29,22 +29,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="small-12 columns small-centered">
             <div class="panel paper">
-                <p><?php echo Yii::t('app', 'Please fill out the following fields to login:'); ?></p>
+                <p><?= Yii::t('app', 'Please fill out the following fields to login:'); ?></p>
             </div>
         </div>
     </div>
     <div class="row">
         <?php $form = CustomActiveForm::begin(); ?>
         <fieldset>
-            <legend><?php echo Yii::t('app', 'Login'); ?></legend>
+            <legend><?= Yii::t('app', 'Login'); ?></legend>
             <?= $form->field($model, 'username') ?>
             <?= $form->field($model, 'password')->passwordInput() ?>
             <?=
             $form->field($model, 'rememberMe', [
                 'template' => "<div style=\"display:none\">{input}</div>\n{label}",
-            ])->checkbox()
+            ])->checkbox();
             ?>
-            <?= Html::submitButton('Login', ['class' => 'small button', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Login', ['class' => \app\components\CustomHtml::$buttonClass, 'name' => 'login-button']) ?>
         </fieldset>
         <?php CustomActiveForm::end(); ?>
     </div>

@@ -19,21 +19,19 @@
     <hr>
     <div class="small-6 large-4 columns">
         <p>
-            <?php echo Yii::t('app', 'Copyright'); ?> &copy; <?php
-            echo date('Y') . ' ';
-            echo ('Christian Ehringfeld');
-            ?>
+            <?= Yii::t('app', 'Copyright'); ?> &copy; 
+            <?= date('Y') . ' ' . ('Christian Ehringfeld'); ?>
         </p>
     </div>
     <div class="large-4 columns hide-for-small js_hide"></div>
     <div class="large-4 columns hide-for-small js_show">
         <p>
-            <?php echo Yii::t('app', 'Press <kbd>Esc</kbd> to toggle the navigation menu.'); ?> 
+            <?= Yii::t('app', 'Press <kbd>Esc</kbd> to toggle the navigation menu.'); ?> 
         </p>
     </div>
     <div class="small-6 large-4 columns">
-        <?php
-        echo \yii\widgets\Menu::widget([
+        <?=
+        \yii\widgets\Menu::widget([
             'options' => ['class' => 'right inline-list'],
             'items' => $this->context->getAssetTemplate()->getFooterMenu(),
         ]);

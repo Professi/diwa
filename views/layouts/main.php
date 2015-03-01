@@ -29,14 +29,14 @@ $this->beginPage();
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <link rel="icon" href="<?php echo $asset->baseUrl; ?>/favicon.ico">
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $asset->baseUrl; ?>/favicon.ico">
+        <link rel="icon" href="<?= $asset->baseUrl; ?>/favicon.ico">
+        <link rel="shortcut icon" type="image/x-icon" href="<?= $asset->baseUrl; ?>/favicon.ico">
         <?= Html::csrfMetaTags() ?>
-        <title><?php echo Html::encode($this->title); ?></title>
-        <?php $this->head() ?>
+        <title><?= Html::encode($this->title); ?></title>
+        <?php $this->head(); ?>
     </head>
     <body>
-        <?php $this->beginBody();?>
+        <?php $this->beginBody(); ?>
         <?= $this->render('header.php', ['asset' => $asset]); ?>
         <?= $this->render('content.php', ['content' => $content]); ?>
         <?= $this->render('footer.php'); ?>

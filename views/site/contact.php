@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="small-12 columns small-centered">
             <?php if (Yii::$app->user->hasFlash('contactFormSubmitted')): ?>
                 <div class="flash-success">
-                    <?php echo Yii::t('app', 'Thank you for contacting us. We will respond to you as soon as possible.'); ?>
+                    <?= Yii::t('app', 'Thank you for contacting us. We will respond to you as soon as possible.'); ?>
                 </div>
             <?php else: ?>
                 <div class="panel paper">
-                    <p><?php echo Yii::t('app', 'If you have questions, please fill out the following form to contact us. Thank you.'); ?></p>
+                    <p><?= Yii::t('app', 'If you have questions, please fill out the following form to contact us. Thank you.'); ?></p>
                 </div>
             <?php endif; ?>
         </div>
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="contact-form row">
         <?php $form = CustomActiveForm::begin(); ?>
         <fieldset>
-            <legend><?php echo Yii::t('app', 'Contact'); ?></legend>
+            <legend><?= Yii::t('app', 'Contact'); ?></legend>
             <?= $form->field($model, 'name') ?>
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'subject') ?>

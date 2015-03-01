@@ -6,18 +6,17 @@ use yii\helpers\Html;
 /* @var $model app\models\Language */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => \app\models\Language::getLabel(),
-]) . ' ' . $model->name;
+            'modelClass' => \app\models\Language::getLabel(),
+        ]) . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Languages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="language-update">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+    <?=
+    $this->render('_form', [
         'model' => $model,
-    ]) ?>
-
+    ])
+    ?>
 </div>

@@ -24,7 +24,7 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
 ?>
 <div class="row">
     <p class="panel">
-        <?php echo Yii::t('app', 'If you upload something, grab a coffee and lean back. This could take a while.'); ?>
+        <?= Yii::t('app', 'If you upload something, grab a coffee and lean back. This could take a while.'); ?>
     </p>
     <?php $form = CustomActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
     <fieldset>

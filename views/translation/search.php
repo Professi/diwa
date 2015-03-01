@@ -19,6 +19,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
+use app\components\CustomHtml;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -28,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="small-9 columns small-centered">
         <fieldset>
-            <legend><?php echo $this->title; ?></legend>
+            <legend><?= $this->title; ?></legend>
             <div class="search-request-index">
                 <?php
                 $form = ActiveForm::begin([
@@ -61,13 +62,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'dictionary')->dropDownList($this->context->getDictionaries()); ?>
                 </div>
                 <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'small']); ?>
-                    <?= Html::button(Yii::t('app', 'Clear input'), ['id' => 'searchform-clearInput', 'class' => 'small']); ?>
+                <div class="<?= CustomHtml::$groupClass ?>">
+                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => CustomHtml::$buttonClass]); ?>
+                    <?= Html::button(Yii::t('app', 'Clear input'), ['id' => 'searchform-clearInput', 'class' => CustomHtml::$buttonClass]); ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>
         </fieldset>
     </div>
 </div>
-<?php echo $partial; ?>
+<?= $partial; ?>

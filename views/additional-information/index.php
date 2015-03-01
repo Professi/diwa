@@ -27,5 +27,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     ?>
     <?= CustomHtml::sidebar([app\components\CustomHtml::defaultLink('Create', \app\models\AdditionalInformation::class, 'create')]); ?>
-
 </div>

@@ -18,5 +18,4 @@ use app\components\widgets\CustomActiveForm;
         </div>
     </fieldset>
     <?php CustomActiveForm::end(); ?>
-
 </div>

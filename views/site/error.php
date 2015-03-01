@@ -33,14 +33,14 @@ $this->title = $name;
                     <i class="fi-alert callout-icon"></i>
                 </div>
                 <div class="small-10 columns">
-                    <h2><?php echo $name; ?></h2>   
+                    <h2><?= $name; ?></h2>   
                     <?= nl2br(Html::encode($message)) ?>
                 </div>
             </div>
         </div>
-        <p class="text-center"><?php
-            echo Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']);
-            ?> </p>
+        <p class="text-center">
+            <?= Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']); ?>
+        </p>
     </div>
 </div>
 

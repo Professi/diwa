@@ -15,8 +15,7 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
     <?php $form = CustomActiveForm::begin(); ?>
     <fieldset>
         <?= $form->field($model, 'dictionary_id', ['labelOptions' => ['label' => \app\models\Dictionary::getLabel()]])->dropDownList($dicts); ?>
-        <?=
-        $form->field($model, 'word1', ['labelOptions' => ['label' => Yii::t('app', 'Word') . ' 1']])->widget(AutoComplete::className(), [
+        <?= $form->field($model, 'word1', ['labelOptions' => ['label' => Yii::t('app', 'Word') . ' 1']])->widget(AutoComplete::className(), [
             'name' => 'Word1[word]',
             'clientOptions' => [
                 'source' => new JsExpression("
@@ -38,9 +37,7 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
                 'minLength' => '2',
             ],
         ]);
-        ?>
-        <?=
-        $form->field($model, 'word2', ['labelOptions' => ['label' => Yii::t('app', 'Word') . ' 2']])->widget(AutoComplete::className(), [
+        echo $form->field($model, 'word2', ['labelOptions' => ['label' => Yii::t('app', 'Word') . ' 2']])->widget(AutoComplete::className(), [
             'name' => 'Word2[word]',
             'clientOptions' => [
                 'source' => new JsExpression("
@@ -62,9 +59,7 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
                 'minLength' => '2',
             ],
         ]);
-        ?>
-        <?=
-        $form->field($model, 'additionalInformations')->widget(\app\components\widgets\Selectize::className(), [
+        echo $form->field($model, 'additionalInformations')->widget(\app\components\widgets\Selectize::className(), [
             'clientOptions' => [
                 'placeholder' => \app\controllers\AdditionalInformationController::getPlaceholder(),
                 'dataAttr' => 'value',
@@ -95,10 +90,9 @@ $sources = \yii\helpers\ArrayHelper::map(app\models\Source::find()->all(), 'id',
                 ),
             ],
         ]);
+        echo $form->field($model, 'src_id')->dropDownList($sources);
         ?>
-
-        <?= $form->field($model, 'src_id')->dropDownList($sources); ?>
-        <div class="form-group">
+        <div class="<?= \app\components\CustomHtml::$groupClass ?>">
             <?= Html::submitButton(!$model->translation ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => !$model->translation ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     </fieldset>

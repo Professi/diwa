@@ -8,7 +8,6 @@ use app\components\widgets\CustomActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 $lang = \yii\helpers\ArrayHelper::map(\app\models\Language::find()->all(), 'id', 'name');
 ?>
-
 <div class="dictionary-form row">
     <?php $form = CustomActiveForm::begin(); ?>
     <fieldset>

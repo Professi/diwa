@@ -20,14 +20,14 @@
         <div class="small-12 columns small-centered">
             <?php if (Yii::$app->user->hasFlash('success')) { ?>
                 <div data-alert class="alert-box" tabindex="0" aria-live="assertive" role="dialogalert">
-                    <?php echo Yii::$app->user->getFlash('success'); ?>
+                    <?= Yii::$app->user->getFlash('success'); ?>
                 </div>
             <?php } if (Yii::$app->user->hasFlash('failMsg')) { ?>
                 <div data-alert class="alert-box alert" tabindex="0" aria-live="assertive" role="dialogalert">
-                    <?php echo Yii::$app->user->getFlash('failMsg'); ?>            
+                    <?= Yii::$app->user->getFlash('failMsg'); ?>            
                 </div>
             <?php } ?>
         </div>
     </div>
-    <?php echo $content; ?>
+    <?= $content; ?>
 </section>

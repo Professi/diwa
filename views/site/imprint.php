@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
     <div class="small-12 columns">
-        <h2 class='subheader'><?php echo Html::encode(Yii::t('app', 'Imprint')); ?></h2>
+        <h2 class='subheader'><?= Html::encode(Yii::t('app', 'Imprint')); ?></h2>
         <hr>
         <p> <?= Yii::$app->params['imprintName']; ?><br>
             <?= Yii::$app->params['imprintStreet']; ?><br>
@@ -51,8 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
             Highcharts&nbsp;&nbsp;<a href="http://www.highcharts.com/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             Yii2-Highcharts-Widget&nbsp;&nbsp;<a href="http://www.yiiframework.com/extension/yii2-highcharts-widget/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
             <br>
-            <?= Yii::t('app', 'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others'); ?>&nbsp;&nbsp;<a href="http://savannah.nongnu.org/projects/ding-es-de"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
-            <?= Yii::t('app', 'German-English dictionary from Frank Richter, Creator of Ding'); ?>&nbsp;&nbsp;<a href="https://www-user.tu-chemnitz.de/~fri/ding/"><i class="fi-page-export"></i>&nbsp;<?php echo Yii::t('app', 'Link'); ?></a><br>
+            <?= Yii::t('app', 'German-Spanish dictionary from Zeno Gantner, Matthias Buchmeier, and others'); ?>&nbsp;&nbsp;<a href="http://savannah.nongnu.org/projects/ding-es-de"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
+            <?= Yii::t('app', 'German-English dictionary from Frank Richter, Creator of Ding'); ?>&nbsp;&nbsp;<a href="https://www-user.tu-chemnitz.de/~fri/ding/"><i class="fi-page-export"></i>&nbsp;<?= Yii::t('app', 'Link'); ?></a><br>
         </p>
         <p class="text-center"><?= Html::a('<b>' . Yii::t('app', 'Back to home') . '</b>', ['site/index']); ?> </p>
     </div>

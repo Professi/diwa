@@ -22,25 +22,25 @@ use yii\helpers\Html;
     <ul class="title-area">
         <li class="name">
             <h2> 
-                <?php echo Html::a(Yii::t('app', 'DiWA'), ['/site/index']); ?>
+                <?= Html::a(Yii::t('app', 'DiWA'), ['/site/index']); ?>
             </h2>
         </li>
-        <li class="toggle-topbar menu-icon"><a href=""><span>Menu</span></a></li>
+        <li class="toggle-topbar menu-icon"><a href=""><span><?= Yii::t('app', 'Menu'); ?></span></a></li>
     </ul>
     <section class="top-bar-section">
         <ul class="right">
             <li>
-                <a href="http://<?php echo Yii::$app->params['websiteLink']; ?>" target="_blank">
+                <a href="http://<?= Yii::$app->params['websiteLink']; ?>" target="_blank">
                     <img id="logo" 
-                         src="<?php echo $asset->baseUrl; ?>/img/dictionary.gif"
-                         alt="<?php echo Yii::$app->params['altWebsiteLink'] ?>">
-                         <?php echo Yii::t('app', 'DiWA'); ?>
+                         src="<?= $asset->baseUrl; ?>/img/dictionary.gif"
+                         alt="<?= Yii::$app->params['altWebsiteLink'] ?>">
+                         <?= Yii::t('app', 'DiWA'); ?>
                 </a>
             </li>
-            <li class="toggle-topbar menu-icon"><a href=""><span>Menu</span></a></li>
+            <li class="toggle-topbar menu-icon"><a href=""><span><?= Yii::t('app', 'Menu'); ?></span></a></li>
         </ul>
         <ul class="left show-for-small-only">
-            <?php
+            <?
             if (!Yii::$app->user->isGuest) {
                 echo $this->context->getMenu()->generate(true);
             }
@@ -48,7 +48,7 @@ use yii\helpers\Html;
             <li>
                 <a onClick="event.preventDefault();
                         window.print();" href="#">
-                    <i class="fi-print"></i><?php echo Yii::t('app', 'Print'); ?>
+                    <i class="fi-print"></i><?= Yii::t('app', 'Print'); ?>
                 </a>
             </li>
         </ul>
@@ -56,20 +56,18 @@ use yii\helpers\Html;
 </nav>
 <div class="sticky sticky-nav hide-for-small hide-on-print">
     <ul class="medium-block-grid-6 large-block-grid-8 text-center ul-nav" data-topbar>
-        <?php
-        echo $this->context->getMenu()->generate(false);
-        ?>
+        <?= $this->context->getMenu()->generate(false); ?>
         <li>
             <a onClick="event.preventDefault();
                     window.print();" href="#">
-                <i class="fi-print"></i><span><?php echo Yii::t('app', 'Print'); ?></span>
+                <i class="fi-print"></i><span><?= Yii::t('app', 'Print'); ?></span>
             </a>
         </li>
         <li class="no-highlight">
             <div id="language-selector">
                 <i class="fi-comment-quotes"></i>
-                <?php
-                echo \yii\widgets\Menu::widget([
+                <?=
+                \yii\widgets\Menu::widget([
                     'options' => ['class' => 'right inline-list'],
                     'items' => Yii::$app->lang->getMenuItems(),
                 ]);

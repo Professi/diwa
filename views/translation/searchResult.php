@@ -17,13 +17,9 @@
  */
 
 use app\components\widgets\CustomGridView;
-use app\controllers\TranslationController;
 
 $lang1 = Yii::t('app', $dict['language1']['name']);
 $lang2 = Yii::t('app', $dict['language2']['name']);
-?>
-<?php
-
 yii\widgets\Pjax::begin(['id' => 'list_data']);
 echo CustomGridView::widget([
     'id' => 'gridview',
