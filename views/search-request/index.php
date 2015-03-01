@@ -42,7 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     return app\models\enums\SearchMethod::getMethodnames()[$data->searchMethod];
                 }],
-            ['attribute' => 'requestTime'],
+            ['attribute' => 'requestTime',
+                'filter' => \yii\jui\DatePicker::widget([
+                    'attribute' => 'requestTime',
+                    'model' => $filterModel,
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]),
+                'format' => 'html',
+            ],
             ['class' => 'app\components\widgets\CustomActionColumn',
                 'template' => '{view}',
             ],

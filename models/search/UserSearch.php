@@ -58,9 +58,11 @@ class UserSearch extends User {
         $query->andFilterWhere([
             'id' => $this->id,
             'role' => $this->role,
-            'lastLogin' => $this->lastLogin,
         ]);
-
+        if (!empty($this->lastLogin)) {
+            $date = new \DateTime($this->lastLogin);
+            $query->andFilterWhere(['between', 'lastLogin', $date->sub(new \DateInterval('PT1S'))->format('Y-m-d H:i:s'), $date->add(new \DateInterval('P2D'))->format('Y-m-d')]);
+        }
         $query->andFilterWhere(['like', 'username', $this->username]);
 
         return $dataProvider;

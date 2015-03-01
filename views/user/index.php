@@ -23,7 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     return \app\models\enums\Role::getRoleNames()[$data->role];
                 }],
-            'lastLogin',
+            ['attribute' => 'lastLogin',
+                'filter' => \yii\jui\DatePicker::widget([
+                    'attribute' => 'lastLogin',
+                    'model' => $filterModel,
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]),
+                'format' => 'html',
+            ],
             ['class' => 'app\components\widgets\CustomActionColumn'],
         ],
     ]);

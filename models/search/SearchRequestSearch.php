@@ -48,11 +48,10 @@ class SearchRequestSearch extends SearchRequest {
      */
     public function search($params) {
         $query = SearchRequest::find();
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => ['requestTime'=>SORT_DESC],
+                'defaultOrder' => ['requestTime' => SORT_DESC],
                 'attributes' => [
                     'searchMethod' => $this->sortArray('searchMethod'),
                     'dictionary_id' => $this->sortArray('dictionary_id'),
@@ -65,17 +64,18 @@ class SearchRequestSearch extends SearchRequest {
         if (!$this->validate()) {
             return $dataProvider;
         }
-
         $query->andFilterWhere([
             'id' => $this->id,
             'searchMethod' => $this->searchMethod,
             'dictionary_id' => $this->dictionary_id,
             'useragent_id' => $this->useragent_id,
-            'requestTime' => $this->requestTime,
         ]);
+        if (!empty($this->requestTime)) {
+            $date = new \DateTime($this->requestTime);
+            $query->andFilterWhere(['between', 'requestTime', $date->sub(new \DateInterval('PT1S'))->format('Y-m-d H:i:s'), $date->add(new \DateInterval('P2D'))->format('Y-m-d')]);
+        }
         SearchRequestSearch::filterWord($query, $this->request);
         $query->andFilterWhere(['like', 'ipAddr', $this->ipAddr]);
-
         return $dataProvider;
     }
 
