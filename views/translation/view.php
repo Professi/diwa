@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['attribute' => 'word1.word', 'label' => $model->dictionary->language1->name],
             ['attribute' => 'word2.word', 'label' => $model->dictionary->language2->name],
-            ['attribute' => 'source.name', 'label' => app\models\Source::getLabel()],
+            ['attribute' => 'source.name', 'label' => app\models\Source::getLabel(), 'value' => empty($model->source) ? '' : Html::a($model->source->name, $model->source->link), 'format' => 'html'],
             ['attribute' => 'aiTranslations', 'value' => $model->getAdditionalInformations(), 'format' => 'html'],
         ],
     ])
