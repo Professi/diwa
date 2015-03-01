@@ -213,7 +213,9 @@ class Translator extends \yii\base\Object {
         if (\Yii::$app->db->getDriverName() == 'mysql') {
             $where = '(MATCH(word) AGAINST(:word))';
         } else if (\Yii::$app->db->getDriverName() == 'pgsql') {
-            $where = 'word @@ to_tsquery(\'simple\',:word)';
+            $where = 'word ILIKE :word';
+//            $where = 'word % :word';
+//            $where = 'word @@ :word';
         }
         return $where;
     }
