@@ -16,7 +16,7 @@
  */
 
 use yii\helpers\Html;
-use app\components\widgets\CustomActiveForm;
+use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
 
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <legend><?php echo $this->title; ?></legend>
             <div clasourceUrlss="search-request-index">
                 <?php
-                $form = CustomActiveForm::begin([
+                $form = ActiveForm::begin([
                             'id' => 'search-form',
                             'method' => 'get',
                             'action' => ['translation/search'],
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
                 ?>
                 <div id="dict">
-                    <?= $form->field($model, 'dictionary')->dropDownList($this->context->getDictionaries()); ?>
+                    <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
                 </div>
                 <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
                 <div class="form-group">
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::button(Yii::t('app', 'Clear input'), ['id' => 'searchform-clearInput', 'class' => 'btn btn-primary']); ?>
                 </div>
 
-                <?php CustomActiveForm::end(); ?>
+                <?php ActiveForm::end(); ?>
             </div>
         </fieldset>
     </div>

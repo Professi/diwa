@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="translation-view">
     <h1><?= Html::encode($this->title) ?></h1>
+
     <?=
     DetailView::widget([
         'model' => $model,
