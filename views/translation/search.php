@@ -29,15 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="small-9 columns small-centered">
         <fieldset>
             <legend><?php echo $this->title; ?></legend>
-            <div clasourceUrlss="search-request-index">
+            <div class="search-request-index">
                 <?php
                 $form = ActiveForm::begin([
                             'id' => 'search-form',
                             'method' => 'get',
                             'action' => ['translation/search'],
                 ]);
-                ?>
-                <?php
                 echo $form->field($model, 'searchWord')->widget(AutoComplete::class, [
                     'clientOptions' => [
                         'source' => new JsExpression("
@@ -60,14 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
                 ?>
                 <div id="dict">
-                    <?= $form->field($model, 'dictionary')->radioList($this->context->getDictionaries()); ?>
+                    <?= $form->field($model, 'dictionary')->dropDownList($this->context->getDictionaries()); ?>
                 </div>
                 <?= $form->field($model, 'searchMethod')->dropDownList(\app\models\enums\SearchMethod::getMethodnames()) ?>
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-success']); ?>
-                    <?= Html::button(Yii::t('app', 'Clear input'), ['id' => 'searchform-clearInput', 'class' => 'btn btn-primary']); ?>
+                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'small']); ?>
+                    <?= Html::button(Yii::t('app', 'Clear input'), ['id' => 'searchform-clearInput', 'class' => 'small']); ?>
                 </div>
-
                 <?php ActiveForm::end(); ?>
             </div>
         </fieldset>
