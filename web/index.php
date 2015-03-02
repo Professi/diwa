@@ -15,5 +15,5 @@ require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
 $config = require(__DIR__ . '/../config/web.php');
-$config['version'] = '1.0';
+$config['version'] = '1.1-prerelease';
 (new yii\web\Application($config))->run();

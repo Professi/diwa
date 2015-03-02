@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Message translations.
  *
@@ -18,8 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Relevance delimiter' => 'Relevanz Separator',
-    'Wort delimiter' => 'Wort Seperator',
+    'Menu' => 'Menü',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -89,10 +87,10 @@ return [
     'Please fill out the following fields to login:' => 'Bitte füllen Sie die folgenden Felder aus um sich einzuloggen.',
     'Press <kbd>Esc</kbd> to toggle the navigation menu.' => 'Drücken Sie <kbd>Esc</kbd> um das Navigationsmenü ein- bzw. auszublenden.',
     'Print' => 'Drucken',
+    'Relevance delimiter' => 'Relevanz Separator',
     'Remember Me' => 'Anmeldedaten merken',
     'Request time' => 'Anfragezeit',
     'Requests' => 'Anfragen',
-    'Reset' => 'Zurücksetzen',
     'Role' => 'Rolle',
     'Scottish English' => 'Schottisches Englisch',
     'Search' => 'Suchen',
@@ -142,6 +140,7 @@ return [
     'Website' => 'Webseite',
     'Word' => 'Wort',
     'Words' => 'Wörter',
+    'Wort delimiter' => 'Wort Seperator',
     'Yes' => 'Ja',
     'Your file is corrupted.' => 'Ihre Datei ist fehlerhaft.',
     'Your file was successfully imported.' => 'Ihre Datei wurde erfolgreich importiert.',
