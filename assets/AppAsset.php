@@ -24,9 +24,7 @@ class AppAsset extends AssetBundle {
 
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/foundation.css',
-    ];
+    public $css = [];
     public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
@@ -35,6 +33,9 @@ class AppAsset extends AssetBundle {
 
     public function __construct($config = array()) {
         parent::__construct($config);
+        $this->css = [
+            'css/foundation.css',
+            YII_DEBUG ? 'css/app.css' : 'css/app.min.css',];
         $this->js = [
             YII_DEBUG ? 'js/jquery-ui.js' : 'js/jquery-ui.min.js',
             'js/fastclick.js',
