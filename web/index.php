@@ -2,8 +2,8 @@
 
 // comment out the following two lines when deployed to production
 //defined('YII_DEBUG') or define('YII_DEBUG', true);
-define('YII_DEBUG', false);
-defined('YII_ENV') or define('YII_ENV', 'prod');
+define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
 
 if (YII_DEBUG) {
     error_reporting(E_ALL);

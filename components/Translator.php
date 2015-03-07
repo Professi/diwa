@@ -256,14 +256,14 @@ class Translator extends \yii\base\Object {
      * @return array
      */
     public function getLevenshtein1($word) {
-        $words = array();
+        $words = [];
         for ($i = 0; $i < strlen($word); $i++) {
             // insertions
-            $words[':wordI' . $i] = substr($word, 0, $i) . '_' . substr($word, $i) . '%';
+            $words[':wordI' . $i] = mb_substr($word, 0, $i) . '_' . mb_substr($word, $i) . '%';
             // deletions
-            $words[':wordD' . $i] = substr($word, 0, $i) . substr($word, $i + 1) . '%';
+            $words[':wordD' . $i] = mb_substr($word, 0, $i) . mb_substr($word, $i + 1) . '%';
             // substitutions
-            $words[':wordS' . $i] = substr($word, 0, $i) . '_' . substr($word, $i + 1) . '%';
+            $words[':wordS' . $i] = mb_substr($word, 0, $i) . '_' . mb_substr($word, $i + 1) . '%';
         }
         // last insertion
         $words[':wordLast'] = $word . '_';
