@@ -114,7 +114,11 @@ class StatisticController extends \app\components\Controller {
         $q = new Query();
         $q->select('COUNT(*) AS c');
         $q->from(SearchRequest::tableName());
-        $q->where('requestTime between DATE(:start) and (:end)');
+        if (\Yii::$app->db->getDriverName() == 'pgsql') {
+            $q->where('"requestTime" BETWEEN :start AND :end');
+        } else {
+            $q->where('requestTime BETWEEN DATE(:start) AND (:end)');
+        }
         if ($dict) {
             $q->andWhere('dictionary_id = :dictId');
         }
