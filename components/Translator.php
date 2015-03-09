@@ -39,8 +39,13 @@ class Translator extends \yii\base\Object {
         $this->cache = \Yii::$app->cache;
     }
 
-    public function translateRequest($searchRequest) {
+    public function translateRequest($searchRequest,$srcLang = false) {
+        $data;
+        if(!$srcLang) {
         $data = $this->translateData($searchRequest->searchMethod, $searchRequest->request, $searchRequest->dictionary_id);
+        } else {
+            
+        }
         if (empty($data)) {
             $this->createUnknownWord($searchRequest);
         }

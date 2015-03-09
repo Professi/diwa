@@ -37,4 +37,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
+    <?= CustomHtml::sidebar([app\components\CustomHtml::link(Yii::t('app', 'Export unknown words'), 'export-unknown-words')]); ?>
 </div>
