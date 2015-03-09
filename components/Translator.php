@@ -39,10 +39,10 @@ class Translator extends \yii\base\Object {
         $this->cache = \Yii::$app->cache;
     }
 
-    public function translateRequest($searchRequest,$srcLang = false) {
-        $data;
-        if(!$srcLang) {
-        $data = $this->translateData($searchRequest->searchMethod, $searchRequest->request, $searchRequest->dictionary_id);
+    public function translateRequest($searchRequest, $srcLang = '') {
+        $data = null;
+        if (!$singleSearch) {
+            $data = $this->translateData($searchRequest->searchMethod, $searchRequest->request, $searchRequest->dictionary_id, $srcLang = '');
         } else {
             
         }
@@ -63,17 +63,19 @@ class Translator extends \yii\base\Object {
         }
     }
 
-    public function translateData($searchMethod, $searchWord, $dictionary = null) {
+    public function translateData($searchMethod, $searchWord, $dictionary = null, $scLang = '') {
         $this->additionalParams = null;
         $data = [];
         if (is_numeric($dictionary) && is_string($searchWord) && is_numeric($searchMethod) &&
                 ($this->dictionaryObj = \app\models\Dictionary::find()->where('id=:id')->params([':id' => $dictionary])->one()) &&
                 $this->dictionaryObj != null) {
             $this->searchWord = $searchWord;
-            $cacheKey = $this->generateCacheKey($this->searchWord, $searchMethod, $this->dictionaryObj->getPrimaryKey());
+            $cacheKey = (is_numeric($srcLang) ?
+                            $this->generateCacheKeySingleSearch($this->searchWord, $searchMethod, $this->dictionaryObj->getPrimaryKey(), $srcLang) :
+                            $this->generateCacheKey($this->searchWord, $searchMethod, $this->dictionaryObj->getPrimaryKey()));
             $data = $this->getCacheData($cacheKey);
             if ($data == false) {
-                $data = $this->getMethodResult($searchMethod);
+                $data = $this->getMethodResult($searchMethod, $srcLang);
                 if ($data != null) {
                     $this->setCacheData($data, $cacheKey, $this->getDependency($this->dictionaryObj->id));
                 } else {
@@ -109,7 +111,7 @@ class Translator extends \yii\base\Object {
         return $dataProvider;
     }
 
-    protected function getMethodResult($method) {
+    protected function getMethodResult($method, $srcLang = '') {
         $where = null;
         switch ($method) {
             case SearchMethod::COMFORT:
@@ -125,14 +127,26 @@ class Translator extends \yii\base\Object {
                 $where = $this->comfortSearch(false);
                 break;
         }
-        return $this->getResult($where);
+        return (is_numeric($srcLang) ? $this->getSingleSearchResults($where, $srcLang) : $this->getResult($where));
     }
 
     protected function getCacheData($key) {
-        if ($this->cache != null) {
-            return $this->cache->get($key);
+        return ($this->cache != null ? $this->cache->get($key) : false);
+    }
+
+    protected function getSingleSearchResults($where, $srcLang) {
+        $translations = [];
+        if ($where != null) {
+            $words = $this->getWords($srcLang, $where);
+            $q = Translation::find()->asArray();
+            $q->select(['id', 'word1_id', 'word2_id']);
+            $q->with('word1', 'word2');
+            $this->whereOneLang($q, ($this->dictionaryObj->language1_id == $srcLang ? 'word1_id' : 'word2_id'), $words);
+            if ($q->where != null) {
+                $translations = $q->all();
+            }
         }
-        return false;
+        return $translations;
     }
 
     protected function getResult($where) {
@@ -227,6 +241,10 @@ class Translator extends \yii\base\Object {
 
     protected function generateCacheKey($word, $method, $dictId) {
         return md5($word . '{' . $method . '}' . '[' . $dictId . ']');
+    }
+
+    protected function generateCacheKeySingleSearch($word, $method, $dictId, $srcLang) {
+        return md5($word . '{' . $method . '}' . '[' . $dictId . ']' . '(' . $srcLang . ')');
     }
 
     protected function getDependency($dictId) {
