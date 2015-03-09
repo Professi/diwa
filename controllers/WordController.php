@@ -36,7 +36,7 @@ class WordController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['get-words'],
+                        'actions' => ['get-words', 'get-words-by-language'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -90,6 +90,20 @@ class WordController extends Controller {
                 foreach ($words as $wordObj) {
                     $wordArr[] = trim($wordObj['word']);
                 }
+            }
+        }
+        return array_unique($wordArr);
+    }
+
+    public function actionGetWordsByLanguage($term, $lang) {
+        \Yii::$app->response->format = 'json';
+        $wordArr = [];
+        if (is_string($term) && is_numeric($lang)) {
+            $words = Word::find()->where('language_id=:langId AND word LIKE :word')
+                            ->params([':word' => $term . '%', ':langId' => $lang])
+                            ->orderBy('word ASC')->select(['word'])->limit(10)->asArray()->all();
+            foreach ($words as $wordObj) {
+                $wordArr[] = trim(preg_replace(["&{.*}&is", "&\[.*\]&is"], '', $wordObj['word']));
             }
         }
         return array_unique($wordArr);

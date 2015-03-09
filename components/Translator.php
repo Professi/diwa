@@ -40,12 +40,7 @@ class Translator extends \yii\base\Object {
     }
 
     public function translateRequest($searchRequest, $srcLang = '') {
-        $data = null;
-        if (!$singleSearch) {
-            $data = $this->translateData($searchRequest->searchMethod, $searchRequest->request, $searchRequest->dictionary_id, $srcLang = '');
-        } else {
-            
-        }
+        $data = $this->translateData($searchRequest->searchMethod, $searchRequest->request, $searchRequest->dictionary_id, $srcLang);
         if (empty($data)) {
             $this->createUnknownWord($searchRequest);
         }
@@ -63,7 +58,7 @@ class Translator extends \yii\base\Object {
         }
     }
 
-    public function translateData($searchMethod, $searchWord, $dictionary = null, $scLang = '') {
+    public function translateData($searchMethod, $searchWord, $dictionary = null, $srcLang = '') {
         $this->additionalParams = null;
         $data = [];
         if (is_numeric($dictionary) && is_string($searchWord) && is_numeric($searchMethod) &&
@@ -141,10 +136,8 @@ class Translator extends \yii\base\Object {
             $q = Translation::find()->asArray();
             $q->select(['id', 'word1_id', 'word2_id']);
             $q->with('word1', 'word2');
-            $this->whereOneLang($q, ($this->dictionaryObj->language1_id == $srcLang ? 'word1_id' : 'word2_id'), $words);
-            if ($q->where != null) {
-                $translations = $q->all();
-            }
+            $q->where(['in', ($this->dictionaryObj->language1_id == $srcLang ? 'word1_id' : 'word2_id'), $words]);
+            $translations = $q->all();
         }
         return $translations;
     }

@@ -25,6 +25,8 @@ use yii\filters\AccessControl;
 use app\models\SearchRequest;
 use app\models\Dictionary;
 use app\components\Translator;
+use app\models\forms\SingleSearchForm;
+use app\models\forms\SearchForm;
 
 /**
  * TranslationController implements the CRUD actions for Translation model.
@@ -37,7 +39,7 @@ class TranslationController extends \app\components\Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['search', 'view'],
+                        'actions' => ['search', 'view', 'single-search'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -107,8 +109,17 @@ class TranslationController extends \app\components\Controller {
         return $r;
     }
 
+    public function actionSingleSearch() {
+        $model = new SingleSearchForm();
+        return $this->search($model, 'singleSearch');
+    }
+
     public function actionSearch() {
-        $model = new \app\models\forms\SearchForm();
+        $model = new SearchForm();
+        return $this->search($model, 'search');
+    }
+
+    protected function search($model, $view) {
         $partial = '';
         $dataProvider = null;
         $session = \Yii::$app->session;
@@ -117,23 +128,29 @@ class TranslationController extends \app\components\Controller {
             if (!$session->has('search') || ($session->has('search') && $session->get('search') != $model->searchWord)) {
                 $r = SearchRequest::createRequest($model->searchMethod, $model->dictionary, $model->searchWord);
                 $r->save();
-                $dataProvider = $translator->translateRequest($r);
+                $dataProvider = ($model instanceof SingleSearchForm ?
+                                $translator->translateRequest($r, $model->srcLang) :
+                                $translator->translateRequest($r));
                 $session->set('search', $model->searchWord);
             } else {
-                $dataProvider = $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary);
+                $dataProvider = ($model instanceof SingleSearchForm ?
+                                $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary, $model->srcLang) :
+                                $translator->translate($model->searchMethod, $model->searchWord, $model->dictionary));
             }
-            if (!empty($dataProvider)) {
-                $partial = $this->renderPartial('searchResult', [
-                    'dataProvider' => $dataProvider,
-                    'dict' => Dictionary::find()->where('id=:dictId')
-                            ->params([':dictId' => $model->dictionary])->one()]
-                );
-            }
+            $partial = $this->renderPartialResults($dataProvider, $model->dictionary);
         }
-        return $this->render('search', [
+        return $this->render($view, [
                     'model' => $model,
                     'partial' => $partial,
         ]);
+    }
+
+    protected function renderPartialResults($dataProvider, $dictionary) {
+        return (!empty($dataProvider) ?
+                        $this->renderPartial('searchResult', [
+                            'dataProvider' => $dataProvider,
+                            'dict' => Dictionary::find()->where('id=:dictId')->params([':dictId' => $dictionary])
+                                    ->one()]) : '');
     }
 
     public function highlightWord($src, $word) {

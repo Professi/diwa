@@ -47,11 +47,11 @@ class SearchForm extends \yii\base\Model {
     }
 
     public function attributeLabels() {
-        return array(
+        return [
             'searchMethod' => Yii::t('app', 'Search method'),
             'dictionary' => Yii::t('app', 'Dictionary'),
             'searchWord' => Yii::t('app', 'Search word'),
-        );
+        ];
     }
 
     public function beforeValidate() {
