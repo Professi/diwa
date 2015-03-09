@@ -116,23 +116,6 @@ class UnknownWordController extends \app\components\Controller {
         return $this->redirect(['index']);
     }
 
-    public function actionExportUnknownWords() {
-        $uw = UnknownWord::find()->joinWith('searchRequest')->orderBy([\app\models\SearchRequest::tableName() . '.requestTime' => SORT_DESC])->all();
-        $columns = [Yii::t('app', 'Request time'), Yii::t('app', 'Word'), Yii::t('app', 'Search method')];
-        $output = "";
-        foreach ($columns as $column) {
-            $output .= $column . ";";
-        }
-        foreach ($uw as $value) {
-            $output .= "\n";
-            $output .= $value->searchRequest->requestTime . ';';
-            $output .= $value->searchRequest->request . ';';
-            $output .= \app\models\enums\SearchMethod::getMethodnames()[$value->searchRequest->searchMethod] . ';';
-        }
-        echo($output);
-        \Yii::$app->response->sendContentAsFile($output, 'unknownwords.txt');
-    }
-
     /**
      * Finds the UnknownWord model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Export unknown words' => 'Unbekannte Wörter exportieren',
+    'Menu' => 'Menü',
     'Access denied.' => 'Zugriff verweigert.',
     'Active' => 'Aktiv',
     'Additional information' => 'Zusätzliche Information',
@@ -78,7 +78,6 @@ return [
     'Link' => 'Link',
     'Login' => 'Login',
     'Logout' => 'Logout',
-    'Menu' => 'Menü',
     'Name' => 'Name',
     'No' => 'Nein',
     'Normal User' => 'Normaler Benutzer',
