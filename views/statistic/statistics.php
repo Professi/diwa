@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use yii\helpers\Html;
-use yii\data\ArrayDataProvider;
 use miloschuman\highcharts\Highcharts;
 
 /* @var $this yii\web\View */
@@ -27,29 +25,50 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <h1><?= $this->title; ?></h1>
     <div class="small-12 columns">
-        <?= Yii::t('app', 'Search requests') . ': ' . $totalRequests ?>
-        <br><br>
-        <h3><?= Yii::t('app', 'The most common search terms') . ':' ?></h3>
-        <?php
-        foreach ($mostCommon as $value) {
-            echo $value['request'] . ' - ' . $value['c'] . ' ' . Yii::t('app', 'times') . '<br>';
-        }
-        ?>
-        <br>
-        <?= Highcharts::widget([
-            'options' => [
-                'title' => ['text' => Yii::t('app', 'Search requests per month')],
-                'xAxis' => [
-                    'categories' => $monthLabels
-                ],
-                'yAxis' => [
-                    'title' => ['text' => Yii::t('app', 'Requests')],
-                    'min' => 0,
-                ],
-                'series' => $series,
-            ]
-        ]);
-        ?>
-
+        <div>
+            <?= Yii::t('app', 'Search requests') . ': ' . $totalRequests ?>
+        </div>
+        <div>
+            <h3><?= Yii::t('app', 'Words'); ?></h3>
+            <?php
+            $langs = app\models\Language::find()->all();
+            foreach ($langs as $lang) {
+                echo $lang->name . ': ' . app\models\Word::find()->where(['language_id' => $lang->getId()])->count() . '<br>';
+            }
+            ?>
+        </div>        
+        <div>
+            <h3><?= Yii::t('app', 'Translations'); ?></h3>
+            <?php
+            $dicts = app\models\Dictionary::find()->all();
+            foreach ($dicts as $dict) {
+                echo $dict->getLongname() . ': ' . app\models\Translation::find()->where(['dictionary_id' => $dict->getId()])->count() . '<br>';
+            }
+            ?>
+        </div>
+        <div>
+            <h3><?= Yii::t('app', 'The most common search terms') . ':' ?></h3>
+            <?php
+            foreach ($mostCommon as $value) {
+                echo $value['request'] . ' - ' . $value['c'] . ' ' . Yii::t('app', 'times') . '<br>';
+            }
+            ?>
+            <br>
+            <?=
+            Highcharts::widget([
+                'options' => [
+                    'title' => ['text' => Yii::t('app', 'Search requests per month')],
+                    'xAxis' => [
+                        'categories' => $monthLabels
+                    ],
+                    'yAxis' => [
+                        'title' => ['text' => Yii::t('app', 'Requests')],
+                        'min' => 0,
+                    ],
+                    'series' => $series,
+                ]
+            ]);
+            ?>
+        </div>
     </div>
 </div>
